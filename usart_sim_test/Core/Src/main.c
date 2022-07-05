@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 UART_HandleTypeDef huart4;
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart3;
@@ -15,54 +14,23 @@ static void MX_UART4_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART3_UART_Init(void);
 
-// ham gui gia tri nhan duoc qua tx1
-void USART1_Tx(void);  
-
-// ham gui gia tri nhan duoc qua tx2
-void USART3_Tx(void);
-
-// ham kiem tra modun sim bang AT
-void check_Sim(void);
-
-// ham gui du lieu den TCP server
-void send_Data_To_TCP(void);
-
-int check_and_send_result(char send_tx3[], char get_rx3[], char send_tx1[] );
-
-char check_start[] = "KT\r\n";								// tin hieu check loi
-char check_complete[] = "KT HOAN TAT\r\n";		// gui lenh khi kiem tra hoan tat
-char transmit_data_USART3[100];										// bien truyen gia tri qua cong USART3
-char transmit_data_USART1[100];										// bien truyen gia tri qua cong USART1
-
 uint8_t rx3;
 uint8_t rx1;
 
-char rx3_buffer_dem[100];
-char rx1_buffer_dem[100];
-
-char receive_data_USART3[100];
-char receive_data_USART1[100];
-
-int cnt1=0;
-int flag1=0;
-
-int cnt3=0;
-int flag3=0;
-
 char check_module[] = "AT\r\n";									// test module
-char check_modun_ok[]= "KT modun OK\r\n";
+char kt_modun_ok[]= "KT modun OK\r\n";
 
 char check_sim[] = "AT+CPIN?\r\n";				// test sim
-char check_sim_ok[]= "KT sim OK\r\n";
+char kt_sim_ok[]= "KT sim OK\r\n";
 
 char check_cuong_do[] = "AT+CSQ\r\n";			// cuong do tin hieu
-char check_cuong_do_ok[]= "KT cuong do OK\r\n";
+char kt_cuong_do_ok[]= "KT cuong do OK\r\n";
 
 char check_dang_ky[] = "AT+CREG?\r\n";				// kiem tra dang ky mang
-char check_dky_ok[]= "KT dang ky OK\r\n";
+char kt_dky_ok[]= "KT dang ky OK\r\n";
 
 char check_GPRS[] = "AT+CGATT?\r\n";					// kiem tra haot dong cuua GPRS
-char check_gprs_ok[]= "KT GPRS OK\r\n";
+char kt_gprs_ok[]= "KT GPRS OK\r\n";
 
 char set_timeout[] = "AT+CIPTIMEOUT=30000,20000,40000,50000\r\n";    // cai dat thoi gian cho
 char set_timeout_ok[]= "Set timeout  OK\r\n";
@@ -71,10 +39,10 @@ char set_transmit[] = "AT+CIPMODE=0\r\n";     // cai dat che do truyen
 char set_transmit_ok[]= "Set transmit OK\r\n";
 
 char check_net[] ="AT+NETOPEN\r\n";           // kiem tra internet
-char check_net_ok[]= "KT NET OK\r\n";
+char kt_net_ok[]= "KT NET OK\r\n";
 
 char check_ip[] ="AT+IPADDR\r\n";							// kiem tra dia chi IP
-char check_ip_ok[]= "KT IP OK\r\n";
+char kt_ip_ok[]= "KT IP OK\r\n";
 
 char set_receive[] = "AT+CIPRXGET=0,1\r\n";		// cai dat che do nhan
 char set_receive_ok[]= "KT receive OK\r\n";
@@ -91,12 +59,6 @@ char send_data_sim_dem2[100];
 
 char send_data_tx1[100]= "Transmited: ";
 
-
-/*
-char connect_tcp[44]= {'A','T','+','C','I','P','O','P','E','N','=','1',',','"','T','C','P','"',',',
-											'"','1','1','7','.','6','.','1','6','3','.','1','7','7','"',',',
-											'7','5','7','9',',','0','"', 0x0D, 0x0A};
-*/
 //  AT+CIPOPEN=1,"TCP","117.6.163.177",7577,0     117.6.163.177
 char connect_tcp[100];
 char connect_tcp1[] ={'A','T','+','C','I','P','O','P','E','N','=','1',',','"','T','C','P','"',',','"','\0'};
@@ -123,9 +85,6 @@ int main(void)
 
 	HAL_UART_Receive_IT(&huart3,&rx3,1);
 	HAL_UART_Receive_IT(&huart1,&rx1,1);
-	
-	HAL_UART_Transmit_IT(&huart1,(uint8_t *)&transmit_data_USART1,strlen(transmit_data_USART1));
-	HAL_UART_Transmit_IT(&huart3,(uint8_t *)&transmit_data_USART3,strlen(transmit_data_USART3));
 
 	memcpy(connect_tcp+strlen(connect_tcp),connect_tcp1,strlen(connect_tcp1));
 	memcpy(connect_tcp+strlen(connect_tcp),connect_tcp2,strlen(connect_tcp2));
@@ -148,194 +107,18 @@ int main(void)
 	
   while (1)
   {
-		USART1_Tx();
-		USART1_Tx();
-		check_Sim();
-		//HAL_UART_Transmit(&huart1,(uint8_t *)&kiem_tra_hoan_tat,strlen(kiem_tra_hoan_tat),500);
-		//HAL_Delay(1000);
+
   }
-}
-
-int bien=0;
-unsigned int td=0;
-char rx3_ao[10];
-
-// Transmit "KT\r\n" to check config sim
-void check_Sim(void){ 
-	
-	if(strcmp(receive_data_USART1,check_start) == 0){
-		bien=1;
-		//HAL_UART_Transmit(&huart3,(uint8_t *)&check_module,strlen(check_module),500);
-		//HAL_Delay(1000);
-	}
-	switch(bien){
-		
-		case 1:
-			memset(receive_data_USART1,0x00,100);
-			if (check_and_send_result(check_module, receive_data_USART3, check_modun_ok) ==1){
-				++bien;
-			}
-		case 2:
-			if (check_and_send_result(check_module, receive_data_USART3, check_modun_ok) ==1){
-				++bien;
-			}
-			break;
-		case 3:
-			if (check_and_send_result(check_module, receive_data_USART3, check_modun_ok) ==1){
-				++bien;
-			}
-			break;
-		case 4:
-			if (check_and_send_result(check_module, receive_data_USART3, check_modun_ok) ==1){
-				++bien;
-			}
-			break;
-		case 5:
-			if (check_and_send_result(check_module, receive_data_USART3, check_modun_ok) ==1){
-				++bien;
-			}
-			break;
-		case 6:
-			if (check_and_send_result(check_module, receive_data_USART3, check_modun_ok) ==1){
-				++bien;
-			}
-		case 7:
-			if (check_and_send_result(check_module, receive_data_USART3, check_modun_ok) ==1){
-				++bien;
-			}
-			break;
-		case 8:
-			HAL_UART_Transmit(&huart3,(uint8_t *)&check_net,strlen(check_net),500);
-			HAL_Delay(500);
-			if(receive_data_USART3[strlen(receive_data_USART3)-3] == 83 || receive_data_USART3[strlen(receive_data_USART3)-3] == 75){
-				HAL_UART_Transmit(&huart1,(uint8_t *)&receive_data_USART3,strlen(receive_data_USART3),500);
-				HAL_Delay(200);
-				HAL_UART_Transmit(&huart1,(uint8_t *)&check_net_ok,strlen(check_net_ok),500);
-				memset(receive_data_USART3,0x00,100);
-				++bien;
-			}
-			else{
-				HAL_UART_Transmit(&huart3,(uint8_t *)&check_net,strlen(check_net),500);
-			}
-			break;
-		case 9:
-			if (check_and_send_result(check_module, receive_data_USART3, check_modun_ok) ==1){
-				++bien;
-			}
-			break;
-		case 10:
-			if (check_and_send_result(check_module, receive_data_USART3, check_modun_ok) ==1){
-				++bien;
-			}
-			break;
-		case 11:
-			if (check_and_send_result(check_module, receive_data_USART3, check_modun_ok) ==1){
-				++bien;
-			}
-			break;
-		case 12:
-			if (check_and_send_result(check_module, receive_data_USART3, check_modun_ok) ==1){
-				++bien;
-			}
-			break;
-		case 13:
-			if (check_and_send_result(check_module, receive_data_USART3, check_modun_ok) ==1){
-				++bien;
-			}
-			break;
-		case 14:
-			if (check_and_send_result(check_module, receive_data_USART3, check_modun_ok) ==1){
-				HAL_UART_Transmit(&huart1,(uint8_t *)&check_complete,strlen(check_complete),500);
-				++bien;
-			}
-			break;
-	}
-}
-
-int check_and_send_result(char send_tx3[], char get_rx3[], char send_tx1[] ){
-	int bien_cnt=0;
-	HAL_UART_Transmit(&huart3,(uint8_t *)&send_tx3,strlen(send_tx3),500);
-	HAL_Delay(500);
-	if(get_rx3[strlen(get_rx3)-4] == 79 && get_rx3[strlen(get_rx3)-3] == 75){
-		HAL_UART_Transmit(&huart1,(uint8_t *)&get_rx3,strlen(get_rx3),500);
-		HAL_Delay(200);
-		HAL_UART_Transmit(&huart1,(uint8_t *)&allow_receive_ok,strlen(allow_receive_ok),500);
-		memset(get_rx3,0x00,100);
-		bien_cnt=1;
-	}
-	else{
-		HAL_UART_Transmit(&huart3,(uint8_t *)&connect_tcp,strlen(connect_tcp),500);
-	}
-	return bien_cnt;
-}
-
-// to send data to server, transmit "\<data>",with <data> - is data want to send
-void send_Data_To_TCP()
-{
-	if(receive_data_USART1[0]==47){
-		memcpy(send_data_sim,send_data_sim_dem1,100);
-		for(int i=0;i<99;i++){
-			send_data_sim_dem2[i] = receive_data_USART1[i+1];
-		}
-		memcpy(send_data_sim + strlen(send_data_sim),send_data_sim_dem2,100);
-		memcpy(send_data_tx1 + strlen(send_data_tx1),send_data_sim_dem2,100);
-		HAL_UART_Transmit(&huart3,(uint8_t *)&send_data_sim,strlen(send_data_sim),500);
-		HAL_UART_Transmit(&huart1,(uint8_t *)&send_data_tx1,strlen(send_data_tx1),500);
-		memset(send_data_sim,0x00,100);
-		memset(receive_data_USART1,0x00,100);
-	}
-}
-
-// transmit data from data received rx
-void USART1_Tx(void)
-{
-	if(flag3==1){
-		memcpy(transmit_data_USART1,receive_data_USART3,100);
-		HAL_UART_Transmit(&huart1,(uint8_t *)&transmit_data_USART1,strlen(transmit_data_USART1),500);
-		flag3=0;
-	}
-}
-
-void USART3_Tx(void)
-{
-	if(flag1==1){
-		send_Data_To_TCP();
-		memcpy(transmit_data_USART3,receive_data_USART1,100);
-		HAL_UART_Transmit(&huart3,(uint8_t *)&transmit_data_USART3,strlen(transmit_data_USART3),500);
-		flag1=0;
-	}
 }
 
 
 // receive interrupt
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 
-	// nhan du lieu uart 1
-	
+	// nhan du lieu uart 3
 	if(huart->Instance == huart3.Instance){
 		HAL_UART_Receive_IT(&huart3,&rx3,1);
-		rx3_buffer_dem[cnt3]=rx3;
-		cnt3++;
 	}
-	if(//rx3_buffer_dem[strlen(rx3_buffer_dem)-4]==79 && rx3_buffer_dem[strlen(rx3_buffer_dem)-3]==75 &&
-		rx3_buffer_dem[strlen(rx3_buffer_dem)-2]==13 && rx3_buffer_dem[strlen(rx3_buffer_dem)-1]==10){
-		memcpy(receive_data_USART3,rx3_buffer_dem,100);
-		memset(rx3_buffer_dem,0x00,100);
-		cnt3=0;
-		flag3=1;
-	}
-	
-	if(huart->Instance == huart1.Instance){
-		HAL_UART_Receive_IT(&huart1,&rx1,1);
-		rx1_buffer_dem[cnt1]=rx1;
-		cnt1++;
-	}
-	if(rx1_buffer_dem[strlen(rx1_buffer_dem)-2]==13 && rx1_buffer_dem[strlen(rx1_buffer_dem)-1]==10){
-		memcpy(receive_data_USART1,rx1_buffer_dem,100);
-		memset(rx1_buffer_dem,0x00,100);
-		cnt1=0;
-		flag1=1;
-	}	
 }
 
 void SystemClock_Config(void)
