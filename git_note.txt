@@ -1,0 +1,19 @@
+1.  install:
+cài đặt git.
+add vào hệ thống    	C:\Program Files\Git\cmd
+			C:\Program Files\Git\bin
+2. add dự án vào https://github.com/ngocchung0699/Lyno_L506
+b1: mở folder with visual studio code
+
+b2: new terminal
+b3: git init
+b4: git remote add origin https://github.com/ngocchung0699/Lyno_L506.git
+b5: git add .
+b6: git commit -m"1_test"            (1_test - mô tả dự án)
+b7: git push -u origin master
+
+3. cập nhật dự án
+b1: git pull
+b2: git add .
+b3: git commit -m "1_test"
+b4: git push origin HEAD
