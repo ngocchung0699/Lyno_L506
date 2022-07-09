@@ -1,0 +1,2068 @@
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"AT_command.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.AT_Init,"ax",%progbits
+  18              		.align	1
+  19              		.global	AT_Init
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	AT_Init:
+  27              	.LVL0:
+  28              	.LFB135:
+  29              		.file 1 "user/AT_command.c"
+   1:user/AT_command.c **** #include "AT_command.h"
+   2:user/AT_command.c **** 
+   3:user/AT_command.c **** //* List AT command, return check, check ok, check error
+   4:user/AT_command.c **** 
+   5:user/AT_command.c **** 
+   6:user/AT_command.c **** char AT_Send_Check_Module[]             =           "AT\r\n";				            // 1		OK		
+   7:user/AT_command.c **** char send_Checking_Module[]             =           "Checking Module Sim\r\n";
+   8:user/AT_command.c **** char send_Check_Module_Error[]          =           "Check Module Error\r\n";
+   9:user/AT_command.c **** char send_Check_Module_Ok[]             =           "Check Module Ok\r\n";
+  10:user/AT_command.c **** 
+  11:user/AT_command.c **** char AT_Send_Check_Sim[]                =           "AT+CPIN?\r\n";			            // 2        OK
+  12:user/AT_command.c **** char send_Checking_Sim[]                =           "Checking Sim\r\n";
+  13:user/AT_command.c **** char send_Check_Sim_Error[]             =           "Check Sim Error\r\n";
+  14:user/AT_command.c **** char send_Check_Sim_Ok[]                =           "Check Sim Ok\r\n";
+  15:user/AT_command.c **** 
+  16:user/AT_command.c **** char AT_Send_Check_Signal[]             =           "AT+CSQ\r\n";		                // 2        OK
+  17:user/AT_command.c **** char send_Checking_Signal[]             =           "Checking Signal\r\n";
+  18:user/AT_command.c **** char send_Check_Signal_Error[]          =           "Check Signal Error\r\n";
+  19:user/AT_command.c **** char send_Check_Signal_Ok[]             =           "Check Signal Ok\r\n";
+  20:user/AT_command.c **** 
+  21:user/AT_command.c **** char AT_Send_Check_Subscribe[]          =           "AT+CREG?\r\n";				        //2         OK
+  22:user/AT_command.c **** char send_Checking_Subscribe[]          =           "Checking Subscribe\r\n";
+  23:user/AT_command.c **** char send_Check_Subscribe_Error[]       =           "Check Subscribe Error\r\n";
+  24:user/AT_command.c **** char send_Check_Subscribe_Ok[]          =           "Check Subscribe Ok\r\n";
+  25:user/AT_command.c **** 
+  26:user/AT_command.c **** char AT_Send_Check_GPRS[]               =           "AT+CGATT?\r\n";				    //2        OK
+  27:user/AT_command.c **** char send_Checking_GPRS[]               =           "Checking GPRS\r\n";
+  28:user/AT_command.c **** char send_Check_GPRS_Error[]            =           "Check GPRS Error\r\n";
+  29:user/AT_command.c **** char send_Check_GPRS_Ok[]               =           "Check GPRS Ok\r\n";
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 2
+
+
+  30:user/AT_command.c **** 
+  31:user/AT_command.c **** char AT_Send_Set_Timeout[]              =           "AT+CIPTIMEOUT=30000,20000,40000,50000\r\n";   
+  32:user/AT_command.c **** char send_Setting_Timeout[]             =           "Setting Timeout\r\n";
+  33:user/AT_command.c **** char send_Set_Timeout_Error[]           =           "Set Timeout Error\r\n";
+  34:user/AT_command.c **** char send_Set_Timeout_Ok[]              =           "Set Timeout Ok\r\n";
+  35:user/AT_command.c **** 
+  36:user/AT_command.c **** char AT_Send_Set_Transmit_Mode[]        =           "AT+CIPMODE=0\r\n";             // 1   OK
+  37:user/AT_command.c **** char send_Setting_Transmit_Mode[]       =           "Setting Transmit Mode\r\n";
+  38:user/AT_command.c **** char send_Set_Transmit_Mode_Error[]     =           "Set Transmit Mode Error\r\n";
+  39:user/AT_command.c **** char send_Set_Transmit_Mode_Ok[]        =           "Set Transmit Mode Ok\r\n";
+  40:user/AT_command.c **** 
+  41:user/AT_command.c **** char AT_Send_Check_Net_Open[]           =           "AT+NETOPEN\r\n";               //2       SUCCE
+  42:user/AT_command.c **** char send_Checking_Net_Open[]           =           "Checking Internet\r\n";
+  43:user/AT_command.c **** char send_Check_Net_Open_Error[]        =           "Check Internet Error\r\n";
+  44:user/AT_command.c **** char send_Check_Net_Open_Ok[]           =           "Check Internet Ok\r\n";
+  45:user/AT_command.c **** 
+  46:user/AT_command.c **** char AT_Send_Check_IP[]                 =           "AT+IPADDR\r\n";				 //2		 OK
+  47:user/AT_command.c **** char send_Checking_IP[]                 =           "Checking IP\r\n";
+  48:user/AT_command.c **** char send_Check_IP_Error[]              =           "Check IP Error\r\n";
+  49:user/AT_command.c **** char send_Check_IP_Ok[]                 =           "Check IP Ok\r\n";
+  50:user/AT_command.c **** 
+  51:user/AT_command.c **** char AT_Send_Set_Receive_Mode[]         =           "AT+CIPRXGET=0,1\r\n";	    //1         OK
+  52:user/AT_command.c **** char send_Setting_Receive_Mode[]        =           "Setting Receive Mode\r\n";
+  53:user/AT_command.c **** char send_Set_Receive_Mode_Error[]      =           "Set Receive Mode Error\r\n";
+  54:user/AT_command.c **** char send_Set_Receive_Mode_Ok[]         =           "Set Receive Mode Ok\r\n";
+  55:user/AT_command.c **** 
+  56:user/AT_command.c **** char AT_Send_Transmit_Data_To_TCP[]     =           "AT+CIPSEND=1,,,,";       // 1  +CIPSEND:SUCCES
+  57:user/AT_command.c **** 
+  58:user/AT_command.c **** char send_Transmiting_Data_To_TCP[]     =           "Transmiting Data To TCP\r\n";
+  59:user/AT_command.c **** char send_Transmit_Data_To_TCP_Error[]  =           "Transmit Data To TCP Error\r\n";
+  60:user/AT_command.c **** char send_Transmit_Data_To_TCP_Ok[]     =           "Transmit Data To Ok\r\n";
+  61:user/AT_command.c **** 
+  62:user/AT_command.c **** char AT_Send_Get_Current_Time[]         =           "AT+CCLK?\r\n";  //2   +CCLK: "22/07/08,15:20:1
+  63:user/AT_command.c **** 
+  64:user/AT_command.c **** 
+  65:user/AT_command.c **** char set_Connect_TCP[50];
+  66:user/AT_command.c **** char code_TCP_First[] = {'A','T','+','C','I','P','O','P','E','N','=','1',',','"','T','C','P','"',',
+  67:user/AT_command.c **** char code_TCP_IP[20];
+  68:user/AT_command.c **** char code_TCP_Center[] = {'"',',','\0'};
+  69:user/AT_command.c **** char code_TCP_Port[20];
+  70:user/AT_command.c **** char code_TCP_Final[] = {',','0', 0x0D, 0x0A,'\0'};
+  71:user/AT_command.c **** 
+  72:user/AT_command.c **** char AT_Send_Connect_TCP_Server[50];      //2  WAIT      AT+CIPOPEN=1,"TCP","117.6.163.177",7577,0 
+  73:user/AT_command.c **** 
+  74:user/AT_command.c **** char send_Connecting_TCP_Server[] = "Connecting TCP Server\r\n";
+  75:user/AT_command.c **** char send_Connect_TCP_Server_Error[] = "Connect TCP Server Error\r\n";
+  76:user/AT_command.c **** char send_Connect_TCP_Server_Ok[] = "Connect TCP Server Ok\r\n";      
+  77:user/AT_command.c **** 									
+  78:user/AT_command.c **** char AT_Send_Check_Connect_TCP[] = "AT+CIPOPQUERY?\r\n";  //2      +CIPOPQUERY:0,1,0,0,0,0,0,0,0,0<
+  79:user/AT_command.c **** char send_Checking_Connect_TCP[] = "Checking Conect TCP\r\n";
+  80:user/AT_command.c **** char send_Check_Connect_TCP_Error[] = "Check Conect TCP Error\r\n";
+  81:user/AT_command.c **** char send_Check_Connect_TCP_Ok[] = "Ready To Communicate With TCP\r\n";
+  82:user/AT_command.c **** 
+  83:user/AT_command.c **** char AT_Send_Close_Connect_TCP_Server[] = "AT+CIPCLOSE=1\r\n";  //2 OK +CIPCLOSE:SUCCESS,1<\r><\n>
+  84:user/AT_command.c **** char send_Close_Connect_TCP_Server[] = "Clossing Connect TCP Server\r\n";
+  85:user/AT_command.c **** char send_Close_Connect_TCP_Server_Error[] = "Close Connect TCP Server Error\r\n";
+  86:user/AT_command.c **** char send_Close_Connect_TCP_Server_Ok[] = "Close Connect TCP Server Ok\r\n";
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 3
+
+
+  87:user/AT_command.c **** 
+  88:user/AT_command.c **** char AT_Send_Set_Net_Close[] = "AT+NETCLOSE\r\n";  //2       
+  89:user/AT_command.c **** char send_Setting_Net_Close[] = "Clossing Connect Internet\r\n";
+  90:user/AT_command.c **** char send_Set_Net_Close_Error[] = "Close Connect Internet Error\r\n";
+  91:user/AT_command.c **** char send_Set_Net_Close_Ok[] = "Close Connect Internet Ok\r\n";
+  92:user/AT_command.c **** 
+  93:user/AT_command.c **** 
+  94:user/AT_command.c **** void AT_Init(char IP_Address[], char Port[]){
+  30              		.loc 1 94 45 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 94 45 is_stmt 0 view .LVU1
+  35 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 32
+  38              		.cfi_offset 3, -32
+  39              		.cfi_offset 4, -28
+  40              		.cfi_offset 5, -24
+  41              		.cfi_offset 6, -20
+  42              		.cfi_offset 7, -16
+  43              		.cfi_offset 8, -12
+  44              		.cfi_offset 9, -8
+  45              		.cfi_offset 14, -4
+  46 0004 8046     		mov	r8, r0
+  47 0006 0F46     		mov	r7, r1
+  95:user/AT_command.c ****     
+  96:user/AT_command.c ****     extern AT_Command_HandleTypeDef AT_Check_Module;
+  48              		.loc 1 96 5 is_stmt 1 view .LVU2
+  97:user/AT_command.c ****     memcpy(AT_Check_Module.Send, AT_Send_Check_Module, strlen(AT_Send_Check_Module));
+  49              		.loc 1 97 5 view .LVU3
+  50 0008 F34D     		ldr	r5, .L3
+  51 000a 2846     		mov	r0, r5
+  52              	.LVL1:
+  53              		.loc 1 97 5 is_stmt 0 view .LVU4
+  54 000c FFF7FEFF 		bl	strlen
+  55              	.LVL2:
+  56              		.loc 1 97 5 view .LVU5
+  57 0010 0246     		mov	r2, r0
+  58 0012 F24C     		ldr	r4, .L3+4
+  59 0014 2946     		mov	r1, r5
+  60 0016 2046     		mov	r0, r4
+  61 0018 FFF7FEFF 		bl	memcpy
+  62              	.LVL3:
+  98:user/AT_command.c ****     memcpy(AT_Check_Module.Checking, send_Checking_Module, strlen(send_Checking_Module));
+  63              		.loc 1 98 5 is_stmt 1 view .LVU6
+  64 001c F04D     		ldr	r5, .L3+8
+  65 001e 2846     		mov	r0, r5
+  66 0020 FFF7FEFF 		bl	strlen
+  67              	.LVL4:
+  68 0024 0246     		mov	r2, r0
+  69 0026 2946     		mov	r1, r5
+  70 0028 04F13200 		add	r0, r4, #50
+  71 002c FFF7FEFF 		bl	memcpy
+  72              	.LVL5:
+  99:user/AT_command.c ****     memcpy(AT_Check_Module.Error, send_Check_Module_Error, strlen(send_Check_Module_Error));
+  73              		.loc 1 99 5 view .LVU7
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 4
+
+
+  74 0030 EC4D     		ldr	r5, .L3+12
+  75 0032 2846     		mov	r0, r5
+  76 0034 FFF7FEFF 		bl	strlen
+  77              	.LVL6:
+  78 0038 0246     		mov	r2, r0
+  79 003a 2946     		mov	r1, r5
+  80 003c 04F16400 		add	r0, r4, #100
+  81 0040 FFF7FEFF 		bl	memcpy
+  82              	.LVL7:
+ 100:user/AT_command.c ****     memcpy(AT_Check_Module.Ready, send_Check_Module_Ok, strlen(send_Check_Module_Ok));
+  83              		.loc 1 100 5 view .LVU8
+  84 0044 E84D     		ldr	r5, .L3+16
+  85 0046 2846     		mov	r0, r5
+  86 0048 FFF7FEFF 		bl	strlen
+  87              	.LVL8:
+  88 004c 0246     		mov	r2, r0
+  89 004e 2946     		mov	r1, r5
+  90 0050 04F19600 		add	r0, r4, #150
+  91 0054 FFF7FEFF 		bl	memcpy
+  92              	.LVL9:
+ 101:user/AT_command.c ****     AT_Check_Module.Number_Get_Data = 1;
+  93              		.loc 1 101 5 view .LVU9
+  94              		.loc 1 101 37 is_stmt 0 view .LVU10
+  95 0058 0126     		movs	r6, #1
+  96 005a C4F8C860 		str	r6, [r4, #200]
+ 102:user/AT_command.c **** 
+ 103:user/AT_command.c ****     extern AT_Command_HandleTypeDef AT_Check_Sim;
+  97              		.loc 1 103 5 is_stmt 1 view .LVU11
+ 104:user/AT_command.c ****     memcpy(AT_Check_Sim.Send, AT_Send_Check_Sim, strlen(AT_Send_Check_Sim));
+  98              		.loc 1 104 5 view .LVU12
+  99 005e E34D     		ldr	r5, .L3+20
+ 100 0060 2846     		mov	r0, r5
+ 101 0062 FFF7FEFF 		bl	strlen
+ 102              	.LVL10:
+ 103 0066 0246     		mov	r2, r0
+ 104 0068 E14C     		ldr	r4, .L3+24
+ 105 006a 2946     		mov	r1, r5
+ 106 006c 2046     		mov	r0, r4
+ 107 006e FFF7FEFF 		bl	memcpy
+ 108              	.LVL11:
+ 105:user/AT_command.c ****     memcpy(AT_Check_Sim.Checking, send_Checking_Sim, strlen(send_Checking_Sim));
+ 109              		.loc 1 105 5 view .LVU13
+ 110 0072 E04D     		ldr	r5, .L3+28
+ 111 0074 2846     		mov	r0, r5
+ 112 0076 FFF7FEFF 		bl	strlen
+ 113              	.LVL12:
+ 114 007a 0246     		mov	r2, r0
+ 115 007c 2946     		mov	r1, r5
+ 116 007e 04F13200 		add	r0, r4, #50
+ 117 0082 FFF7FEFF 		bl	memcpy
+ 118              	.LVL13:
+ 106:user/AT_command.c ****     memcpy(AT_Check_Sim.Error, send_Check_Sim_Error, strlen(send_Check_Sim_Error));
+ 119              		.loc 1 106 5 view .LVU14
+ 120 0086 DC4D     		ldr	r5, .L3+32
+ 121 0088 2846     		mov	r0, r5
+ 122 008a FFF7FEFF 		bl	strlen
+ 123              	.LVL14:
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 5
+
+
+ 124 008e 0246     		mov	r2, r0
+ 125 0090 2946     		mov	r1, r5
+ 126 0092 04F16400 		add	r0, r4, #100
+ 127 0096 FFF7FEFF 		bl	memcpy
+ 128              	.LVL15:
+ 107:user/AT_command.c ****     memcpy(AT_Check_Sim.Ready, send_Check_Sim_Ok, strlen(send_Check_Sim_Ok));
+ 129              		.loc 1 107 5 view .LVU15
+ 130 009a D84D     		ldr	r5, .L3+36
+ 131 009c 2846     		mov	r0, r5
+ 132 009e FFF7FEFF 		bl	strlen
+ 133              	.LVL16:
+ 134 00a2 0246     		mov	r2, r0
+ 135 00a4 2946     		mov	r1, r5
+ 136 00a6 04F19600 		add	r0, r4, #150
+ 137 00aa FFF7FEFF 		bl	memcpy
+ 138              	.LVL17:
+ 108:user/AT_command.c ****     AT_Check_Sim.Number_Get_Data = 2;
+ 139              		.loc 1 108 5 view .LVU16
+ 140              		.loc 1 108 34 is_stmt 0 view .LVU17
+ 141 00ae 0225     		movs	r5, #2
+ 142 00b0 C4F8C850 		str	r5, [r4, #200]
+ 109:user/AT_command.c **** 
+ 110:user/AT_command.c ****     extern AT_Command_HandleTypeDef AT_Check_Signal;
+ 143              		.loc 1 110 5 is_stmt 1 view .LVU18
+ 111:user/AT_command.c ****     memcpy(AT_Check_Signal.Send, AT_Send_Check_Signal, strlen(AT_Send_Check_Signal));
+ 144              		.loc 1 111 5 view .LVU19
+ 145 00b4 DFF86C93 		ldr	r9, .L3+76
+ 146 00b8 4846     		mov	r0, r9
+ 147 00ba FFF7FEFF 		bl	strlen
+ 148              	.LVL18:
+ 149 00be 0246     		mov	r2, r0
+ 150 00c0 CF4C     		ldr	r4, .L3+40
+ 151 00c2 4946     		mov	r1, r9
+ 152 00c4 2046     		mov	r0, r4
+ 153 00c6 FFF7FEFF 		bl	memcpy
+ 154              	.LVL19:
+ 112:user/AT_command.c ****     memcpy(AT_Check_Signal.Checking, send_Checking_Signal, strlen(send_Checking_Signal));
+ 155              		.loc 1 112 5 view .LVU20
+ 156 00ca DFF85C93 		ldr	r9, .L3+80
+ 157 00ce 4846     		mov	r0, r9
+ 158 00d0 FFF7FEFF 		bl	strlen
+ 159              	.LVL20:
+ 160 00d4 0246     		mov	r2, r0
+ 161 00d6 4946     		mov	r1, r9
+ 162 00d8 04F13200 		add	r0, r4, #50
+ 163 00dc FFF7FEFF 		bl	memcpy
+ 164              	.LVL21:
+ 113:user/AT_command.c ****     memcpy(AT_Check_Signal.Error, send_Check_Signal_Error, strlen(send_Check_Signal_Error));
+ 165              		.loc 1 113 5 view .LVU21
+ 166 00e0 DFF84893 		ldr	r9, .L3+84
+ 167 00e4 4846     		mov	r0, r9
+ 168 00e6 FFF7FEFF 		bl	strlen
+ 169              	.LVL22:
+ 170 00ea 0246     		mov	r2, r0
+ 171 00ec 4946     		mov	r1, r9
+ 172 00ee 04F16400 		add	r0, r4, #100
+ 173 00f2 FFF7FEFF 		bl	memcpy
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 6
+
+
+ 174              	.LVL23:
+ 114:user/AT_command.c ****     memcpy(AT_Check_Signal.Ready, send_Check_Signal_Ok, strlen(send_Check_Signal_Ok));
+ 175              		.loc 1 114 5 view .LVU22
+ 176 00f6 DFF83893 		ldr	r9, .L3+88
+ 177 00fa 4846     		mov	r0, r9
+ 178 00fc FFF7FEFF 		bl	strlen
+ 179              	.LVL24:
+ 180 0100 0246     		mov	r2, r0
+ 181 0102 4946     		mov	r1, r9
+ 182 0104 04F19600 		add	r0, r4, #150
+ 183 0108 FFF7FEFF 		bl	memcpy
+ 184              	.LVL25:
+ 115:user/AT_command.c ****     AT_Check_Signal.Number_Get_Data = 2;
+ 185              		.loc 1 115 5 view .LVU23
+ 186              		.loc 1 115 37 is_stmt 0 view .LVU24
+ 187 010c C4F8C850 		str	r5, [r4, #200]
+ 116:user/AT_command.c **** 
+ 117:user/AT_command.c ****     extern AT_Command_HandleTypeDef AT_Check_Subscribe;
+ 188              		.loc 1 117 5 is_stmt 1 view .LVU25
+ 118:user/AT_command.c ****     memcpy(AT_Check_Subscribe.Send, AT_Send_Check_Subscribe, strlen(AT_Send_Check_Subscribe));
+ 189              		.loc 1 118 5 view .LVU26
+ 190 0110 DFF82093 		ldr	r9, .L3+92
+ 191 0114 4846     		mov	r0, r9
+ 192 0116 FFF7FEFF 		bl	strlen
+ 193              	.LVL26:
+ 194 011a 0246     		mov	r2, r0
+ 195 011c B94C     		ldr	r4, .L3+44
+ 196 011e 4946     		mov	r1, r9
+ 197 0120 2046     		mov	r0, r4
+ 198 0122 FFF7FEFF 		bl	memcpy
+ 199              	.LVL27:
+ 119:user/AT_command.c ****     memcpy(AT_Check_Subscribe.Checking, send_Checking_Subscribe, strlen(send_Checking_Subscribe));
+ 200              		.loc 1 119 5 view .LVU27
+ 201 0126 DFF81093 		ldr	r9, .L3+96
+ 202 012a 4846     		mov	r0, r9
+ 203 012c FFF7FEFF 		bl	strlen
+ 204              	.LVL28:
+ 205 0130 0246     		mov	r2, r0
+ 206 0132 4946     		mov	r1, r9
+ 207 0134 04F13200 		add	r0, r4, #50
+ 208 0138 FFF7FEFF 		bl	memcpy
+ 209              	.LVL29:
+ 120:user/AT_command.c ****     memcpy(AT_Check_Subscribe.Error, send_Check_Subscribe_Error, strlen(send_Check_Subscribe_Error)
+ 210              		.loc 1 120 5 view .LVU28
+ 211 013c DFF8FC92 		ldr	r9, .L3+100
+ 212 0140 4846     		mov	r0, r9
+ 213 0142 FFF7FEFF 		bl	strlen
+ 214              	.LVL30:
+ 215 0146 0246     		mov	r2, r0
+ 216 0148 4946     		mov	r1, r9
+ 217 014a 04F16400 		add	r0, r4, #100
+ 218 014e FFF7FEFF 		bl	memcpy
+ 219              	.LVL31:
+ 121:user/AT_command.c ****     memcpy(AT_Check_Subscribe.Ready, send_Check_Subscribe_Ok, strlen(send_Check_Subscribe_Ok));
+ 220              		.loc 1 121 5 view .LVU29
+ 221 0152 DFF8EC92 		ldr	r9, .L3+104
+ 222 0156 4846     		mov	r0, r9
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 7
+
+
+ 223 0158 FFF7FEFF 		bl	strlen
+ 224              	.LVL32:
+ 225 015c 0246     		mov	r2, r0
+ 226 015e 4946     		mov	r1, r9
+ 227 0160 04F19600 		add	r0, r4, #150
+ 228 0164 FFF7FEFF 		bl	memcpy
+ 229              	.LVL33:
+ 122:user/AT_command.c ****     AT_Check_Subscribe.Number_Get_Data = 2;
+ 230              		.loc 1 122 5 view .LVU30
+ 231              		.loc 1 122 40 is_stmt 0 view .LVU31
+ 232 0168 C4F8C850 		str	r5, [r4, #200]
+ 123:user/AT_command.c **** 
+ 124:user/AT_command.c ****     extern AT_Command_HandleTypeDef AT_Check_GPRS;
+ 233              		.loc 1 124 5 is_stmt 1 view .LVU32
+ 125:user/AT_command.c ****     memcpy(AT_Check_GPRS.Send, AT_Send_Check_GPRS, strlen(AT_Send_Check_GPRS));
+ 234              		.loc 1 125 5 view .LVU33
+ 235 016c DFF8D492 		ldr	r9, .L3+108
+ 236 0170 4846     		mov	r0, r9
+ 237 0172 FFF7FEFF 		bl	strlen
+ 238              	.LVL34:
+ 239 0176 0246     		mov	r2, r0
+ 240 0178 A34C     		ldr	r4, .L3+48
+ 241 017a 4946     		mov	r1, r9
+ 242 017c 2046     		mov	r0, r4
+ 243 017e FFF7FEFF 		bl	memcpy
+ 244              	.LVL35:
+ 126:user/AT_command.c ****     memcpy(AT_Check_GPRS.Checking, send_Checking_GPRS, strlen(send_Checking_GPRS));
+ 245              		.loc 1 126 5 view .LVU34
+ 246 0182 DFF8C492 		ldr	r9, .L3+112
+ 247 0186 4846     		mov	r0, r9
+ 248 0188 FFF7FEFF 		bl	strlen
+ 249              	.LVL36:
+ 250 018c 0246     		mov	r2, r0
+ 251 018e 4946     		mov	r1, r9
+ 252 0190 04F13200 		add	r0, r4, #50
+ 253 0194 FFF7FEFF 		bl	memcpy
+ 254              	.LVL37:
+ 127:user/AT_command.c ****     memcpy(AT_Check_GPRS.Error, send_Check_GPRS_Error, strlen(send_Check_GPRS_Error));
+ 255              		.loc 1 127 5 view .LVU35
+ 256 0198 DFF8B092 		ldr	r9, .L3+116
+ 257 019c 4846     		mov	r0, r9
+ 258 019e FFF7FEFF 		bl	strlen
+ 259              	.LVL38:
+ 260 01a2 0246     		mov	r2, r0
+ 261 01a4 4946     		mov	r1, r9
+ 262 01a6 04F16400 		add	r0, r4, #100
+ 263 01aa FFF7FEFF 		bl	memcpy
+ 264              	.LVL39:
+ 128:user/AT_command.c ****     memcpy(AT_Check_GPRS.Ready, send_Check_GPRS_Ok, strlen(send_Check_GPRS_Ok));
+ 265              		.loc 1 128 5 view .LVU36
+ 266 01ae DFF8A092 		ldr	r9, .L3+120
+ 267 01b2 4846     		mov	r0, r9
+ 268 01b4 FFF7FEFF 		bl	strlen
+ 269              	.LVL40:
+ 270 01b8 0246     		mov	r2, r0
+ 271 01ba 4946     		mov	r1, r9
+ 272 01bc 04F19600 		add	r0, r4, #150
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 8
+
+
+ 273 01c0 FFF7FEFF 		bl	memcpy
+ 274              	.LVL41:
+ 129:user/AT_command.c ****     AT_Check_GPRS.Number_Get_Data = 2;
+ 275              		.loc 1 129 5 view .LVU37
+ 276              		.loc 1 129 35 is_stmt 0 view .LVU38
+ 277 01c4 C4F8C850 		str	r5, [r4, #200]
+ 130:user/AT_command.c **** 
+ 131:user/AT_command.c ****     extern AT_Command_HandleTypeDef AT_Set_Timeout;
+ 278              		.loc 1 131 5 is_stmt 1 view .LVU39
+ 132:user/AT_command.c ****     memcpy(AT_Set_Timeout.Send, AT_Send_Set_Timeout, strlen(AT_Send_Set_Timeout));
+ 279              		.loc 1 132 5 view .LVU40
+ 280 01c8 DFF88892 		ldr	r9, .L3+124
+ 281 01cc 4846     		mov	r0, r9
+ 282 01ce FFF7FEFF 		bl	strlen
+ 283              	.LVL42:
+ 284 01d2 0246     		mov	r2, r0
+ 285 01d4 8D4C     		ldr	r4, .L3+52
+ 286 01d6 4946     		mov	r1, r9
+ 287 01d8 2046     		mov	r0, r4
+ 288 01da FFF7FEFF 		bl	memcpy
+ 289              	.LVL43:
+ 133:user/AT_command.c ****     memcpy(AT_Set_Timeout.Checking, send_Setting_Timeout, strlen(send_Setting_Timeout));
+ 290              		.loc 1 133 5 view .LVU41
+ 291 01de DFF87892 		ldr	r9, .L3+128
+ 292 01e2 4846     		mov	r0, r9
+ 293 01e4 FFF7FEFF 		bl	strlen
+ 294              	.LVL44:
+ 295 01e8 0246     		mov	r2, r0
+ 296 01ea 4946     		mov	r1, r9
+ 297 01ec 04F13200 		add	r0, r4, #50
+ 298 01f0 FFF7FEFF 		bl	memcpy
+ 299              	.LVL45:
+ 134:user/AT_command.c ****     memcpy(AT_Set_Timeout.Error, send_Set_Timeout_Error, strlen(send_Set_Timeout_Error));
+ 300              		.loc 1 134 5 view .LVU42
+ 301 01f4 DFF86492 		ldr	r9, .L3+132
+ 302 01f8 4846     		mov	r0, r9
+ 303 01fa FFF7FEFF 		bl	strlen
+ 304              	.LVL46:
+ 305 01fe 0246     		mov	r2, r0
+ 306 0200 4946     		mov	r1, r9
+ 307 0202 04F16400 		add	r0, r4, #100
+ 308 0206 FFF7FEFF 		bl	memcpy
+ 309              	.LVL47:
+ 135:user/AT_command.c ****     memcpy(AT_Set_Timeout.Ready, send_Set_Timeout_Ok, strlen(send_Set_Timeout_Ok));
+ 310              		.loc 1 135 5 view .LVU43
+ 311 020a DFF85492 		ldr	r9, .L3+136
+ 312 020e 4846     		mov	r0, r9
+ 313 0210 FFF7FEFF 		bl	strlen
+ 314              	.LVL48:
+ 315 0214 0246     		mov	r2, r0
+ 316 0216 4946     		mov	r1, r9
+ 317 0218 04F19600 		add	r0, r4, #150
+ 318 021c FFF7FEFF 		bl	memcpy
+ 319              	.LVL49:
+ 136:user/AT_command.c ****     AT_Set_Timeout.Number_Get_Data = 1;
+ 320              		.loc 1 136 5 view .LVU44
+ 321              		.loc 1 136 36 is_stmt 0 view .LVU45
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 9
+
+
+ 322 0220 C4F8C860 		str	r6, [r4, #200]
+ 137:user/AT_command.c **** 
+ 138:user/AT_command.c ****     extern AT_Command_HandleTypeDef AT_Set_Transmit_Mode;
+ 323              		.loc 1 138 5 is_stmt 1 view .LVU46
+ 139:user/AT_command.c ****     memcpy(AT_Set_Transmit_Mode.Send, AT_Send_Set_Transmit_Mode, strlen(AT_Send_Set_Transmit_Mode))
+ 324              		.loc 1 139 5 view .LVU47
+ 325 0224 DFF83C92 		ldr	r9, .L3+140
+ 326 0228 4846     		mov	r0, r9
+ 327 022a FFF7FEFF 		bl	strlen
+ 328              	.LVL50:
+ 329 022e 0246     		mov	r2, r0
+ 330 0230 774C     		ldr	r4, .L3+56
+ 331 0232 4946     		mov	r1, r9
+ 332 0234 2046     		mov	r0, r4
+ 333 0236 FFF7FEFF 		bl	memcpy
+ 334              	.LVL51:
+ 140:user/AT_command.c ****     memcpy(AT_Set_Transmit_Mode.Checking, send_Setting_Transmit_Mode, strlen(send_Setting_Transmit_
+ 335              		.loc 1 140 5 view .LVU48
+ 336 023a DFF82C92 		ldr	r9, .L3+144
+ 337 023e 4846     		mov	r0, r9
+ 338 0240 FFF7FEFF 		bl	strlen
+ 339              	.LVL52:
+ 340 0244 0246     		mov	r2, r0
+ 341 0246 4946     		mov	r1, r9
+ 342 0248 04F13200 		add	r0, r4, #50
+ 343 024c FFF7FEFF 		bl	memcpy
+ 344              	.LVL53:
+ 141:user/AT_command.c ****     memcpy(AT_Set_Transmit_Mode.Error, send_Set_Transmit_Mode_Error, strlen(send_Set_Transmit_Mode_
+ 345              		.loc 1 141 5 view .LVU49
+ 346 0250 DFF81892 		ldr	r9, .L3+148
+ 347 0254 4846     		mov	r0, r9
+ 348 0256 FFF7FEFF 		bl	strlen
+ 349              	.LVL54:
+ 350 025a 0246     		mov	r2, r0
+ 351 025c 4946     		mov	r1, r9
+ 352 025e 04F16400 		add	r0, r4, #100
+ 353 0262 FFF7FEFF 		bl	memcpy
+ 354              	.LVL55:
+ 142:user/AT_command.c ****     memcpy(AT_Set_Transmit_Mode.Ready, send_Set_Transmit_Mode_Ok, strlen(send_Set_Transmit_Mode_Ok)
+ 355              		.loc 1 142 5 view .LVU50
+ 356 0266 DFF80892 		ldr	r9, .L3+152
+ 357 026a 4846     		mov	r0, r9
+ 358 026c FFF7FEFF 		bl	strlen
+ 359              	.LVL56:
+ 360 0270 0246     		mov	r2, r0
+ 361 0272 4946     		mov	r1, r9
+ 362 0274 04F19600 		add	r0, r4, #150
+ 363 0278 FFF7FEFF 		bl	memcpy
+ 364              	.LVL57:
+ 143:user/AT_command.c ****     AT_Set_Transmit_Mode.Number_Get_Data = 1;
+ 365              		.loc 1 143 5 view .LVU51
+ 366              		.loc 1 143 42 is_stmt 0 view .LVU52
+ 367 027c C4F8C860 		str	r6, [r4, #200]
+ 144:user/AT_command.c **** 
+ 145:user/AT_command.c ****     extern AT_Command_HandleTypeDef AT_Check_Net_Open;
+ 368              		.loc 1 145 5 is_stmt 1 view .LVU53
+ 146:user/AT_command.c ****     memcpy(AT_Check_Net_Open.Send, AT_Send_Check_Net_Open, strlen(AT_Send_Check_Net_Open));
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 10
+
+
+ 369              		.loc 1 146 5 view .LVU54
+ 370 0280 DFF8F091 		ldr	r9, .L3+156
+ 371 0284 4846     		mov	r0, r9
+ 372 0286 FFF7FEFF 		bl	strlen
+ 373              	.LVL58:
+ 374 028a 0246     		mov	r2, r0
+ 375 028c 614C     		ldr	r4, .L3+60
+ 376 028e 4946     		mov	r1, r9
+ 377 0290 2046     		mov	r0, r4
+ 378 0292 FFF7FEFF 		bl	memcpy
+ 379              	.LVL59:
+ 147:user/AT_command.c ****     memcpy(AT_Check_Net_Open.Checking, send_Checking_Net_Open, strlen(send_Checking_Net_Open));
+ 380              		.loc 1 147 5 view .LVU55
+ 381 0296 DFF8E091 		ldr	r9, .L3+160
+ 382 029a 4846     		mov	r0, r9
+ 383 029c FFF7FEFF 		bl	strlen
+ 384              	.LVL60:
+ 385 02a0 0246     		mov	r2, r0
+ 386 02a2 4946     		mov	r1, r9
+ 387 02a4 04F13200 		add	r0, r4, #50
+ 388 02a8 FFF7FEFF 		bl	memcpy
+ 389              	.LVL61:
+ 148:user/AT_command.c ****     memcpy(AT_Check_Net_Open.Error, send_Check_Net_Open_Error, strlen(send_Check_Net_Open_Error));
+ 390              		.loc 1 148 5 view .LVU56
+ 391 02ac DFF8CC91 		ldr	r9, .L3+164
+ 392 02b0 4846     		mov	r0, r9
+ 393 02b2 FFF7FEFF 		bl	strlen
+ 394              	.LVL62:
+ 395 02b6 0246     		mov	r2, r0
+ 396 02b8 4946     		mov	r1, r9
+ 397 02ba 04F16400 		add	r0, r4, #100
+ 398 02be FFF7FEFF 		bl	memcpy
+ 399              	.LVL63:
+ 149:user/AT_command.c ****     memcpy(AT_Check_Net_Open.Ready, send_Check_Net_Open_Ok, strlen(send_Check_Net_Open_Ok));
+ 400              		.loc 1 149 5 view .LVU57
+ 401 02c2 DFF8BC91 		ldr	r9, .L3+168
+ 402 02c6 4846     		mov	r0, r9
+ 403 02c8 FFF7FEFF 		bl	strlen
+ 404              	.LVL64:
+ 405 02cc 0246     		mov	r2, r0
+ 406 02ce 4946     		mov	r1, r9
+ 407 02d0 04F19600 		add	r0, r4, #150
+ 408 02d4 FFF7FEFF 		bl	memcpy
+ 409              	.LVL65:
+ 150:user/AT_command.c ****     AT_Check_Net_Open.Number_Get_Data = 2;
+ 410              		.loc 1 150 5 view .LVU58
+ 411              		.loc 1 150 39 is_stmt 0 view .LVU59
+ 412 02d8 C4F8C850 		str	r5, [r4, #200]
+ 151:user/AT_command.c ****     
+ 152:user/AT_command.c ****     extern AT_Command_HandleTypeDef AT_Check_IP;
+ 413              		.loc 1 152 5 is_stmt 1 view .LVU60
+ 153:user/AT_command.c ****     memcpy(AT_Check_IP.Send, AT_Send_Check_IP, strlen(AT_Send_Check_IP));
+ 414              		.loc 1 153 5 view .LVU61
+ 415 02dc DFF8A491 		ldr	r9, .L3+172
+ 416 02e0 4846     		mov	r0, r9
+ 417 02e2 FFF7FEFF 		bl	strlen
+ 418              	.LVL66:
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 11
+
+
+ 419 02e6 0246     		mov	r2, r0
+ 420 02e8 4B4C     		ldr	r4, .L3+64
+ 421 02ea 4946     		mov	r1, r9
+ 422 02ec 2046     		mov	r0, r4
+ 423 02ee FFF7FEFF 		bl	memcpy
+ 424              	.LVL67:
+ 154:user/AT_command.c ****     memcpy(AT_Check_IP.Checking, send_Checking_IP, strlen(send_Checking_IP));
+ 425              		.loc 1 154 5 view .LVU62
+ 426 02f2 DFF89491 		ldr	r9, .L3+176
+ 427 02f6 4846     		mov	r0, r9
+ 428 02f8 FFF7FEFF 		bl	strlen
+ 429              	.LVL68:
+ 430 02fc 0246     		mov	r2, r0
+ 431 02fe 4946     		mov	r1, r9
+ 432 0300 04F13200 		add	r0, r4, #50
+ 433 0304 FFF7FEFF 		bl	memcpy
+ 434              	.LVL69:
+ 155:user/AT_command.c ****     memcpy(AT_Check_IP.Error, send_Check_IP_Error, strlen(send_Check_IP_Error));
+ 435              		.loc 1 155 5 view .LVU63
+ 436 0308 DFF88091 		ldr	r9, .L3+180
+ 437 030c 4846     		mov	r0, r9
+ 438 030e FFF7FEFF 		bl	strlen
+ 439              	.LVL70:
+ 440 0312 0246     		mov	r2, r0
+ 441 0314 4946     		mov	r1, r9
+ 442 0316 04F16400 		add	r0, r4, #100
+ 443 031a FFF7FEFF 		bl	memcpy
+ 444              	.LVL71:
+ 156:user/AT_command.c ****     memcpy(AT_Check_IP.Ready, send_Check_IP_Ok, strlen(send_Check_IP_Ok));
+ 445              		.loc 1 156 5 view .LVU64
+ 446 031e DFF87091 		ldr	r9, .L3+184
+ 447 0322 4846     		mov	r0, r9
+ 448 0324 FFF7FEFF 		bl	strlen
+ 449              	.LVL72:
+ 450 0328 0246     		mov	r2, r0
+ 451 032a 4946     		mov	r1, r9
+ 452 032c 04F19600 		add	r0, r4, #150
+ 453 0330 FFF7FEFF 		bl	memcpy
+ 454              	.LVL73:
+ 157:user/AT_command.c ****     AT_Check_IP.Number_Get_Data = 2;
+ 455              		.loc 1 157 5 view .LVU65
+ 456              		.loc 1 157 33 is_stmt 0 view .LVU66
+ 457 0334 C4F8C850 		str	r5, [r4, #200]
+ 158:user/AT_command.c **** 
+ 159:user/AT_command.c ****     extern AT_Command_HandleTypeDef AT_Set_Receive_Mode;
+ 458              		.loc 1 159 5 is_stmt 1 view .LVU67
+ 160:user/AT_command.c ****     memcpy(AT_Set_Receive_Mode.Send, AT_Send_Set_Receive_Mode, strlen(AT_Send_Set_Receive_Mode));
+ 459              		.loc 1 160 5 view .LVU68
+ 460 0338 DFF85891 		ldr	r9, .L3+188
+ 461 033c 4846     		mov	r0, r9
+ 462 033e FFF7FEFF 		bl	strlen
+ 463              	.LVL74:
+ 464 0342 0246     		mov	r2, r0
+ 465 0344 354C     		ldr	r4, .L3+68
+ 466 0346 4946     		mov	r1, r9
+ 467 0348 2046     		mov	r0, r4
+ 468 034a FFF7FEFF 		bl	memcpy
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 12
+
+
+ 469              	.LVL75:
+ 161:user/AT_command.c ****     memcpy(AT_Set_Receive_Mode.Checking, send_Setting_Receive_Mode, strlen(send_Setting_Receive_Mod
+ 470              		.loc 1 161 5 view .LVU69
+ 471 034e DFF84891 		ldr	r9, .L3+192
+ 472 0352 4846     		mov	r0, r9
+ 473 0354 FFF7FEFF 		bl	strlen
+ 474              	.LVL76:
+ 475 0358 0246     		mov	r2, r0
+ 476 035a 4946     		mov	r1, r9
+ 477 035c 04F13200 		add	r0, r4, #50
+ 478 0360 FFF7FEFF 		bl	memcpy
+ 479              	.LVL77:
+ 162:user/AT_command.c ****     memcpy(AT_Set_Receive_Mode.Error, send_Set_Receive_Mode_Error, strlen(send_Set_Receive_Mode_Err
+ 480              		.loc 1 162 5 view .LVU70
+ 481 0364 DFF83491 		ldr	r9, .L3+196
+ 482 0368 4846     		mov	r0, r9
+ 483 036a FFF7FEFF 		bl	strlen
+ 484              	.LVL78:
+ 485 036e 0246     		mov	r2, r0
+ 486 0370 4946     		mov	r1, r9
+ 487 0372 04F16400 		add	r0, r4, #100
+ 488 0376 FFF7FEFF 		bl	memcpy
+ 489              	.LVL79:
+ 163:user/AT_command.c ****     memcpy(AT_Set_Receive_Mode.Ready, send_Set_Receive_Mode_Ok, strlen(send_Set_Receive_Mode_Ok));
+ 490              		.loc 1 163 5 view .LVU71
+ 491 037a DFF82491 		ldr	r9, .L3+200
+ 492 037e 4846     		mov	r0, r9
+ 493 0380 FFF7FEFF 		bl	strlen
+ 494              	.LVL80:
+ 495 0384 0246     		mov	r2, r0
+ 496 0386 4946     		mov	r1, r9
+ 497 0388 04F19600 		add	r0, r4, #150
+ 498 038c FFF7FEFF 		bl	memcpy
+ 499              	.LVL81:
+ 164:user/AT_command.c ****     AT_Set_Receive_Mode.Number_Get_Data = 1;
+ 500              		.loc 1 164 5 view .LVU72
+ 501              		.loc 1 164 41 is_stmt 0 view .LVU73
+ 502 0390 C4F8C860 		str	r6, [r4, #200]
+ 165:user/AT_command.c **** 
+ 166:user/AT_command.c ****     extern AT_Command_HandleTypeDef AT_Transmit_Data_To_TCP;
+ 503              		.loc 1 166 5 is_stmt 1 view .LVU74
+ 167:user/AT_command.c ****     memcpy(AT_Transmit_Data_To_TCP.Send, AT_Send_Transmit_Data_To_TCP, strlen(AT_Send_Transmit_Data
+ 504              		.loc 1 167 5 view .LVU75
+ 505 0394 DFF80C91 		ldr	r9, .L3+204
+ 506 0398 4846     		mov	r0, r9
+ 507 039a FFF7FEFF 		bl	strlen
+ 508              	.LVL82:
+ 509 039e 0246     		mov	r2, r0
+ 510 03a0 1F4C     		ldr	r4, .L3+72
+ 511 03a2 4946     		mov	r1, r9
+ 512 03a4 2046     		mov	r0, r4
+ 513 03a6 FFF7FEFF 		bl	memcpy
+ 514              	.LVL83:
+ 168:user/AT_command.c ****     memcpy(AT_Transmit_Data_To_TCP.Checking, send_Transmiting_Data_To_TCP, strlen(send_Transmiting_
+ 515              		.loc 1 168 5 view .LVU76
+ 516 03aa DFF8FC90 		ldr	r9, .L3+208
+ 517 03ae 4846     		mov	r0, r9
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 13
+
+
+ 518 03b0 FFF7FEFF 		bl	strlen
+ 519              	.LVL84:
+ 520 03b4 0246     		mov	r2, r0
+ 521 03b6 4946     		mov	r1, r9
+ 522 03b8 04F13200 		add	r0, r4, #50
+ 523 03bc FFF7FEFF 		bl	memcpy
+ 524              	.LVL85:
+ 169:user/AT_command.c ****     memcpy(AT_Transmit_Data_To_TCP.Error, send_Transmit_Data_To_TCP_Error, strlen(send_Transmit_Dat
+ 525              		.loc 1 169 5 view .LVU77
+ 526 03c0 DFF8E890 		ldr	r9, .L3+212
+ 527 03c4 4846     		mov	r0, r9
+ 528 03c6 FFF7FEFF 		bl	strlen
+ 529              	.LVL86:
+ 530 03ca 0246     		mov	r2, r0
+ 531 03cc 4946     		mov	r1, r9
+ 532 03ce 04F16400 		add	r0, r4, #100
+ 533 03d2 FFF7FEFF 		bl	memcpy
+ 534              	.LVL87:
+ 535 03d6 6BE0     		b	.L4
+ 536              	.L5:
+ 537              		.align	2
+ 538              	.L3:
+ 539 03d8 00000000 		.word	.LANCHOR0
+ 540 03dc 00000000 		.word	AT_Check_Module
+ 541 03e0 00000000 		.word	.LANCHOR1
+ 542 03e4 00000000 		.word	.LANCHOR2
+ 543 03e8 00000000 		.word	.LANCHOR3
+ 544 03ec 00000000 		.word	.LANCHOR4
+ 545 03f0 00000000 		.word	AT_Check_Sim
+ 546 03f4 00000000 		.word	.LANCHOR5
+ 547 03f8 00000000 		.word	.LANCHOR6
+ 548 03fc 00000000 		.word	.LANCHOR7
+ 549 0400 00000000 		.word	AT_Check_Signal
+ 550 0404 00000000 		.word	AT_Check_Subscribe
+ 551 0408 00000000 		.word	AT_Check_GPRS
+ 552 040c 00000000 		.word	AT_Set_Timeout
+ 553 0410 00000000 		.word	AT_Set_Transmit_Mode
+ 554 0414 00000000 		.word	AT_Check_Net_Open
+ 555 0418 00000000 		.word	AT_Check_IP
+ 556 041c 00000000 		.word	AT_Set_Receive_Mode
+ 557 0420 00000000 		.word	AT_Transmit_Data_To_TCP
+ 558 0424 00000000 		.word	.LANCHOR8
+ 559 0428 00000000 		.word	.LANCHOR9
+ 560 042c 00000000 		.word	.LANCHOR10
+ 561 0430 00000000 		.word	.LANCHOR11
+ 562 0434 00000000 		.word	.LANCHOR12
+ 563 0438 00000000 		.word	.LANCHOR13
+ 564 043c 00000000 		.word	.LANCHOR14
+ 565 0440 00000000 		.word	.LANCHOR15
+ 566 0444 00000000 		.word	.LANCHOR16
+ 567 0448 00000000 		.word	.LANCHOR17
+ 568 044c 00000000 		.word	.LANCHOR18
+ 569 0450 00000000 		.word	.LANCHOR19
+ 570 0454 00000000 		.word	.LANCHOR20
+ 571 0458 00000000 		.word	.LANCHOR21
+ 572 045c 00000000 		.word	.LANCHOR22
+ 573 0460 00000000 		.word	.LANCHOR23
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 14
+
+
+ 574 0464 00000000 		.word	.LANCHOR24
+ 575 0468 00000000 		.word	.LANCHOR25
+ 576 046c 00000000 		.word	.LANCHOR26
+ 577 0470 00000000 		.word	.LANCHOR27
+ 578 0474 00000000 		.word	.LANCHOR28
+ 579 0478 00000000 		.word	.LANCHOR29
+ 580 047c 00000000 		.word	.LANCHOR30
+ 581 0480 00000000 		.word	.LANCHOR31
+ 582 0484 00000000 		.word	.LANCHOR32
+ 583 0488 00000000 		.word	.LANCHOR33
+ 584 048c 00000000 		.word	.LANCHOR34
+ 585 0490 00000000 		.word	.LANCHOR35
+ 586 0494 00000000 		.word	.LANCHOR36
+ 587 0498 00000000 		.word	.LANCHOR37
+ 588 049c 00000000 		.word	.LANCHOR38
+ 589 04a0 00000000 		.word	.LANCHOR39
+ 590 04a4 00000000 		.word	.LANCHOR40
+ 591 04a8 00000000 		.word	.LANCHOR41
+ 592 04ac 00000000 		.word	.LANCHOR42
+ 593              	.L4:
+ 170:user/AT_command.c ****     memcpy(AT_Transmit_Data_To_TCP.Ready, send_Transmit_Data_To_TCP_Ok, strlen(send_Transmit_Data_T
+ 594              		.loc 1 170 5 view .LVU78
+ 595 04b0 DFF89C92 		ldr	r9, .L6+104
+ 596 04b4 4846     		mov	r0, r9
+ 597 04b6 FFF7FEFF 		bl	strlen
+ 598              	.LVL88:
+ 599 04ba 0246     		mov	r2, r0
+ 600 04bc 4946     		mov	r1, r9
+ 601 04be 04F19600 		add	r0, r4, #150
+ 602 04c2 FFF7FEFF 		bl	memcpy
+ 603              	.LVL89:
+ 171:user/AT_command.c ****     AT_Transmit_Data_To_TCP.Number_Get_Data = 1;
+ 604              		.loc 1 171 5 view .LVU79
+ 605              		.loc 1 171 45 is_stmt 0 view .LVU80
+ 606 04c6 C4F8C860 		str	r6, [r4, #200]
+ 172:user/AT_command.c **** 
+ 173:user/AT_command.c ****     extern AT_Command_HandleTypeDef AT_Get_Current_Time;
+ 607              		.loc 1 173 5 is_stmt 1 view .LVU81
+ 174:user/AT_command.c ****     memcpy(AT_Get_Current_Time.Send, AT_Send_Get_Current_Time, strlen(AT_Send_Get_Current_Time));
+ 608              		.loc 1 174 5 view .LVU82
+ 609 04ca 874E     		ldr	r6, .L6
+ 610 04cc 3046     		mov	r0, r6
+ 611 04ce FFF7FEFF 		bl	strlen
+ 612              	.LVL90:
+ 613 04d2 0246     		mov	r2, r0
+ 614 04d4 854C     		ldr	r4, .L6+4
+ 615 04d6 3146     		mov	r1, r6
+ 616 04d8 2046     		mov	r0, r4
+ 617 04da FFF7FEFF 		bl	memcpy
+ 618              	.LVL91:
+ 175:user/AT_command.c ****     AT_Get_Current_Time.Number_Get_Data = 2;         //
+ 619              		.loc 1 175 5 view .LVU83
+ 620              		.loc 1 175 41 is_stmt 0 view .LVU84
+ 621 04de C4F8C850 		str	r5, [r4, #200]
+ 176:user/AT_command.c **** 
+ 177:user/AT_command.c **** 
+ 178:user/AT_command.c ****     memcpy(code_TCP_IP, IP_Address, strlen(IP_Address));
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 15
+
+
+ 622              		.loc 1 178 5 is_stmt 1 view .LVU85
+ 623 04e2 4046     		mov	r0, r8
+ 624 04e4 FFF7FEFF 		bl	strlen
+ 625              	.LVL92:
+ 626 04e8 0246     		mov	r2, r0
+ 627 04ea DFF86892 		ldr	r9, .L6+108
+ 628 04ee 4146     		mov	r1, r8
+ 629 04f0 4846     		mov	r0, r9
+ 630 04f2 FFF7FEFF 		bl	memcpy
+ 631              	.LVL93:
+ 179:user/AT_command.c ****     memcpy(code_TCP_Port,Port, strlen(Port));
+ 632              		.loc 1 179 5 view .LVU86
+ 633 04f6 3846     		mov	r0, r7
+ 634 04f8 FFF7FEFF 		bl	strlen
+ 635              	.LVL94:
+ 636 04fc 0246     		mov	r2, r0
+ 637 04fe DFF85882 		ldr	r8, .L6+112
+ 638              	.LVL95:
+ 639              		.loc 1 179 5 is_stmt 0 view .LVU87
+ 640 0502 3946     		mov	r1, r7
+ 641 0504 4046     		mov	r0, r8
+ 642 0506 FFF7FEFF 		bl	memcpy
+ 643              	.LVL96:
+ 180:user/AT_command.c ****     memcpy(set_Connect_TCP + 0, code_TCP_First, strlen(code_TCP_First));
+ 644              		.loc 1 180 5 is_stmt 1 view .LVU88
+ 645 050a 794E     		ldr	r6, .L6+8
+ 646 050c 3046     		mov	r0, r6
+ 647 050e FFF7FEFF 		bl	strlen
+ 648              	.LVL97:
+ 649 0512 0246     		mov	r2, r0
+ 650 0514 774C     		ldr	r4, .L6+12
+ 651 0516 3146     		mov	r1, r6
+ 652 0518 2046     		mov	r0, r4
+ 653 051a FFF7FEFF 		bl	memcpy
+ 654              	.LVL98:
+ 181:user/AT_command.c ****     memcpy(set_Connect_TCP + strlen(set_Connect_TCP), code_TCP_IP, strlen(code_TCP_IP));
+ 655              		.loc 1 181 5 view .LVU89
+ 656              		.loc 1 181 30 is_stmt 0 view .LVU90
+ 657 051e 2046     		mov	r0, r4
+ 658 0520 FFF7FEFF 		bl	strlen
+ 659              	.LVL99:
+ 660 0524 0646     		mov	r6, r0
+ 661              		.loc 1 181 5 view .LVU91
+ 662 0526 4846     		mov	r0, r9
+ 663 0528 FFF7FEFF 		bl	strlen
+ 664              	.LVL100:
+ 665 052c 0246     		mov	r2, r0
+ 666 052e 4946     		mov	r1, r9
+ 667 0530 A019     		adds	r0, r4, r6
+ 668 0532 FFF7FEFF 		bl	memcpy
+ 669              	.LVL101:
+ 182:user/AT_command.c ****     memcpy(set_Connect_TCP + strlen(set_Connect_TCP), code_TCP_Center, strlen(code_TCP_Center));
+ 670              		.loc 1 182 5 is_stmt 1 view .LVU92
+ 671              		.loc 1 182 30 is_stmt 0 view .LVU93
+ 672 0536 2046     		mov	r0, r4
+ 673 0538 FFF7FEFF 		bl	strlen
+ 674              	.LVL102:
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 16
+
+
+ 675 053c 0646     		mov	r6, r0
+ 676              		.loc 1 182 5 view .LVU94
+ 677 053e 6E4F     		ldr	r7, .L6+16
+ 678              	.LVL103:
+ 679              		.loc 1 182 5 view .LVU95
+ 680 0540 3846     		mov	r0, r7
+ 681 0542 FFF7FEFF 		bl	strlen
+ 682              	.LVL104:
+ 683 0546 0246     		mov	r2, r0
+ 684 0548 3946     		mov	r1, r7
+ 685 054a A019     		adds	r0, r4, r6
+ 686 054c FFF7FEFF 		bl	memcpy
+ 687              	.LVL105:
+ 183:user/AT_command.c ****     memcpy(set_Connect_TCP + strlen(set_Connect_TCP), code_TCP_Port, strlen(code_TCP_Port));
+ 688              		.loc 1 183 5 is_stmt 1 view .LVU96
+ 689              		.loc 1 183 30 is_stmt 0 view .LVU97
+ 690 0550 2046     		mov	r0, r4
+ 691 0552 FFF7FEFF 		bl	strlen
+ 692              	.LVL106:
+ 693 0556 0646     		mov	r6, r0
+ 694              		.loc 1 183 5 view .LVU98
+ 695 0558 4046     		mov	r0, r8
+ 696 055a FFF7FEFF 		bl	strlen
+ 697              	.LVL107:
+ 698 055e 0246     		mov	r2, r0
+ 699 0560 4146     		mov	r1, r8
+ 700 0562 A019     		adds	r0, r4, r6
+ 701 0564 FFF7FEFF 		bl	memcpy
+ 702              	.LVL108:
+ 184:user/AT_command.c ****     memcpy(set_Connect_TCP + strlen(set_Connect_TCP), code_TCP_Final, strlen(code_TCP_Final));
+ 703              		.loc 1 184 5 is_stmt 1 view .LVU99
+ 704              		.loc 1 184 30 is_stmt 0 view .LVU100
+ 705 0568 2046     		mov	r0, r4
+ 706 056a FFF7FEFF 		bl	strlen
+ 707              	.LVL109:
+ 708 056e 0646     		mov	r6, r0
+ 709              		.loc 1 184 5 view .LVU101
+ 710 0570 624F     		ldr	r7, .L6+20
+ 711 0572 3846     		mov	r0, r7
+ 712 0574 FFF7FEFF 		bl	strlen
+ 713              	.LVL110:
+ 714 0578 0246     		mov	r2, r0
+ 715 057a 3946     		mov	r1, r7
+ 716 057c A019     		adds	r0, r4, r6
+ 717 057e FFF7FEFF 		bl	memcpy
+ 718              	.LVL111:
+ 185:user/AT_command.c ****     memcpy(AT_Send_Connect_TCP_Server, set_Connect_TCP, strlen(set_Connect_TCP));  
+ 719              		.loc 1 185 5 is_stmt 1 view .LVU102
+ 720 0582 2046     		mov	r0, r4
+ 721 0584 FFF7FEFF 		bl	strlen
+ 722              	.LVL112:
+ 723 0588 0246     		mov	r2, r0
+ 724 058a 5D4E     		ldr	r6, .L6+24
+ 725 058c 2146     		mov	r1, r4
+ 726 058e 3046     		mov	r0, r6
+ 727 0590 FFF7FEFF 		bl	memcpy
+ 728              	.LVL113:
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 17
+
+
+ 186:user/AT_command.c **** 
+ 187:user/AT_command.c ****     extern AT_Command_HandleTypeDef AT_Connect_TCP_Server;
+ 729              		.loc 1 187 5 view .LVU103
+ 188:user/AT_command.c ****     memcpy(AT_Connect_TCP_Server.Send, AT_Send_Connect_TCP_Server, strlen(AT_Send_Connect_TCP_Serve
+ 730              		.loc 1 188 5 view .LVU104
+ 731 0594 3046     		mov	r0, r6
+ 732 0596 FFF7FEFF 		bl	strlen
+ 733              	.LVL114:
+ 734 059a 0246     		mov	r2, r0
+ 735 059c 594C     		ldr	r4, .L6+28
+ 736 059e 3146     		mov	r1, r6
+ 737 05a0 2046     		mov	r0, r4
+ 738 05a2 FFF7FEFF 		bl	memcpy
+ 739              	.LVL115:
+ 189:user/AT_command.c ****     memcpy(AT_Connect_TCP_Server.Checking, send_Connecting_TCP_Server, strlen(send_Connecting_TCP_S
+ 740              		.loc 1 189 5 view .LVU105
+ 741 05a6 584E     		ldr	r6, .L6+32
+ 742 05a8 3046     		mov	r0, r6
+ 743 05aa FFF7FEFF 		bl	strlen
+ 744              	.LVL116:
+ 745 05ae 0246     		mov	r2, r0
+ 746 05b0 3146     		mov	r1, r6
+ 747 05b2 04F13200 		add	r0, r4, #50
+ 748 05b6 FFF7FEFF 		bl	memcpy
+ 749              	.LVL117:
+ 190:user/AT_command.c ****     memcpy(AT_Connect_TCP_Server.Error, send_Connect_TCP_Server_Error, strlen(send_Connect_TCP_Serv
+ 750              		.loc 1 190 5 view .LVU106
+ 751 05ba 544E     		ldr	r6, .L6+36
+ 752 05bc 3046     		mov	r0, r6
+ 753 05be FFF7FEFF 		bl	strlen
+ 754              	.LVL118:
+ 755 05c2 0246     		mov	r2, r0
+ 756 05c4 3146     		mov	r1, r6
+ 757 05c6 04F16400 		add	r0, r4, #100
+ 758 05ca FFF7FEFF 		bl	memcpy
+ 759              	.LVL119:
+ 191:user/AT_command.c ****     memcpy(AT_Connect_TCP_Server.Ready, send_Connect_TCP_Server_Ok, strlen(send_Connect_TCP_Server_
+ 760              		.loc 1 191 5 view .LVU107
+ 761 05ce 504E     		ldr	r6, .L6+40
+ 762 05d0 3046     		mov	r0, r6
+ 763 05d2 FFF7FEFF 		bl	strlen
+ 764              	.LVL120:
+ 765 05d6 0246     		mov	r2, r0
+ 766 05d8 3146     		mov	r1, r6
+ 767 05da 04F19600 		add	r0, r4, #150
+ 768 05de FFF7FEFF 		bl	memcpy
+ 769              	.LVL121:
+ 192:user/AT_command.c ****     AT_Connect_TCP_Server.Number_Get_Data = 2;       //
+ 770              		.loc 1 192 5 view .LVU108
+ 771              		.loc 1 192 43 is_stmt 0 view .LVU109
+ 772 05e2 C4F8C850 		str	r5, [r4, #200]
+ 193:user/AT_command.c **** 
+ 194:user/AT_command.c ****     extern AT_Command_HandleTypeDef AT_Check_Connect_TCP;
+ 773              		.loc 1 194 5 is_stmt 1 view .LVU110
+ 195:user/AT_command.c ****     memcpy(AT_Check_Connect_TCP.Send, AT_Send_Check_Connect_TCP, strlen(AT_Send_Check_Connect_TCP))
+ 774              		.loc 1 195 5 view .LVU111
+ 775 05e6 4B4E     		ldr	r6, .L6+44
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 18
+
+
+ 776 05e8 3046     		mov	r0, r6
+ 777 05ea FFF7FEFF 		bl	strlen
+ 778              	.LVL122:
+ 779 05ee 0246     		mov	r2, r0
+ 780 05f0 494C     		ldr	r4, .L6+48
+ 781 05f2 3146     		mov	r1, r6
+ 782 05f4 2046     		mov	r0, r4
+ 783 05f6 FFF7FEFF 		bl	memcpy
+ 784              	.LVL123:
+ 196:user/AT_command.c ****     memcpy(AT_Check_Connect_TCP.Checking, send_Checking_Connect_TCP, strlen(send_Checking_Connect_T
+ 785              		.loc 1 196 5 view .LVU112
+ 786 05fa 484E     		ldr	r6, .L6+52
+ 787 05fc 3046     		mov	r0, r6
+ 788 05fe FFF7FEFF 		bl	strlen
+ 789              	.LVL124:
+ 790 0602 0246     		mov	r2, r0
+ 791 0604 3146     		mov	r1, r6
+ 792 0606 04F13200 		add	r0, r4, #50
+ 793 060a FFF7FEFF 		bl	memcpy
+ 794              	.LVL125:
+ 197:user/AT_command.c ****     memcpy(AT_Check_Connect_TCP.Error, send_Check_Connect_TCP_Error, strlen(send_Check_Connect_TCP_
+ 795              		.loc 1 197 5 view .LVU113
+ 796 060e 444E     		ldr	r6, .L6+56
+ 797 0610 3046     		mov	r0, r6
+ 798 0612 FFF7FEFF 		bl	strlen
+ 799              	.LVL126:
+ 800 0616 0246     		mov	r2, r0
+ 801 0618 3146     		mov	r1, r6
+ 802 061a 04F16400 		add	r0, r4, #100
+ 803 061e FFF7FEFF 		bl	memcpy
+ 804              	.LVL127:
+ 198:user/AT_command.c ****     memcpy(AT_Check_Connect_TCP.Ready, send_Check_Connect_TCP_Ok, strlen(send_Check_Connect_TCP_Ok)
+ 805              		.loc 1 198 5 view .LVU114
+ 806 0622 404E     		ldr	r6, .L6+60
+ 807 0624 3046     		mov	r0, r6
+ 808 0626 FFF7FEFF 		bl	strlen
+ 809              	.LVL128:
+ 810 062a 0246     		mov	r2, r0
+ 811 062c 3146     		mov	r1, r6
+ 812 062e 04F19600 		add	r0, r4, #150
+ 813 0632 FFF7FEFF 		bl	memcpy
+ 814              	.LVL129:
+ 199:user/AT_command.c ****     AT_Check_Connect_TCP.Number_Get_Data = 2;
+ 815              		.loc 1 199 5 view .LVU115
+ 816              		.loc 1 199 42 is_stmt 0 view .LVU116
+ 817 0636 C4F8C850 		str	r5, [r4, #200]
+ 200:user/AT_command.c **** 
+ 201:user/AT_command.c ****     extern AT_Command_HandleTypeDef AT_Close_Connect_TCP_Server;
+ 818              		.loc 1 201 5 is_stmt 1 view .LVU117
+ 202:user/AT_command.c ****     memcpy(AT_Close_Connect_TCP_Server.Send, AT_Send_Close_Connect_TCP_Server, strlen(AT_Send_Close
+ 819              		.loc 1 202 5 view .LVU118
+ 820 063a 3B4E     		ldr	r6, .L6+64
+ 821 063c 3046     		mov	r0, r6
+ 822 063e FFF7FEFF 		bl	strlen
+ 823              	.LVL130:
+ 824 0642 0246     		mov	r2, r0
+ 825 0644 394C     		ldr	r4, .L6+68
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 19
+
+
+ 826 0646 3146     		mov	r1, r6
+ 827 0648 2046     		mov	r0, r4
+ 828 064a FFF7FEFF 		bl	memcpy
+ 829              	.LVL131:
+ 203:user/AT_command.c ****     memcpy(AT_Close_Connect_TCP_Server.Checking, send_Close_Connect_TCP_Server, strlen(send_Close_C
+ 830              		.loc 1 203 5 view .LVU119
+ 831 064e 384E     		ldr	r6, .L6+72
+ 832 0650 3046     		mov	r0, r6
+ 833 0652 FFF7FEFF 		bl	strlen
+ 834              	.LVL132:
+ 835 0656 0246     		mov	r2, r0
+ 836 0658 3146     		mov	r1, r6
+ 837 065a 04F13200 		add	r0, r4, #50
+ 838 065e FFF7FEFF 		bl	memcpy
+ 839              	.LVL133:
+ 204:user/AT_command.c ****     memcpy(AT_Close_Connect_TCP_Server.Error, send_Close_Connect_TCP_Server_Error, strlen(send_Clos
+ 840              		.loc 1 204 5 view .LVU120
+ 841 0662 344E     		ldr	r6, .L6+76
+ 842 0664 3046     		mov	r0, r6
+ 843 0666 FFF7FEFF 		bl	strlen
+ 844              	.LVL134:
+ 845 066a 0246     		mov	r2, r0
+ 846 066c 3146     		mov	r1, r6
+ 847 066e 04F16400 		add	r0, r4, #100
+ 848 0672 FFF7FEFF 		bl	memcpy
+ 849              	.LVL135:
+ 205:user/AT_command.c ****     memcpy(AT_Close_Connect_TCP_Server.Ready, send_Close_Connect_TCP_Server_Ok, strlen(send_Close_C
+ 850              		.loc 1 205 5 view .LVU121
+ 851 0676 304E     		ldr	r6, .L6+80
+ 852 0678 3046     		mov	r0, r6
+ 853 067a FFF7FEFF 		bl	strlen
+ 854              	.LVL136:
+ 855 067e 0246     		mov	r2, r0
+ 856 0680 3146     		mov	r1, r6
+ 857 0682 04F19600 		add	r0, r4, #150
+ 858 0686 FFF7FEFF 		bl	memcpy
+ 859              	.LVL137:
+ 206:user/AT_command.c ****     AT_Close_Connect_TCP_Server.Number_Get_Data = 2;
+ 860              		.loc 1 206 5 view .LVU122
+ 861              		.loc 1 206 49 is_stmt 0 view .LVU123
+ 862 068a C4F8C850 		str	r5, [r4, #200]
+ 207:user/AT_command.c **** 
+ 208:user/AT_command.c ****     extern AT_Command_HandleTypeDef AT_Set_Net_Close;
+ 863              		.loc 1 208 5 is_stmt 1 view .LVU124
+ 209:user/AT_command.c ****     memcpy(AT_Set_Net_Close.Send, AT_Send_Set_Net_Close, strlen(AT_Send_Set_Net_Close));
+ 864              		.loc 1 209 5 view .LVU125
+ 865 068e 2B4D     		ldr	r5, .L6+84
+ 866 0690 2846     		mov	r0, r5
+ 867 0692 FFF7FEFF 		bl	strlen
+ 868              	.LVL138:
+ 869 0696 0246     		mov	r2, r0
+ 870 0698 294C     		ldr	r4, .L6+88
+ 871 069a 2946     		mov	r1, r5
+ 872 069c 2046     		mov	r0, r4
+ 873 069e FFF7FEFF 		bl	memcpy
+ 874              	.LVL139:
+ 210:user/AT_command.c ****     memcpy(AT_Set_Net_Close.Checking, send_Setting_Net_Close, strlen(send_Setting_Net_Close));
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 20
+
+
+ 875              		.loc 1 210 5 view .LVU126
+ 876 06a2 284D     		ldr	r5, .L6+92
+ 877 06a4 2846     		mov	r0, r5
+ 878 06a6 FFF7FEFF 		bl	strlen
+ 879              	.LVL140:
+ 880 06aa 0246     		mov	r2, r0
+ 881 06ac 2946     		mov	r1, r5
+ 882 06ae 04F13200 		add	r0, r4, #50
+ 883 06b2 FFF7FEFF 		bl	memcpy
+ 884              	.LVL141:
+ 211:user/AT_command.c ****     memcpy(AT_Set_Net_Close.Error, send_Set_Net_Close_Error, strlen(send_Set_Net_Close_Error));
+ 885              		.loc 1 211 5 view .LVU127
+ 886 06b6 244D     		ldr	r5, .L6+96
+ 887 06b8 2846     		mov	r0, r5
+ 888 06ba FFF7FEFF 		bl	strlen
+ 889              	.LVL142:
+ 890 06be 0246     		mov	r2, r0
+ 891 06c0 6434     		adds	r4, r4, #100
+ 892 06c2 2946     		mov	r1, r5
+ 893 06c4 2046     		mov	r0, r4
+ 894 06c6 FFF7FEFF 		bl	memcpy
+ 895              	.LVL143:
+ 212:user/AT_command.c ****     memcpy(AT_Set_Net_Close.Ready, send_Set_Net_Close_Ok, strlen(send_Set_Net_Close_Ok));
+ 896              		.loc 1 212 5 view .LVU128
+ 897 06ca 204D     		ldr	r5, .L6+100
+ 898 06cc 2846     		mov	r0, r5
+ 899 06ce FFF7FEFF 		bl	strlen
+ 900              	.LVL144:
+ 901 06d2 0246     		mov	r2, r0
+ 902 06d4 2946     		mov	r1, r5
+ 903 06d6 04F13200 		add	r0, r4, #50
+ 904 06da FFF7FEFF 		bl	memcpy
+ 905              	.LVL145:
+ 213:user/AT_command.c ****     AT_Set_Net_Close.Number_Get_Data = 2;
+ 906              		.loc 1 213 5 view .LVU129
+ 907              		.loc 1 213 38 is_stmt 0 view .LVU130
+ 908 06de 0223     		movs	r3, #2
+ 909 06e0 6366     		str	r3, [r4, #100]
+ 214:user/AT_command.c **** 
+ 215:user/AT_command.c **** }
+ 910              		.loc 1 215 1 view .LVU131
+ 911 06e2 BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 912              	.L7:
+ 913 06e6 00BF     		.align	2
+ 914              	.L6:
+ 915 06e8 00000000 		.word	.LANCHOR44
+ 916 06ec 00000000 		.word	AT_Get_Current_Time
+ 917 06f0 00000000 		.word	.LANCHOR47
+ 918 06f4 00000000 		.word	.LANCHOR48
+ 919 06f8 00000000 		.word	.LANCHOR49
+ 920 06fc 00000000 		.word	.LANCHOR50
+ 921 0700 00000000 		.word	.LANCHOR51
+ 922 0704 00000000 		.word	AT_Connect_TCP_Server
+ 923 0708 00000000 		.word	.LANCHOR52
+ 924 070c 00000000 		.word	.LANCHOR53
+ 925 0710 00000000 		.word	.LANCHOR54
+ 926 0714 00000000 		.word	.LANCHOR55
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 21
+
+
+ 927 0718 00000000 		.word	AT_Check_Connect_TCP
+ 928 071c 00000000 		.word	.LANCHOR56
+ 929 0720 00000000 		.word	.LANCHOR57
+ 930 0724 00000000 		.word	.LANCHOR58
+ 931 0728 00000000 		.word	.LANCHOR59
+ 932 072c 00000000 		.word	AT_Close_Connect_TCP_Server
+ 933 0730 00000000 		.word	.LANCHOR60
+ 934 0734 00000000 		.word	.LANCHOR61
+ 935 0738 00000000 		.word	.LANCHOR62
+ 936 073c 00000000 		.word	.LANCHOR63
+ 937 0740 00000000 		.word	AT_Set_Net_Close
+ 938 0744 00000000 		.word	.LANCHOR64
+ 939 0748 00000000 		.word	.LANCHOR65
+ 940 074c 00000000 		.word	.LANCHOR66
+ 941 0750 00000000 		.word	.LANCHOR43
+ 942 0754 00000000 		.word	.LANCHOR45
+ 943 0758 00000000 		.word	.LANCHOR46
+ 944              		.cfi_endproc
+ 945              	.LFE135:
+ 947              		.global	send_Set_Net_Close_Ok
+ 948              		.global	send_Set_Net_Close_Error
+ 949              		.global	send_Setting_Net_Close
+ 950              		.global	AT_Send_Set_Net_Close
+ 951              		.global	send_Close_Connect_TCP_Server_Ok
+ 952              		.global	send_Close_Connect_TCP_Server_Error
+ 953              		.global	send_Close_Connect_TCP_Server
+ 954              		.global	AT_Send_Close_Connect_TCP_Server
+ 955              		.global	send_Check_Connect_TCP_Ok
+ 956              		.global	send_Check_Connect_TCP_Error
+ 957              		.global	send_Checking_Connect_TCP
+ 958              		.global	AT_Send_Check_Connect_TCP
+ 959              		.global	send_Connect_TCP_Server_Ok
+ 960              		.global	send_Connect_TCP_Server_Error
+ 961              		.global	send_Connecting_TCP_Server
+ 962              		.global	AT_Send_Connect_TCP_Server
+ 963              		.global	code_TCP_Final
+ 964              		.global	code_TCP_Port
+ 965              		.global	code_TCP_Center
+ 966              		.global	code_TCP_IP
+ 967              		.global	code_TCP_First
+ 968              		.global	set_Connect_TCP
+ 969              		.global	AT_Send_Get_Current_Time
+ 970              		.global	send_Transmit_Data_To_TCP_Ok
+ 971              		.global	send_Transmit_Data_To_TCP_Error
+ 972              		.global	send_Transmiting_Data_To_TCP
+ 973              		.global	AT_Send_Transmit_Data_To_TCP
+ 974              		.global	send_Set_Receive_Mode_Ok
+ 975              		.global	send_Set_Receive_Mode_Error
+ 976              		.global	send_Setting_Receive_Mode
+ 977              		.global	AT_Send_Set_Receive_Mode
+ 978              		.global	send_Check_IP_Ok
+ 979              		.global	send_Check_IP_Error
+ 980              		.global	send_Checking_IP
+ 981              		.global	AT_Send_Check_IP
+ 982              		.global	send_Check_Net_Open_Ok
+ 983              		.global	send_Check_Net_Open_Error
+ 984              		.global	send_Checking_Net_Open
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 22
+
+
+ 985              		.global	AT_Send_Check_Net_Open
+ 986              		.global	send_Set_Transmit_Mode_Ok
+ 987              		.global	send_Set_Transmit_Mode_Error
+ 988              		.global	send_Setting_Transmit_Mode
+ 989              		.global	AT_Send_Set_Transmit_Mode
+ 990              		.global	send_Set_Timeout_Ok
+ 991              		.global	send_Set_Timeout_Error
+ 992              		.global	send_Setting_Timeout
+ 993              		.global	AT_Send_Set_Timeout
+ 994              		.global	send_Check_GPRS_Ok
+ 995              		.global	send_Check_GPRS_Error
+ 996              		.global	send_Checking_GPRS
+ 997              		.global	AT_Send_Check_GPRS
+ 998              		.global	send_Check_Subscribe_Ok
+ 999              		.global	send_Check_Subscribe_Error
+ 1000              		.global	send_Checking_Subscribe
+ 1001              		.global	AT_Send_Check_Subscribe
+ 1002              		.global	send_Check_Signal_Ok
+ 1003              		.global	send_Check_Signal_Error
+ 1004              		.global	send_Checking_Signal
+ 1005              		.global	AT_Send_Check_Signal
+ 1006              		.global	send_Check_Sim_Ok
+ 1007              		.global	send_Check_Sim_Error
+ 1008              		.global	send_Checking_Sim
+ 1009              		.global	AT_Send_Check_Sim
+ 1010              		.global	send_Check_Module_Ok
+ 1011              		.global	send_Check_Module_Error
+ 1012              		.global	send_Checking_Module
+ 1013              		.global	AT_Send_Check_Module
+ 1014              		.section	.bss.AT_Send_Connect_TCP_Server,"aw",%nobits
+ 1015              		.align	2
+ 1016              		.set	.LANCHOR51,. + 0
+ 1019              	AT_Send_Connect_TCP_Server:
+ 1020 0000 00000000 		.space	50
+ 1020      00000000 
+ 1020      00000000 
+ 1020      00000000 
+ 1020      00000000 
+ 1021              		.section	.bss.code_TCP_IP,"aw",%nobits
+ 1022              		.align	2
+ 1023              		.set	.LANCHOR45,. + 0
+ 1026              	code_TCP_IP:
+ 1027 0000 00000000 		.space	20
+ 1027      00000000 
+ 1027      00000000 
+ 1027      00000000 
+ 1027      00000000 
+ 1028              		.section	.bss.code_TCP_Port,"aw",%nobits
+ 1029              		.align	2
+ 1030              		.set	.LANCHOR46,. + 0
+ 1033              	code_TCP_Port:
+ 1034 0000 00000000 		.space	20
+ 1034      00000000 
+ 1034      00000000 
+ 1034      00000000 
+ 1034      00000000 
+ 1035              		.section	.bss.set_Connect_TCP,"aw",%nobits
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 23
+
+
+ 1036              		.align	2
+ 1037              		.set	.LANCHOR48,. + 0
+ 1040              	set_Connect_TCP:
+ 1041 0000 00000000 		.space	50
+ 1041      00000000 
+ 1041      00000000 
+ 1041      00000000 
+ 1041      00000000 
+ 1042              		.section	.data.AT_Send_Check_Connect_TCP,"aw"
+ 1043              		.align	2
+ 1044              		.set	.LANCHOR55,. + 0
+ 1047              	AT_Send_Check_Connect_TCP:
+ 1048 0000 41542B43 		.ascii	"AT+CIPOPQUERY?\015\012\000"
+ 1048      49504F50 
+ 1048      51554552 
+ 1048      593F0D0A 
+ 1048      00
+ 1049              		.section	.data.AT_Send_Check_GPRS,"aw"
+ 1050              		.align	2
+ 1051              		.set	.LANCHOR16,. + 0
+ 1054              	AT_Send_Check_GPRS:
+ 1055 0000 41542B43 		.ascii	"AT+CGATT?\015\012\000"
+ 1055      47415454 
+ 1055      3F0D0A00 
+ 1056              		.section	.data.AT_Send_Check_IP,"aw"
+ 1057              		.align	2
+ 1058              		.set	.LANCHOR32,. + 0
+ 1061              	AT_Send_Check_IP:
+ 1062 0000 41542B49 		.ascii	"AT+IPADDR\015\012\000"
+ 1062      50414444 
+ 1062      520D0A00 
+ 1063              		.section	.data.AT_Send_Check_Module,"aw"
+ 1064              		.align	2
+ 1065              		.set	.LANCHOR0,. + 0
+ 1068              	AT_Send_Check_Module:
+ 1069 0000 41540D0A 		.ascii	"AT\015\012\000"
+ 1069      00
+ 1070              		.section	.data.AT_Send_Check_Net_Open,"aw"
+ 1071              		.align	2
+ 1072              		.set	.LANCHOR28,. + 0
+ 1075              	AT_Send_Check_Net_Open:
+ 1076 0000 41542B4E 		.ascii	"AT+NETOPEN\015\012\000"
+ 1076      45544F50 
+ 1076      454E0D0A 
+ 1076      00
+ 1077              		.section	.data.AT_Send_Check_Signal,"aw"
+ 1078              		.align	2
+ 1079              		.set	.LANCHOR8,. + 0
+ 1082              	AT_Send_Check_Signal:
+ 1083 0000 41542B43 		.ascii	"AT+CSQ\015\012\000"
+ 1083      53510D0A 
+ 1083      00
+ 1084              		.section	.data.AT_Send_Check_Sim,"aw"
+ 1085              		.align	2
+ 1086              		.set	.LANCHOR4,. + 0
+ 1089              	AT_Send_Check_Sim:
+ 1090 0000 41542B43 		.ascii	"AT+CPIN?\015\012\000"
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 24
+
+
+ 1090      50494E3F 
+ 1090      0D0A00
+ 1091              		.section	.data.AT_Send_Check_Subscribe,"aw"
+ 1092              		.align	2
+ 1093              		.set	.LANCHOR12,. + 0
+ 1096              	AT_Send_Check_Subscribe:
+ 1097 0000 41542B43 		.ascii	"AT+CREG?\015\012\000"
+ 1097      5245473F 
+ 1097      0D0A00
+ 1098              		.section	.data.AT_Send_Close_Connect_TCP_Server,"aw"
+ 1099              		.align	2
+ 1100              		.set	.LANCHOR59,. + 0
+ 1103              	AT_Send_Close_Connect_TCP_Server:
+ 1104 0000 41542B43 		.ascii	"AT+CIPCLOSE=1\015\012\000"
+ 1104      4950434C 
+ 1104      4F53453D 
+ 1104      310D0A00 
+ 1105              		.section	.data.AT_Send_Get_Current_Time,"aw"
+ 1106              		.align	2
+ 1107              		.set	.LANCHOR44,. + 0
+ 1110              	AT_Send_Get_Current_Time:
+ 1111 0000 41542B43 		.ascii	"AT+CCLK?\015\012\000"
+ 1111      434C4B3F 
+ 1111      0D0A00
+ 1112              		.section	.data.AT_Send_Set_Net_Close,"aw"
+ 1113              		.align	2
+ 1114              		.set	.LANCHOR63,. + 0
+ 1117              	AT_Send_Set_Net_Close:
+ 1118 0000 41542B4E 		.ascii	"AT+NETCLOSE\015\012\000"
+ 1118      4554434C 
+ 1118      4F53450D 
+ 1118      0A00
+ 1119              		.section	.data.AT_Send_Set_Receive_Mode,"aw"
+ 1120              		.align	2
+ 1121              		.set	.LANCHOR36,. + 0
+ 1124              	AT_Send_Set_Receive_Mode:
+ 1125 0000 41542B43 		.ascii	"AT+CIPRXGET=0,1\015\012\000"
+ 1125      49505258 
+ 1125      4745543D 
+ 1125      302C310D 
+ 1125      0A00
+ 1126              		.section	.data.AT_Send_Set_Timeout,"aw"
+ 1127              		.align	2
+ 1128              		.set	.LANCHOR20,. + 0
+ 1131              	AT_Send_Set_Timeout:
+ 1132 0000 41542B43 		.ascii	"AT+CIPTIMEOUT=30000,20000,40000,50000\015\012\000"
+ 1132      49505449 
+ 1132      4D454F55 
+ 1132      543D3330 
+ 1132      3030302C 
+ 1133              		.section	.data.AT_Send_Set_Transmit_Mode,"aw"
+ 1134              		.align	2
+ 1135              		.set	.LANCHOR24,. + 0
+ 1138              	AT_Send_Set_Transmit_Mode:
+ 1139 0000 41542B43 		.ascii	"AT+CIPMODE=0\015\012\000"
+ 1139      49504D4F 
+ 1139      44453D30 
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 25
+
+
+ 1139      0D0A00
+ 1140              		.section	.data.AT_Send_Transmit_Data_To_TCP,"aw"
+ 1141              		.align	2
+ 1142              		.set	.LANCHOR40,. + 0
+ 1145              	AT_Send_Transmit_Data_To_TCP:
+ 1146 0000 41542B43 		.ascii	"AT+CIPSEND=1,,,,\000"
+ 1146      49505345 
+ 1146      4E443D31 
+ 1146      2C2C2C2C 
+ 1146      00
+ 1147              		.section	.data.code_TCP_Center,"aw"
+ 1148              		.align	2
+ 1149              		.set	.LANCHOR49,. + 0
+ 1152              	code_TCP_Center:
+ 1153 0000 222C00   		.ascii	"\",\000"
+ 1154              		.section	.data.code_TCP_Final,"aw"
+ 1155              		.align	2
+ 1156              		.set	.LANCHOR50,. + 0
+ 1159              	code_TCP_Final:
+ 1160 0000 2C300D0A 		.ascii	",0\015\012\000"
+ 1160      00
+ 1161              		.section	.data.code_TCP_First,"aw"
+ 1162              		.align	2
+ 1163              		.set	.LANCHOR47,. + 0
+ 1166              	code_TCP_First:
+ 1167 0000 41542B43 		.ascii	"AT+CIPOPEN=1,\"TCP\",\"\000"
+ 1167      49504F50 
+ 1167      454E3D31 
+ 1167      2C225443 
+ 1167      50222C22 
+ 1168              		.section	.data.send_Check_Connect_TCP_Error,"aw"
+ 1169              		.align	2
+ 1170              		.set	.LANCHOR57,. + 0
+ 1173              	send_Check_Connect_TCP_Error:
+ 1174 0000 43686563 		.ascii	"Check Conect TCP Error\015\012\000"
+ 1174      6B20436F 
+ 1174      6E656374 
+ 1174      20544350 
+ 1174      20457272 
+ 1175              		.section	.data.send_Check_Connect_TCP_Ok,"aw"
+ 1176              		.align	2
+ 1177              		.set	.LANCHOR58,. + 0
+ 1180              	send_Check_Connect_TCP_Ok:
+ 1181 0000 52656164 		.ascii	"Ready To Communicate With TCP\015\012\000"
+ 1181      7920546F 
+ 1181      20436F6D 
+ 1181      6D756E69 
+ 1181      63617465 
+ 1182              		.section	.data.send_Check_GPRS_Error,"aw"
+ 1183              		.align	2
+ 1184              		.set	.LANCHOR18,. + 0
+ 1187              	send_Check_GPRS_Error:
+ 1188 0000 43686563 		.ascii	"Check GPRS Error\015\012\000"
+ 1188      6B204750 
+ 1188      52532045 
+ 1188      72726F72 
+ 1188      0D0A00
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 26
+
+
+ 1189              		.section	.data.send_Check_GPRS_Ok,"aw"
+ 1190              		.align	2
+ 1191              		.set	.LANCHOR19,. + 0
+ 1194              	send_Check_GPRS_Ok:
+ 1195 0000 43686563 		.ascii	"Check GPRS Ok\015\012\000"
+ 1195      6B204750 
+ 1195      5253204F 
+ 1195      6B0D0A00 
+ 1196              		.section	.data.send_Check_IP_Error,"aw"
+ 1197              		.align	2
+ 1198              		.set	.LANCHOR34,. + 0
+ 1201              	send_Check_IP_Error:
+ 1202 0000 43686563 		.ascii	"Check IP Error\015\012\000"
+ 1202      6B204950 
+ 1202      20457272 
+ 1202      6F720D0A 
+ 1202      00
+ 1203              		.section	.data.send_Check_IP_Ok,"aw"
+ 1204              		.align	2
+ 1205              		.set	.LANCHOR35,. + 0
+ 1208              	send_Check_IP_Ok:
+ 1209 0000 43686563 		.ascii	"Check IP Ok\015\012\000"
+ 1209      6B204950 
+ 1209      204F6B0D 
+ 1209      0A00
+ 1210              		.section	.data.send_Check_Module_Error,"aw"
+ 1211              		.align	2
+ 1212              		.set	.LANCHOR2,. + 0
+ 1215              	send_Check_Module_Error:
+ 1216 0000 43686563 		.ascii	"Check Module Error\015\012\000"
+ 1216      6B204D6F 
+ 1216      64756C65 
+ 1216      20457272 
+ 1216      6F720D0A 
+ 1217              		.section	.data.send_Check_Module_Ok,"aw"
+ 1218              		.align	2
+ 1219              		.set	.LANCHOR3,. + 0
+ 1222              	send_Check_Module_Ok:
+ 1223 0000 43686563 		.ascii	"Check Module Ok\015\012\000"
+ 1223      6B204D6F 
+ 1223      64756C65 
+ 1223      204F6B0D 
+ 1223      0A00
+ 1224              		.section	.data.send_Check_Net_Open_Error,"aw"
+ 1225              		.align	2
+ 1226              		.set	.LANCHOR30,. + 0
+ 1229              	send_Check_Net_Open_Error:
+ 1230 0000 43686563 		.ascii	"Check Internet Error\015\012\000"
+ 1230      6B20496E 
+ 1230      7465726E 
+ 1230      65742045 
+ 1230      72726F72 
+ 1231              		.section	.data.send_Check_Net_Open_Ok,"aw"
+ 1232              		.align	2
+ 1233              		.set	.LANCHOR31,. + 0
+ 1236              	send_Check_Net_Open_Ok:
+ 1237 0000 43686563 		.ascii	"Check Internet Ok\015\012\000"
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 27
+
+
+ 1237      6B20496E 
+ 1237      7465726E 
+ 1237      6574204F 
+ 1237      6B0D0A00 
+ 1238              		.section	.data.send_Check_Signal_Error,"aw"
+ 1239              		.align	2
+ 1240              		.set	.LANCHOR10,. + 0
+ 1243              	send_Check_Signal_Error:
+ 1244 0000 43686563 		.ascii	"Check Signal Error\015\012\000"
+ 1244      6B205369 
+ 1244      676E616C 
+ 1244      20457272 
+ 1244      6F720D0A 
+ 1245              		.section	.data.send_Check_Signal_Ok,"aw"
+ 1246              		.align	2
+ 1247              		.set	.LANCHOR11,. + 0
+ 1250              	send_Check_Signal_Ok:
+ 1251 0000 43686563 		.ascii	"Check Signal Ok\015\012\000"
+ 1251      6B205369 
+ 1251      676E616C 
+ 1251      204F6B0D 
+ 1251      0A00
+ 1252              		.section	.data.send_Check_Sim_Error,"aw"
+ 1253              		.align	2
+ 1254              		.set	.LANCHOR6,. + 0
+ 1257              	send_Check_Sim_Error:
+ 1258 0000 43686563 		.ascii	"Check Sim Error\015\012\000"
+ 1258      6B205369 
+ 1258      6D204572 
+ 1258      726F720D 
+ 1258      0A00
+ 1259              		.section	.data.send_Check_Sim_Ok,"aw"
+ 1260              		.align	2
+ 1261              		.set	.LANCHOR7,. + 0
+ 1264              	send_Check_Sim_Ok:
+ 1265 0000 43686563 		.ascii	"Check Sim Ok\015\012\000"
+ 1265      6B205369 
+ 1265      6D204F6B 
+ 1265      0D0A00
+ 1266              		.section	.data.send_Check_Subscribe_Error,"aw"
+ 1267              		.align	2
+ 1268              		.set	.LANCHOR14,. + 0
+ 1271              	send_Check_Subscribe_Error:
+ 1272 0000 43686563 		.ascii	"Check Subscribe Error\015\012\000"
+ 1272      6B205375 
+ 1272      62736372 
+ 1272      69626520 
+ 1272      4572726F 
+ 1273              		.section	.data.send_Check_Subscribe_Ok,"aw"
+ 1274              		.align	2
+ 1275              		.set	.LANCHOR15,. + 0
+ 1278              	send_Check_Subscribe_Ok:
+ 1279 0000 43686563 		.ascii	"Check Subscribe Ok\015\012\000"
+ 1279      6B205375 
+ 1279      62736372 
+ 1279      69626520 
+ 1279      4F6B0D0A 
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 28
+
+
+ 1280              		.section	.data.send_Checking_Connect_TCP,"aw"
+ 1281              		.align	2
+ 1282              		.set	.LANCHOR56,. + 0
+ 1285              	send_Checking_Connect_TCP:
+ 1286 0000 43686563 		.ascii	"Checking Conect TCP\015\012\000"
+ 1286      6B696E67 
+ 1286      20436F6E 
+ 1286      65637420 
+ 1286      5443500D 
+ 1287              		.section	.data.send_Checking_GPRS,"aw"
+ 1288              		.align	2
+ 1289              		.set	.LANCHOR17,. + 0
+ 1292              	send_Checking_GPRS:
+ 1293 0000 43686563 		.ascii	"Checking GPRS\015\012\000"
+ 1293      6B696E67 
+ 1293      20475052 
+ 1293      530D0A00 
+ 1294              		.section	.data.send_Checking_IP,"aw"
+ 1295              		.align	2
+ 1296              		.set	.LANCHOR33,. + 0
+ 1299              	send_Checking_IP:
+ 1300 0000 43686563 		.ascii	"Checking IP\015\012\000"
+ 1300      6B696E67 
+ 1300      2049500D 
+ 1300      0A00
+ 1301              		.section	.data.send_Checking_Module,"aw"
+ 1302              		.align	2
+ 1303              		.set	.LANCHOR1,. + 0
+ 1306              	send_Checking_Module:
+ 1307 0000 43686563 		.ascii	"Checking Module Sim\015\012\000"
+ 1307      6B696E67 
+ 1307      204D6F64 
+ 1307      756C6520 
+ 1307      53696D0D 
+ 1308              		.section	.data.send_Checking_Net_Open,"aw"
+ 1309              		.align	2
+ 1310              		.set	.LANCHOR29,. + 0
+ 1313              	send_Checking_Net_Open:
+ 1314 0000 43686563 		.ascii	"Checking Internet\015\012\000"
+ 1314      6B696E67 
+ 1314      20496E74 
+ 1314      65726E65 
+ 1314      740D0A00 
+ 1315              		.section	.data.send_Checking_Signal,"aw"
+ 1316              		.align	2
+ 1317              		.set	.LANCHOR9,. + 0
+ 1320              	send_Checking_Signal:
+ 1321 0000 43686563 		.ascii	"Checking Signal\015\012\000"
+ 1321      6B696E67 
+ 1321      20536967 
+ 1321      6E616C0D 
+ 1321      0A00
+ 1322              		.section	.data.send_Checking_Sim,"aw"
+ 1323              		.align	2
+ 1324              		.set	.LANCHOR5,. + 0
+ 1327              	send_Checking_Sim:
+ 1328 0000 43686563 		.ascii	"Checking Sim\015\012\000"
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 29
+
+
+ 1328      6B696E67 
+ 1328      2053696D 
+ 1328      0D0A00
+ 1329              		.section	.data.send_Checking_Subscribe,"aw"
+ 1330              		.align	2
+ 1331              		.set	.LANCHOR13,. + 0
+ 1334              	send_Checking_Subscribe:
+ 1335 0000 43686563 		.ascii	"Checking Subscribe\015\012\000"
+ 1335      6B696E67 
+ 1335      20537562 
+ 1335      73637269 
+ 1335      62650D0A 
+ 1336              		.section	.data.send_Close_Connect_TCP_Server,"aw"
+ 1337              		.align	2
+ 1338              		.set	.LANCHOR60,. + 0
+ 1341              	send_Close_Connect_TCP_Server:
+ 1342 0000 436C6F73 		.ascii	"Clossing Connect TCP Server\015\012\000"
+ 1342      73696E67 
+ 1342      20436F6E 
+ 1342      6E656374 
+ 1342      20544350 
+ 1343              		.section	.data.send_Close_Connect_TCP_Server_Error,"aw"
+ 1344              		.align	2
+ 1345              		.set	.LANCHOR61,. + 0
+ 1348              	send_Close_Connect_TCP_Server_Error:
+ 1349 0000 436C6F73 		.ascii	"Close Connect TCP Server Error\015\012\000"
+ 1349      6520436F 
+ 1349      6E6E6563 
+ 1349      74205443 
+ 1349      50205365 
+ 1350              		.section	.data.send_Close_Connect_TCP_Server_Ok,"aw"
+ 1351              		.align	2
+ 1352              		.set	.LANCHOR62,. + 0
+ 1355              	send_Close_Connect_TCP_Server_Ok:
+ 1356 0000 436C6F73 		.ascii	"Close Connect TCP Server Ok\015\012\000"
+ 1356      6520436F 
+ 1356      6E6E6563 
+ 1356      74205443 
+ 1356      50205365 
+ 1357              		.section	.data.send_Connect_TCP_Server_Error,"aw"
+ 1358              		.align	2
+ 1359              		.set	.LANCHOR53,. + 0
+ 1362              	send_Connect_TCP_Server_Error:
+ 1363 0000 436F6E6E 		.ascii	"Connect TCP Server Error\015\012\000"
+ 1363      65637420 
+ 1363      54435020 
+ 1363      53657276 
+ 1363      65722045 
+ 1364              		.section	.data.send_Connect_TCP_Server_Ok,"aw"
+ 1365              		.align	2
+ 1366              		.set	.LANCHOR54,. + 0
+ 1369              	send_Connect_TCP_Server_Ok:
+ 1370 0000 436F6E6E 		.ascii	"Connect TCP Server Ok\015\012\000"
+ 1370      65637420 
+ 1370      54435020 
+ 1370      53657276 
+ 1370      6572204F 
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 30
+
+
+ 1371              		.section	.data.send_Connecting_TCP_Server,"aw"
+ 1372              		.align	2
+ 1373              		.set	.LANCHOR52,. + 0
+ 1376              	send_Connecting_TCP_Server:
+ 1377 0000 436F6E6E 		.ascii	"Connecting TCP Server\015\012\000"
+ 1377      65637469 
+ 1377      6E672054 
+ 1377      43502053 
+ 1377      65727665 
+ 1378              		.section	.data.send_Set_Net_Close_Error,"aw"
+ 1379              		.align	2
+ 1380              		.set	.LANCHOR65,. + 0
+ 1383              	send_Set_Net_Close_Error:
+ 1384 0000 436C6F73 		.ascii	"Close Connect Internet Error\015\012\000"
+ 1384      6520436F 
+ 1384      6E6E6563 
+ 1384      7420496E 
+ 1384      7465726E 
+ 1385              		.section	.data.send_Set_Net_Close_Ok,"aw"
+ 1386              		.align	2
+ 1387              		.set	.LANCHOR66,. + 0
+ 1390              	send_Set_Net_Close_Ok:
+ 1391 0000 436C6F73 		.ascii	"Close Connect Internet Ok\015\012\000"
+ 1391      6520436F 
+ 1391      6E6E6563 
+ 1391      7420496E 
+ 1391      7465726E 
+ 1392              		.section	.data.send_Set_Receive_Mode_Error,"aw"
+ 1393              		.align	2
+ 1394              		.set	.LANCHOR38,. + 0
+ 1397              	send_Set_Receive_Mode_Error:
+ 1398 0000 53657420 		.ascii	"Set Receive Mode Error\015\012\000"
+ 1398      52656365 
+ 1398      69766520 
+ 1398      4D6F6465 
+ 1398      20457272 
+ 1399              		.section	.data.send_Set_Receive_Mode_Ok,"aw"
+ 1400              		.align	2
+ 1401              		.set	.LANCHOR39,. + 0
+ 1404              	send_Set_Receive_Mode_Ok:
+ 1405 0000 53657420 		.ascii	"Set Receive Mode Ok\015\012\000"
+ 1405      52656365 
+ 1405      69766520 
+ 1405      4D6F6465 
+ 1405      204F6B0D 
+ 1406              		.section	.data.send_Set_Timeout_Error,"aw"
+ 1407              		.align	2
+ 1408              		.set	.LANCHOR22,. + 0
+ 1411              	send_Set_Timeout_Error:
+ 1412 0000 53657420 		.ascii	"Set Timeout Error\015\012\000"
+ 1412      54696D65 
+ 1412      6F757420 
+ 1412      4572726F 
+ 1412      720D0A00 
+ 1413              		.section	.data.send_Set_Timeout_Ok,"aw"
+ 1414              		.align	2
+ 1415              		.set	.LANCHOR23,. + 0
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 31
+
+
+ 1418              	send_Set_Timeout_Ok:
+ 1419 0000 53657420 		.ascii	"Set Timeout Ok\015\012\000"
+ 1419      54696D65 
+ 1419      6F757420 
+ 1419      4F6B0D0A 
+ 1419      00
+ 1420              		.section	.data.send_Set_Transmit_Mode_Error,"aw"
+ 1421              		.align	2
+ 1422              		.set	.LANCHOR26,. + 0
+ 1425              	send_Set_Transmit_Mode_Error:
+ 1426 0000 53657420 		.ascii	"Set Transmit Mode Error\015\012\000"
+ 1426      5472616E 
+ 1426      736D6974 
+ 1426      204D6F64 
+ 1426      65204572 
+ 1427              		.section	.data.send_Set_Transmit_Mode_Ok,"aw"
+ 1428              		.align	2
+ 1429              		.set	.LANCHOR27,. + 0
+ 1432              	send_Set_Transmit_Mode_Ok:
+ 1433 0000 53657420 		.ascii	"Set Transmit Mode Ok\015\012\000"
+ 1433      5472616E 
+ 1433      736D6974 
+ 1433      204D6F64 
+ 1433      65204F6B 
+ 1434              		.section	.data.send_Setting_Net_Close,"aw"
+ 1435              		.align	2
+ 1436              		.set	.LANCHOR64,. + 0
+ 1439              	send_Setting_Net_Close:
+ 1440 0000 436C6F73 		.ascii	"Clossing Connect Internet\015\012\000"
+ 1440      73696E67 
+ 1440      20436F6E 
+ 1440      6E656374 
+ 1440      20496E74 
+ 1441              		.section	.data.send_Setting_Receive_Mode,"aw"
+ 1442              		.align	2
+ 1443              		.set	.LANCHOR37,. + 0
+ 1446              	send_Setting_Receive_Mode:
+ 1447 0000 53657474 		.ascii	"Setting Receive Mode\015\012\000"
+ 1447      696E6720 
+ 1447      52656365 
+ 1447      69766520 
+ 1447      4D6F6465 
+ 1448              		.section	.data.send_Setting_Timeout,"aw"
+ 1449              		.align	2
+ 1450              		.set	.LANCHOR21,. + 0
+ 1453              	send_Setting_Timeout:
+ 1454 0000 53657474 		.ascii	"Setting Timeout\015\012\000"
+ 1454      696E6720 
+ 1454      54696D65 
+ 1454      6F75740D 
+ 1454      0A00
+ 1455              		.section	.data.send_Setting_Transmit_Mode,"aw"
+ 1456              		.align	2
+ 1457              		.set	.LANCHOR25,. + 0
+ 1460              	send_Setting_Transmit_Mode:
+ 1461 0000 53657474 		.ascii	"Setting Transmit Mode\015\012\000"
+ 1461      696E6720 
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 32
+
+
+ 1461      5472616E 
+ 1461      736D6974 
+ 1461      204D6F64 
+ 1462              		.section	.data.send_Transmit_Data_To_TCP_Error,"aw"
+ 1463              		.align	2
+ 1464              		.set	.LANCHOR42,. + 0
+ 1467              	send_Transmit_Data_To_TCP_Error:
+ 1468 0000 5472616E 		.ascii	"Transmit Data To TCP Error\015\012\000"
+ 1468      736D6974 
+ 1468      20446174 
+ 1468      6120546F 
+ 1468      20544350 
+ 1469              		.section	.data.send_Transmit_Data_To_TCP_Ok,"aw"
+ 1470              		.align	2
+ 1471              		.set	.LANCHOR43,. + 0
+ 1474              	send_Transmit_Data_To_TCP_Ok:
+ 1475 0000 5472616E 		.ascii	"Transmit Data To Ok\015\012\000"
+ 1475      736D6974 
+ 1475      20446174 
+ 1475      6120546F 
+ 1475      204F6B0D 
+ 1476              		.section	.data.send_Transmiting_Data_To_TCP,"aw"
+ 1477              		.align	2
+ 1478              		.set	.LANCHOR41,. + 0
+ 1481              	send_Transmiting_Data_To_TCP:
+ 1482 0000 5472616E 		.ascii	"Transmiting Data To TCP\015\012\000"
+ 1482      736D6974 
+ 1482      696E6720 
+ 1482      44617461 
+ 1482      20546F20 
+ 1483              		.text
+ 1484              	.Letext0:
+ 1485              		.file 2 "user/AT_command.h"
+ 1486              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2021.07\\arm-none-eabi\\include\\
+ 1487              		.file 4 "<built-in>"
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 33
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 AT_command.c
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:18     .text.AT_Init:00000000 $t
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:26     .text.AT_Init:00000000 AT_Init
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:539    .text.AT_Init:000003d8 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:595    .text.AT_Init:000004b0 $t
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:915    .text.AT_Init:000006e8 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1390   .data.send_Set_Net_Close_Ok:00000000 send_Set_Net_Close_Ok
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1383   .data.send_Set_Net_Close_Error:00000000 send_Set_Net_Close_Error
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1439   .data.send_Setting_Net_Close:00000000 send_Setting_Net_Close
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1117   .data.AT_Send_Set_Net_Close:00000000 AT_Send_Set_Net_Close
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1355   .data.send_Close_Connect_TCP_Server_Ok:00000000 send_Close_Connect_TCP_Server_Ok
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1348   .data.send_Close_Connect_TCP_Server_Error:00000000 send_Close_Connect_TCP_Server_Error
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1341   .data.send_Close_Connect_TCP_Server:00000000 send_Close_Connect_TCP_Server
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1103   .data.AT_Send_Close_Connect_TCP_Server:00000000 AT_Send_Close_Connect_TCP_Server
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1180   .data.send_Check_Connect_TCP_Ok:00000000 send_Check_Connect_TCP_Ok
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1173   .data.send_Check_Connect_TCP_Error:00000000 send_Check_Connect_TCP_Error
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1285   .data.send_Checking_Connect_TCP:00000000 send_Checking_Connect_TCP
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1047   .data.AT_Send_Check_Connect_TCP:00000000 AT_Send_Check_Connect_TCP
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1369   .data.send_Connect_TCP_Server_Ok:00000000 send_Connect_TCP_Server_Ok
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1362   .data.send_Connect_TCP_Server_Error:00000000 send_Connect_TCP_Server_Error
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1376   .data.send_Connecting_TCP_Server:00000000 send_Connecting_TCP_Server
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1019   .bss.AT_Send_Connect_TCP_Server:00000000 AT_Send_Connect_TCP_Server
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1159   .data.code_TCP_Final:00000000 code_TCP_Final
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1033   .bss.code_TCP_Port:00000000 code_TCP_Port
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1152   .data.code_TCP_Center:00000000 code_TCP_Center
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1026   .bss.code_TCP_IP:00000000 code_TCP_IP
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1166   .data.code_TCP_First:00000000 code_TCP_First
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1040   .bss.set_Connect_TCP:00000000 set_Connect_TCP
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1110   .data.AT_Send_Get_Current_Time:00000000 AT_Send_Get_Current_Time
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1474   .data.send_Transmit_Data_To_TCP_Ok:00000000 send_Transmit_Data_To_TCP_Ok
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1467   .data.send_Transmit_Data_To_TCP_Error:00000000 send_Transmit_Data_To_TCP_Error
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1481   .data.send_Transmiting_Data_To_TCP:00000000 send_Transmiting_Data_To_TCP
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1145   .data.AT_Send_Transmit_Data_To_TCP:00000000 AT_Send_Transmit_Data_To_TCP
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1404   .data.send_Set_Receive_Mode_Ok:00000000 send_Set_Receive_Mode_Ok
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1397   .data.send_Set_Receive_Mode_Error:00000000 send_Set_Receive_Mode_Error
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1446   .data.send_Setting_Receive_Mode:00000000 send_Setting_Receive_Mode
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1124   .data.AT_Send_Set_Receive_Mode:00000000 AT_Send_Set_Receive_Mode
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1208   .data.send_Check_IP_Ok:00000000 send_Check_IP_Ok
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1201   .data.send_Check_IP_Error:00000000 send_Check_IP_Error
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1299   .data.send_Checking_IP:00000000 send_Checking_IP
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1061   .data.AT_Send_Check_IP:00000000 AT_Send_Check_IP
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1236   .data.send_Check_Net_Open_Ok:00000000 send_Check_Net_Open_Ok
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1229   .data.send_Check_Net_Open_Error:00000000 send_Check_Net_Open_Error
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1313   .data.send_Checking_Net_Open:00000000 send_Checking_Net_Open
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1075   .data.AT_Send_Check_Net_Open:00000000 AT_Send_Check_Net_Open
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1432   .data.send_Set_Transmit_Mode_Ok:00000000 send_Set_Transmit_Mode_Ok
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1425   .data.send_Set_Transmit_Mode_Error:00000000 send_Set_Transmit_Mode_Error
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1460   .data.send_Setting_Transmit_Mode:00000000 send_Setting_Transmit_Mode
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1138   .data.AT_Send_Set_Transmit_Mode:00000000 AT_Send_Set_Transmit_Mode
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1418   .data.send_Set_Timeout_Ok:00000000 send_Set_Timeout_Ok
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1411   .data.send_Set_Timeout_Error:00000000 send_Set_Timeout_Error
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1453   .data.send_Setting_Timeout:00000000 send_Setting_Timeout
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1131   .data.AT_Send_Set_Timeout:00000000 AT_Send_Set_Timeout
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1194   .data.send_Check_GPRS_Ok:00000000 send_Check_GPRS_Ok
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1187   .data.send_Check_GPRS_Error:00000000 send_Check_GPRS_Error
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1292   .data.send_Checking_GPRS:00000000 send_Checking_GPRS
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 34
+
+
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1054   .data.AT_Send_Check_GPRS:00000000 AT_Send_Check_GPRS
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1278   .data.send_Check_Subscribe_Ok:00000000 send_Check_Subscribe_Ok
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1271   .data.send_Check_Subscribe_Error:00000000 send_Check_Subscribe_Error
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1334   .data.send_Checking_Subscribe:00000000 send_Checking_Subscribe
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1096   .data.AT_Send_Check_Subscribe:00000000 AT_Send_Check_Subscribe
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1250   .data.send_Check_Signal_Ok:00000000 send_Check_Signal_Ok
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1243   .data.send_Check_Signal_Error:00000000 send_Check_Signal_Error
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1320   .data.send_Checking_Signal:00000000 send_Checking_Signal
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1082   .data.AT_Send_Check_Signal:00000000 AT_Send_Check_Signal
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1264   .data.send_Check_Sim_Ok:00000000 send_Check_Sim_Ok
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1257   .data.send_Check_Sim_Error:00000000 send_Check_Sim_Error
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1327   .data.send_Checking_Sim:00000000 send_Checking_Sim
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1089   .data.AT_Send_Check_Sim:00000000 AT_Send_Check_Sim
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1222   .data.send_Check_Module_Ok:00000000 send_Check_Module_Ok
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1215   .data.send_Check_Module_Error:00000000 send_Check_Module_Error
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1306   .data.send_Checking_Module:00000000 send_Checking_Module
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1068   .data.AT_Send_Check_Module:00000000 AT_Send_Check_Module
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1015   .bss.AT_Send_Connect_TCP_Server:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1022   .bss.code_TCP_IP:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1029   .bss.code_TCP_Port:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1036   .bss.set_Connect_TCP:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1043   .data.AT_Send_Check_Connect_TCP:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1050   .data.AT_Send_Check_GPRS:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1057   .data.AT_Send_Check_IP:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1064   .data.AT_Send_Check_Module:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1071   .data.AT_Send_Check_Net_Open:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1078   .data.AT_Send_Check_Signal:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1085   .data.AT_Send_Check_Sim:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1092   .data.AT_Send_Check_Subscribe:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1099   .data.AT_Send_Close_Connect_TCP_Server:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1106   .data.AT_Send_Get_Current_Time:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1113   .data.AT_Send_Set_Net_Close:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1120   .data.AT_Send_Set_Receive_Mode:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1127   .data.AT_Send_Set_Timeout:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1134   .data.AT_Send_Set_Transmit_Mode:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1141   .data.AT_Send_Transmit_Data_To_TCP:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1148   .data.code_TCP_Center:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1155   .data.code_TCP_Final:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1162   .data.code_TCP_First:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1169   .data.send_Check_Connect_TCP_Error:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1176   .data.send_Check_Connect_TCP_Ok:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1183   .data.send_Check_GPRS_Error:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1190   .data.send_Check_GPRS_Ok:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1197   .data.send_Check_IP_Error:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1204   .data.send_Check_IP_Ok:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1211   .data.send_Check_Module_Error:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1218   .data.send_Check_Module_Ok:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1225   .data.send_Check_Net_Open_Error:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1232   .data.send_Check_Net_Open_Ok:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1239   .data.send_Check_Signal_Error:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1246   .data.send_Check_Signal_Ok:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1253   .data.send_Check_Sim_Error:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1260   .data.send_Check_Sim_Ok:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1267   .data.send_Check_Subscribe_Error:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1274   .data.send_Check_Subscribe_Ok:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1281   .data.send_Checking_Connect_TCP:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1288   .data.send_Checking_GPRS:00000000 $d
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s 			page 35
+
+
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1295   .data.send_Checking_IP:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1302   .data.send_Checking_Module:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1309   .data.send_Checking_Net_Open:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1316   .data.send_Checking_Signal:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1323   .data.send_Checking_Sim:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1330   .data.send_Checking_Subscribe:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1337   .data.send_Close_Connect_TCP_Server:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1344   .data.send_Close_Connect_TCP_Server_Error:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1351   .data.send_Close_Connect_TCP_Server_Ok:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1358   .data.send_Connect_TCP_Server_Error:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1365   .data.send_Connect_TCP_Server_Ok:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1372   .data.send_Connecting_TCP_Server:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1379   .data.send_Set_Net_Close_Error:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1386   .data.send_Set_Net_Close_Ok:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1393   .data.send_Set_Receive_Mode_Error:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1400   .data.send_Set_Receive_Mode_Ok:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1407   .data.send_Set_Timeout_Error:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1414   .data.send_Set_Timeout_Ok:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1421   .data.send_Set_Transmit_Mode_Error:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1428   .data.send_Set_Transmit_Mode_Ok:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1435   .data.send_Setting_Net_Close:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1442   .data.send_Setting_Receive_Mode:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1449   .data.send_Setting_Timeout:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1456   .data.send_Setting_Transmit_Mode:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1463   .data.send_Transmit_Data_To_TCP_Error:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1470   .data.send_Transmit_Data_To_TCP_Ok:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccLl8foj.s:1477   .data.send_Transmiting_Data_To_TCP:00000000 $d
+
+UNDEFINED SYMBOLS
+strlen
+memcpy
+AT_Check_Module
+AT_Check_Sim
+AT_Check_Signal
+AT_Check_Subscribe
+AT_Check_GPRS
+AT_Set_Timeout
+AT_Set_Transmit_Mode
+AT_Check_Net_Open
+AT_Check_IP
+AT_Set_Receive_Mode
+AT_Transmit_Data_To_TCP
+AT_Get_Current_Time
+AT_Connect_TCP_Server
+AT_Check_Connect_TCP
+AT_Close_Connect_TCP_Server
+AT_Set_Net_Close
