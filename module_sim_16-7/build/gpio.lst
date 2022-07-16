@@ -1,0 +1,415 @@
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccYXJ1YX.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gpio.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.MX_GPIO_Init,"ax",%progbits
+  18              		.align	1
+  19              		.global	MX_GPIO_Init
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	MX_GPIO_Init:
+  27              	.LFB135:
+  28              		.file 1 "user/gpio.c"
+   1:user/gpio.c   **** #include "gpio.h"
+   2:user/gpio.c   **** 
+   3:user/gpio.c   **** /**
+   4:user/gpio.c   ****   * @brief GPIO Initialization Function
+   5:user/gpio.c   ****   * @param None
+   6:user/gpio.c   ****   * @retval None
+   7:user/gpio.c   ****   */
+   8:user/gpio.c   **** void MX_GPIO_Init()
+   9:user/gpio.c   **** {
+  29              		.loc 1 9 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 32
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 20
+  36              		.cfi_offset 4, -20
+  37              		.cfi_offset 5, -16
+  38              		.cfi_offset 6, -12
+  39              		.cfi_offset 7, -8
+  40              		.cfi_offset 14, -4
+  41 0002 89B0     		sub	sp, sp, #36
+  42              	.LCFI1:
+  43              		.cfi_def_cfa_offset 56
+  10:user/gpio.c   ****   GPIO_InitTypeDef GPIO_InitStruct = {0};
+  44              		.loc 1 10 3 view .LVU1
+  45              		.loc 1 10 20 is_stmt 0 view .LVU2
+  46 0004 0024     		movs	r4, #0
+  47 0006 0394     		str	r4, [sp, #12]
+  48 0008 0494     		str	r4, [sp, #16]
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccYXJ1YX.s 			page 2
+
+
+  49 000a 0594     		str	r4, [sp, #20]
+  50 000c 0694     		str	r4, [sp, #24]
+  51 000e 0794     		str	r4, [sp, #28]
+  11:user/gpio.c   **** 
+  12:user/gpio.c   ****   /* GPIO Ports Clock Enable */
+  13:user/gpio.c   ****   __HAL_RCC_GPIOC_CLK_ENABLE();
+  52              		.loc 1 13 3 is_stmt 1 view .LVU3
+  53              	.LBB2:
+  54              		.loc 1 13 3 view .LVU4
+  55              		.loc 1 13 3 view .LVU5
+  56 0010 234B     		ldr	r3, .L3
+  57 0012 DA6C     		ldr	r2, [r3, #76]
+  58 0014 42F00402 		orr	r2, r2, #4
+  59 0018 DA64     		str	r2, [r3, #76]
+  60              		.loc 1 13 3 view .LVU6
+  61 001a DA6C     		ldr	r2, [r3, #76]
+  62 001c 02F00402 		and	r2, r2, #4
+  63 0020 0092     		str	r2, [sp]
+  64              		.loc 1 13 3 view .LVU7
+  65 0022 009A     		ldr	r2, [sp]
+  66              	.LBE2:
+  67              		.loc 1 13 3 view .LVU8
+  14:user/gpio.c   ****   __HAL_RCC_GPIOB_CLK_ENABLE();
+  68              		.loc 1 14 3 view .LVU9
+  69              	.LBB3:
+  70              		.loc 1 14 3 view .LVU10
+  71              		.loc 1 14 3 view .LVU11
+  72 0024 DA6C     		ldr	r2, [r3, #76]
+  73 0026 42F00202 		orr	r2, r2, #2
+  74 002a DA64     		str	r2, [r3, #76]
+  75              		.loc 1 14 3 view .LVU12
+  76 002c DA6C     		ldr	r2, [r3, #76]
+  77 002e 02F00202 		and	r2, r2, #2
+  78 0032 0192     		str	r2, [sp, #4]
+  79              		.loc 1 14 3 view .LVU13
+  80 0034 019A     		ldr	r2, [sp, #4]
+  81              	.LBE3:
+  82              		.loc 1 14 3 view .LVU14
+  15:user/gpio.c   ****   __HAL_RCC_GPIOA_CLK_ENABLE();
+  83              		.loc 1 15 3 view .LVU15
+  84              	.LBB4:
+  85              		.loc 1 15 3 view .LVU16
+  86              		.loc 1 15 3 view .LVU17
+  87 0036 DA6C     		ldr	r2, [r3, #76]
+  88 0038 42F00102 		orr	r2, r2, #1
+  89 003c DA64     		str	r2, [r3, #76]
+  90              		.loc 1 15 3 view .LVU18
+  91 003e DB6C     		ldr	r3, [r3, #76]
+  92 0040 03F00103 		and	r3, r3, #1
+  93 0044 0293     		str	r3, [sp, #8]
+  94              		.loc 1 15 3 view .LVU19
+  95 0046 029B     		ldr	r3, [sp, #8]
+  96              	.LBE4:
+  97              		.loc 1 15 3 view .LVU20
+  16:user/gpio.c   **** 
+  17:user/gpio.c   ****   /*Configure GPIO pin Output Level */
+  18:user/gpio.c   ****   HAL_GPIO_WritePin(GPIOC, LED_DO_Pin|LED_XANH_Pin|RESET_SIM_Pin, GPIO_PIN_RESET);
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccYXJ1YX.s 			page 3
+
+
+  98              		.loc 1 18 3 view .LVU21
+  99 0048 164F     		ldr	r7, .L3+4
+ 100 004a 2246     		mov	r2, r4
+ 101 004c 2A21     		movs	r1, #42
+ 102 004e 3846     		mov	r0, r7
+ 103 0050 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 104              	.LVL0:
+  19:user/gpio.c   **** 
+  20:user/gpio.c   ****   /*Configure GPIO pin Output Level */
+  21:user/gpio.c   ****   HAL_GPIO_WritePin(GPIOB, PWRKEY_Pin|USIM_DET_Pin|SIM_DTR_Pin|SIM_RST_Pin
+ 105              		.loc 1 21 3 view .LVU22
+ 106 0054 144D     		ldr	r5, .L3+8
+ 107 0056 2246     		mov	r2, r4
+ 108 0058 46F21B01 		movw	r1, #24603
+ 109 005c 2846     		mov	r0, r5
+ 110 005e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 111              	.LVL1:
+  22:user/gpio.c   ****                           |OF_SIM_Pin|CE_BQ_Pin, GPIO_PIN_RESET);
+  23:user/gpio.c   **** 
+  24:user/gpio.c   ****   /*Configure GPIO pins : LED_DO_Pin LED_XANH_Pin RESET_SIM_Pin */
+  25:user/gpio.c   ****   GPIO_InitStruct.Pin = LED_DO_Pin|LED_XANH_Pin|RESET_SIM_Pin;
+ 112              		.loc 1 25 3 view .LVU23
+ 113              		.loc 1 25 23 is_stmt 0 view .LVU24
+ 114 0062 2A23     		movs	r3, #42
+ 115 0064 0393     		str	r3, [sp, #12]
+  26:user/gpio.c   ****   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+ 116              		.loc 1 26 3 is_stmt 1 view .LVU25
+ 117              		.loc 1 26 24 is_stmt 0 view .LVU26
+ 118 0066 0126     		movs	r6, #1
+ 119 0068 0496     		str	r6, [sp, #16]
+  27:user/gpio.c   ****   GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 120              		.loc 1 27 3 is_stmt 1 view .LVU27
+ 121              		.loc 1 27 24 is_stmt 0 view .LVU28
+ 122 006a 0594     		str	r4, [sp, #20]
+  28:user/gpio.c   ****   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 123              		.loc 1 28 3 is_stmt 1 view .LVU29
+ 124              		.loc 1 28 25 is_stmt 0 view .LVU30
+ 125 006c 0694     		str	r4, [sp, #24]
+  29:user/gpio.c   ****   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+ 126              		.loc 1 29 3 is_stmt 1 view .LVU31
+ 127 006e 03A9     		add	r1, sp, #12
+ 128 0070 3846     		mov	r0, r7
+ 129 0072 FFF7FEFF 		bl	HAL_GPIO_Init
+ 130              	.LVL2:
+  30:user/gpio.c   **** 
+  31:user/gpio.c   ****   /*Configure GPIO pins : PWRKEY_Pin USIM_DET_Pin SIM_DTR_Pin SIM_RST_Pin
+  32:user/gpio.c   ****                            OF_SIM_Pin CE_BQ_Pin */
+  33:user/gpio.c   ****   GPIO_InitStruct.Pin = PWRKEY_Pin|USIM_DET_Pin|SIM_DTR_Pin|SIM_RST_Pin
+ 131              		.loc 1 33 3 view .LVU32
+ 132              		.loc 1 33 23 is_stmt 0 view .LVU33
+ 133 0076 46F21B03 		movw	r3, #24603
+ 134 007a 0393     		str	r3, [sp, #12]
+  34:user/gpio.c   ****                           |OF_SIM_Pin|CE_BQ_Pin;
+  35:user/gpio.c   ****   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+ 135              		.loc 1 35 3 is_stmt 1 view .LVU34
+ 136              		.loc 1 35 24 is_stmt 0 view .LVU35
+ 137 007c 0496     		str	r6, [sp, #16]
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccYXJ1YX.s 			page 4
+
+
+  36:user/gpio.c   ****   GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 138              		.loc 1 36 3 is_stmt 1 view .LVU36
+ 139              		.loc 1 36 24 is_stmt 0 view .LVU37
+ 140 007e 0594     		str	r4, [sp, #20]
+  37:user/gpio.c   ****   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 141              		.loc 1 37 3 is_stmt 1 view .LVU38
+ 142              		.loc 1 37 25 is_stmt 0 view .LVU39
+ 143 0080 0694     		str	r4, [sp, #24]
+  38:user/gpio.c   ****   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 144              		.loc 1 38 3 is_stmt 1 view .LVU40
+ 145 0082 03A9     		add	r1, sp, #12
+ 146 0084 2846     		mov	r0, r5
+ 147 0086 FFF7FEFF 		bl	HAL_GPIO_Init
+ 148              	.LVL3:
+  39:user/gpio.c   **** 
+  40:user/gpio.c   ****   /*Configure GPIO pins : CHG_Pin PGOOD_Pin Jack_PW_Pin */
+  41:user/gpio.c   ****   GPIO_InitStruct.Pin = CHG_Pin|PGOOD_Pin|Jack_PW_Pin;
+ 149              		.loc 1 41 3 view .LVU41
+ 150              		.loc 1 41 23 is_stmt 0 view .LVU42
+ 151 008a 4FF44873 		mov	r3, #800
+ 152 008e 0393     		str	r3, [sp, #12]
+  42:user/gpio.c   ****   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+ 153              		.loc 1 42 3 is_stmt 1 view .LVU43
+ 154              		.loc 1 42 24 is_stmt 0 view .LVU44
+ 155 0090 0494     		str	r4, [sp, #16]
+  43:user/gpio.c   ****   GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 156              		.loc 1 43 3 is_stmt 1 view .LVU45
+ 157              		.loc 1 43 24 is_stmt 0 view .LVU46
+ 158 0092 0594     		str	r4, [sp, #20]
+  44:user/gpio.c   ****   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 159              		.loc 1 44 3 is_stmt 1 view .LVU47
+ 160 0094 03A9     		add	r1, sp, #12
+ 161 0096 2846     		mov	r0, r5
+ 162 0098 FFF7FEFF 		bl	HAL_GPIO_Init
+ 163              	.LVL4:
+  45:user/gpio.c   **** 
+  46:user/gpio.c   **** }
+ 164              		.loc 1 46 1 is_stmt 0 view .LVU48
+ 165 009c 09B0     		add	sp, sp, #36
+ 166              	.LCFI2:
+ 167              		.cfi_def_cfa_offset 20
+ 168              		@ sp needed
+ 169 009e F0BD     		pop	{r4, r5, r6, r7, pc}
+ 170              	.L4:
+ 171              		.align	2
+ 172              	.L3:
+ 173 00a0 00100240 		.word	1073876992
+ 174 00a4 00080048 		.word	1207961600
+ 175 00a8 00040048 		.word	1207960576
+ 176              		.cfi_endproc
+ 177              	.LFE135:
+ 179              		.section	.text.wait_Enable_Sim,"ax",%progbits
+ 180              		.align	1
+ 181              		.global	wait_Enable_Sim
+ 182              		.syntax unified
+ 183              		.thumb
+ 184              		.thumb_func
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccYXJ1YX.s 			page 5
+
+
+ 185              		.fpu fpv4-sp-d16
+ 187              	wait_Enable_Sim:
+ 188              	.LVL5:
+ 189              	.LFB136:
+  47:user/gpio.c   **** 
+  48:user/gpio.c   **** 
+  49:user/gpio.c   **** /**
+  50:user/gpio.c   ****   * @brief Allow sim to work (wait x seconds)
+  51:user/gpio.c   ****   * @param Time (x second)
+  52:user/gpio.c   ****   * @retval None
+  53:user/gpio.c   ****   */
+  54:user/gpio.c   **** void wait_Enable_Sim(int x)
+  55:user/gpio.c   **** {
+ 190              		.loc 1 55 1 is_stmt 1 view -0
+ 191              		.cfi_startproc
+ 192              		@ args = 0, pretend = 0, frame = 0
+ 193              		@ frame_needed = 0, uses_anonymous_args = 0
+ 194              		.loc 1 55 1 is_stmt 0 view .LVU50
+ 195 0000 70B5     		push	{r4, r5, r6, lr}
+ 196              	.LCFI3:
+ 197              		.cfi_def_cfa_offset 16
+ 198              		.cfi_offset 4, -16
+ 199              		.cfi_offset 5, -12
+ 200              		.cfi_offset 6, -8
+ 201              		.cfi_offset 14, -4
+ 202 0002 0646     		mov	r6, r0
+  56:user/gpio.c   **** 
+  57:user/gpio.c   ****   HAL_GPIO_WritePin(OF_SIM_GPIO_Port ,OF_SIM_Pin, GPIO_PIN_SET);
+ 203              		.loc 1 57 3 is_stmt 1 view .LVU51
+ 204 0004 1C4D     		ldr	r5, .L9
+ 205 0006 0122     		movs	r2, #1
+ 206 0008 0821     		movs	r1, #8
+ 207 000a 2846     		mov	r0, r5
+ 208              	.LVL6:
+ 209              		.loc 1 57 3 is_stmt 0 view .LVU52
+ 210 000c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 211              	.LVL7:
+  58:user/gpio.c   **** 	HAL_GPIO_WritePin(RESET_SIM_GPIO_Port, RESET_SIM_Pin, GPIO_PIN_RESET);
+ 212              		.loc 1 58 2 is_stmt 1 view .LVU53
+ 213 0010 1A4C     		ldr	r4, .L9+4
+ 214 0012 0022     		movs	r2, #0
+ 215 0014 2021     		movs	r1, #32
+ 216 0016 2046     		mov	r0, r4
+ 217 0018 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 218              	.LVL8:
+  59:user/gpio.c   **** 	HAL_GPIO_WritePin(PWRKEY_GPIO_Port, PWRKEY_Pin, GPIO_PIN_SET);
+ 219              		.loc 1 59 2 view .LVU54
+ 220 001c 0122     		movs	r2, #1
+ 221 001e 1146     		mov	r1, r2
+ 222 0020 2846     		mov	r0, r5
+ 223 0022 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 224              	.LVL9:
+  60:user/gpio.c   **** 
+  61:user/gpio.c   ****   HAL_GPIO_WritePin(LED_DO_GPIO_Port, LED_DO_Pin, GPIO_PIN_SET);
+ 225              		.loc 1 61 3 view .LVU55
+ 226 0026 0122     		movs	r2, #1
+ 227 0028 0221     		movs	r1, #2
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccYXJ1YX.s 			page 6
+
+
+ 228 002a 2046     		mov	r0, r4
+ 229 002c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 230              	.LVL10:
+  62:user/gpio.c   ****   HAL_GPIO_WritePin(LED_XANH_GPIO_Port, LED_XANH_Pin, GPIO_PIN_RESET);
+ 231              		.loc 1 62 3 view .LVU56
+ 232 0030 0022     		movs	r2, #0
+ 233 0032 0821     		movs	r1, #8
+ 234 0034 2046     		mov	r0, r4
+ 235 0036 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 236              	.LVL11:
+  63:user/gpio.c   **** 
+  64:user/gpio.c   ****   for(int i=0; i < x; i++)
+ 237              		.loc 1 64 3 view .LVU57
+ 238              	.LBB5:
+ 239              		.loc 1 64 7 view .LVU58
+ 240              		.loc 1 64 11 is_stmt 0 view .LVU59
+ 241 003a 0024     		movs	r4, #0
+ 242              		.loc 1 64 3 view .LVU60
+ 243 003c 0DE0     		b	.L6
+ 244              	.LVL12:
+ 245              	.L7:
+  65:user/gpio.c   ****   {
+  66:user/gpio.c   ****     HAL_GPIO_TogglePin(LED_DO_GPIO_Port, LED_DO_Pin);
+ 246              		.loc 1 66 5 is_stmt 1 discriminator 3 view .LVU61
+ 247 003e 0F4D     		ldr	r5, .L9+4
+ 248 0040 0221     		movs	r1, #2
+ 249 0042 2846     		mov	r0, r5
+ 250 0044 FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 251              	.LVL13:
+  67:user/gpio.c   ****     HAL_GPIO_TogglePin(LED_XANH_GPIO_Port, LED_XANH_Pin);
+ 252              		.loc 1 67 5 discriminator 3 view .LVU62
+ 253 0048 0821     		movs	r1, #8
+ 254 004a 2846     		mov	r0, r5
+ 255 004c FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 256              	.LVL14:
+  68:user/gpio.c   ****     HAL_Delay(1000);
+ 257              		.loc 1 68 5 discriminator 3 view .LVU63
+ 258 0050 4FF47A70 		mov	r0, #1000
+ 259 0054 FFF7FEFF 		bl	HAL_Delay
+ 260              	.LVL15:
+  64:user/gpio.c   ****   {
+ 261              		.loc 1 64 23 discriminator 3 view .LVU64
+  64:user/gpio.c   ****   {
+ 262              		.loc 1 64 24 is_stmt 0 discriminator 3 view .LVU65
+ 263 0058 0134     		adds	r4, r4, #1
+ 264              	.LVL16:
+ 265              	.L6:
+  64:user/gpio.c   ****   {
+ 266              		.loc 1 64 16 is_stmt 1 discriminator 1 view .LVU66
+  64:user/gpio.c   ****   {
+ 267              		.loc 1 64 3 is_stmt 0 discriminator 1 view .LVU67
+ 268 005a B442     		cmp	r4, r6
+ 269 005c EFDB     		blt	.L7
+ 270              	.LBE5:
+  69:user/gpio.c   ****   }
+  70:user/gpio.c   **** 
+  71:user/gpio.c   ****   HAL_GPIO_WritePin(LED_DO_GPIO_Port, LED_DO_Pin, GPIO_PIN_SET);
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccYXJ1YX.s 			page 7
+
+
+ 271              		.loc 1 71 3 is_stmt 1 view .LVU68
+ 272 005e 074C     		ldr	r4, .L9+4
+ 273              	.LVL17:
+ 274              		.loc 1 71 3 is_stmt 0 view .LVU69
+ 275 0060 0122     		movs	r2, #1
+ 276 0062 0221     		movs	r1, #2
+ 277 0064 2046     		mov	r0, r4
+ 278 0066 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 279              	.LVL18:
+  72:user/gpio.c   ****   HAL_GPIO_WritePin(LED_XANH_GPIO_Port, LED_XANH_Pin, GPIO_PIN_SET);
+ 280              		.loc 1 72 3 is_stmt 1 view .LVU70
+ 281 006a 0122     		movs	r2, #1
+ 282 006c 0821     		movs	r1, #8
+ 283 006e 2046     		mov	r0, r4
+ 284 0070 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 285              	.LVL19:
+  73:user/gpio.c   **** }
+ 286              		.loc 1 73 1 is_stmt 0 view .LVU71
+ 287 0074 70BD     		pop	{r4, r5, r6, pc}
+ 288              	.LVL20:
+ 289              	.L10:
+ 290              		.loc 1 73 1 view .LVU72
+ 291 0076 00BF     		.align	2
+ 292              	.L9:
+ 293 0078 00040048 		.word	1207960576
+ 294 007c 00080048 		.word	1207961600
+ 295              		.cfi_endproc
+ 296              	.LFE136:
+ 298              		.text
+ 299              	.Letext0:
+ 300              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2021.07\\arm-none-eabi\\include\\
+ 301              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2021.07\\arm-none-eabi\\include\\
+ 302              		.file 4 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l452xx.h"
+ 303              		.file 5 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_gpio.h"
+ 304              		.file 6 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h"
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccYXJ1YX.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 gpio.c
+C:\Users\ngocc\AppData\Local\Temp\ccYXJ1YX.s:18     .text.MX_GPIO_Init:00000000 $t
+C:\Users\ngocc\AppData\Local\Temp\ccYXJ1YX.s:26     .text.MX_GPIO_Init:00000000 MX_GPIO_Init
+C:\Users\ngocc\AppData\Local\Temp\ccYXJ1YX.s:173    .text.MX_GPIO_Init:000000a0 $d
+C:\Users\ngocc\AppData\Local\Temp\ccYXJ1YX.s:180    .text.wait_Enable_Sim:00000000 $t
+C:\Users\ngocc\AppData\Local\Temp\ccYXJ1YX.s:187    .text.wait_Enable_Sim:00000000 wait_Enable_Sim
+C:\Users\ngocc\AppData\Local\Temp\ccYXJ1YX.s:293    .text.wait_Enable_Sim:00000078 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_WritePin
+HAL_GPIO_Init
+HAL_GPIO_TogglePin
+HAL_Delay

@@ -1,0 +1,662 @@
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"uart.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.MX_UART4_Init,"ax",%progbits
+  18              		.align	1
+  19              		.global	MX_UART4_Init
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	MX_UART4_Init:
+  27              	.LFB135:
+  28              		.file 1 "user/uart.c"
+   1:user/uart.c   **** #include "uart.h"
+   2:user/uart.c   **** 
+   3:user/uart.c   **** 
+   4:user/uart.c   **** 
+   5:user/uart.c   **** 
+   6:user/uart.c   **** /**
+   7:user/uart.c   ****   * @brief UART4 Initialization Function
+   8:user/uart.c   ****   * @param None
+   9:user/uart.c   ****   * @retval None
+  10:user/uart.c   ****   */
+  11:user/uart.c   **** void MX_UART4_Init(void)
+  12:user/uart.c   **** {
+  29              		.loc 1 12 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 08B5     		push	{r3, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 3, -8
+  37              		.cfi_offset 14, -4
+  13:user/uart.c   **** 
+  14:user/uart.c   ****   /* USER CODE BEGIN UART4_Init 0 */
+  15:user/uart.c   **** 
+  16:user/uart.c   ****   /* USER CODE END UART4_Init 0 */
+  17:user/uart.c   **** 
+  18:user/uart.c   ****   /* USER CODE BEGIN UART4_Init 1 */
+  19:user/uart.c   **** 
+  20:user/uart.c   ****   /* USER CODE END UART4_Init 1 */
+  21:user/uart.c   ****   huart4.Instance = UART4;
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s 			page 2
+
+
+  38              		.loc 1 21 3 view .LVU1
+  39              		.loc 1 21 19 is_stmt 0 view .LVU2
+  40 0002 0B48     		ldr	r0, .L5
+  41 0004 0B4B     		ldr	r3, .L5+4
+  42 0006 0360     		str	r3, [r0]
+  22:user/uart.c   ****   huart4.Init.BaudRate = 115200;
+  43              		.loc 1 22 3 is_stmt 1 view .LVU3
+  44              		.loc 1 22 24 is_stmt 0 view .LVU4
+  45 0008 4FF4E133 		mov	r3, #115200
+  46 000c 4360     		str	r3, [r0, #4]
+  23:user/uart.c   ****   huart4.Init.WordLength = UART_WORDLENGTH_8B;
+  47              		.loc 1 23 3 is_stmt 1 view .LVU5
+  48              		.loc 1 23 26 is_stmt 0 view .LVU6
+  49 000e 0023     		movs	r3, #0
+  50 0010 8360     		str	r3, [r0, #8]
+  24:user/uart.c   ****   huart4.Init.StopBits = UART_STOPBITS_1;
+  51              		.loc 1 24 3 is_stmt 1 view .LVU7
+  52              		.loc 1 24 24 is_stmt 0 view .LVU8
+  53 0012 C360     		str	r3, [r0, #12]
+  25:user/uart.c   ****   huart4.Init.Parity = UART_PARITY_NONE;
+  54              		.loc 1 25 3 is_stmt 1 view .LVU9
+  55              		.loc 1 25 22 is_stmt 0 view .LVU10
+  56 0014 0361     		str	r3, [r0, #16]
+  26:user/uart.c   ****   huart4.Init.Mode = UART_MODE_TX_RX;
+  57              		.loc 1 26 3 is_stmt 1 view .LVU11
+  58              		.loc 1 26 20 is_stmt 0 view .LVU12
+  59 0016 0C22     		movs	r2, #12
+  60 0018 4261     		str	r2, [r0, #20]
+  27:user/uart.c   ****   huart4.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  61              		.loc 1 27 3 is_stmt 1 view .LVU13
+  62              		.loc 1 27 25 is_stmt 0 view .LVU14
+  63 001a 8361     		str	r3, [r0, #24]
+  28:user/uart.c   ****   huart4.Init.OverSampling = UART_OVERSAMPLING_16;
+  64              		.loc 1 28 3 is_stmt 1 view .LVU15
+  65              		.loc 1 28 28 is_stmt 0 view .LVU16
+  66 001c C361     		str	r3, [r0, #28]
+  29:user/uart.c   ****   huart4.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  67              		.loc 1 29 3 is_stmt 1 view .LVU17
+  68              		.loc 1 29 30 is_stmt 0 view .LVU18
+  69 001e 0362     		str	r3, [r0, #32]
+  30:user/uart.c   ****   huart4.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  70              		.loc 1 30 3 is_stmt 1 view .LVU19
+  71              		.loc 1 30 38 is_stmt 0 view .LVU20
+  72 0020 4362     		str	r3, [r0, #36]
+  31:user/uart.c   ****   if (HAL_UART_Init(&huart4) != HAL_OK)
+  73              		.loc 1 31 3 is_stmt 1 view .LVU21
+  74              		.loc 1 31 7 is_stmt 0 view .LVU22
+  75 0022 FFF7FEFF 		bl	HAL_UART_Init
+  76              	.LVL0:
+  77              		.loc 1 31 6 view .LVU23
+  78 0026 00B9     		cbnz	r0, .L4
+  79              	.L1:
+  32:user/uart.c   ****   {
+  33:user/uart.c   ****     Error_Handler();
+  34:user/uart.c   ****   }
+  35:user/uart.c   ****   /* USER CODE BEGIN UART4_Init 2 */
+  36:user/uart.c   **** 
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s 			page 3
+
+
+  37:user/uart.c   ****   /* USER CODE END UART4_Init 2 */
+  38:user/uart.c   **** 
+  39:user/uart.c   **** }
+  80              		.loc 1 39 1 view .LVU24
+  81 0028 08BD     		pop	{r3, pc}
+  82              	.L4:
+  33:user/uart.c   ****   }
+  83              		.loc 1 33 5 is_stmt 1 view .LVU25
+  84 002a FFF7FEFF 		bl	Error_Handler
+  85              	.LVL1:
+  86              		.loc 1 39 1 is_stmt 0 view .LVU26
+  87 002e FBE7     		b	.L1
+  88              	.L6:
+  89              		.align	2
+  90              	.L5:
+  91 0030 00000000 		.word	.LANCHOR0
+  92 0034 004C0040 		.word	1073761280
+  93              		.cfi_endproc
+  94              	.LFE135:
+  96              		.section	.text.MX_USART1_UART_Init,"ax",%progbits
+  97              		.align	1
+  98              		.global	MX_USART1_UART_Init
+  99              		.syntax unified
+ 100              		.thumb
+ 101              		.thumb_func
+ 102              		.fpu fpv4-sp-d16
+ 104              	MX_USART1_UART_Init:
+ 105              	.LFB136:
+  40:user/uart.c   **** 
+  41:user/uart.c   **** /**
+  42:user/uart.c   ****   * @brief USART1 Initialization Function
+  43:user/uart.c   ****   * @param None
+  44:user/uart.c   ****   * @retval None
+  45:user/uart.c   ****   */
+  46:user/uart.c   **** void MX_USART1_UART_Init(void)
+  47:user/uart.c   **** {
+ 106              		.loc 1 47 1 is_stmt 1 view -0
+ 107              		.cfi_startproc
+ 108              		@ args = 0, pretend = 0, frame = 0
+ 109              		@ frame_needed = 0, uses_anonymous_args = 0
+ 110 0000 08B5     		push	{r3, lr}
+ 111              	.LCFI1:
+ 112              		.cfi_def_cfa_offset 8
+ 113              		.cfi_offset 3, -8
+ 114              		.cfi_offset 14, -4
+  48:user/uart.c   **** 
+  49:user/uart.c   ****   /* USER CODE BEGIN USART1_Init 0 */
+  50:user/uart.c   ****     
+  51:user/uart.c   ****   /* USER CODE END USART1_Init 0 */
+  52:user/uart.c   **** 
+  53:user/uart.c   ****   /* USER CODE BEGIN USART1_Init 1 */
+  54:user/uart.c   **** 
+  55:user/uart.c   ****   /* USER CODE END USART1_Init 1 */
+  56:user/uart.c   ****   huart1.Instance = USART1;
+ 115              		.loc 1 56 3 view .LVU28
+ 116              		.loc 1 56 19 is_stmt 0 view .LVU29
+ 117 0002 0B48     		ldr	r0, .L11
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s 			page 4
+
+
+ 118 0004 0B4B     		ldr	r3, .L11+4
+ 119 0006 0360     		str	r3, [r0]
+  57:user/uart.c   ****   huart1.Init.BaudRate = 115200;
+ 120              		.loc 1 57 3 is_stmt 1 view .LVU30
+ 121              		.loc 1 57 24 is_stmt 0 view .LVU31
+ 122 0008 4FF4E133 		mov	r3, #115200
+ 123 000c 4360     		str	r3, [r0, #4]
+  58:user/uart.c   ****   huart1.Init.WordLength = UART_WORDLENGTH_8B;
+ 124              		.loc 1 58 3 is_stmt 1 view .LVU32
+ 125              		.loc 1 58 26 is_stmt 0 view .LVU33
+ 126 000e 0023     		movs	r3, #0
+ 127 0010 8360     		str	r3, [r0, #8]
+  59:user/uart.c   ****   huart1.Init.StopBits = UART_STOPBITS_1;
+ 128              		.loc 1 59 3 is_stmt 1 view .LVU34
+ 129              		.loc 1 59 24 is_stmt 0 view .LVU35
+ 130 0012 C360     		str	r3, [r0, #12]
+  60:user/uart.c   ****   huart1.Init.Parity = UART_PARITY_NONE;
+ 131              		.loc 1 60 3 is_stmt 1 view .LVU36
+ 132              		.loc 1 60 22 is_stmt 0 view .LVU37
+ 133 0014 0361     		str	r3, [r0, #16]
+  61:user/uart.c   ****   huart1.Init.Mode = UART_MODE_TX_RX;
+ 134              		.loc 1 61 3 is_stmt 1 view .LVU38
+ 135              		.loc 1 61 20 is_stmt 0 view .LVU39
+ 136 0016 0C22     		movs	r2, #12
+ 137 0018 4261     		str	r2, [r0, #20]
+  62:user/uart.c   ****   huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+ 138              		.loc 1 62 3 is_stmt 1 view .LVU40
+ 139              		.loc 1 62 25 is_stmt 0 view .LVU41
+ 140 001a 8361     		str	r3, [r0, #24]
+  63:user/uart.c   ****   huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+ 141              		.loc 1 63 3 is_stmt 1 view .LVU42
+ 142              		.loc 1 63 28 is_stmt 0 view .LVU43
+ 143 001c C361     		str	r3, [r0, #28]
+  64:user/uart.c   ****   huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+ 144              		.loc 1 64 3 is_stmt 1 view .LVU44
+ 145              		.loc 1 64 30 is_stmt 0 view .LVU45
+ 146 001e 0362     		str	r3, [r0, #32]
+  65:user/uart.c   ****   huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+ 147              		.loc 1 65 3 is_stmt 1 view .LVU46
+ 148              		.loc 1 65 38 is_stmt 0 view .LVU47
+ 149 0020 4362     		str	r3, [r0, #36]
+  66:user/uart.c   ****   if (HAL_UART_Init(&huart1) != HAL_OK)
+ 150              		.loc 1 66 3 is_stmt 1 view .LVU48
+ 151              		.loc 1 66 7 is_stmt 0 view .LVU49
+ 152 0022 FFF7FEFF 		bl	HAL_UART_Init
+ 153              	.LVL2:
+ 154              		.loc 1 66 6 view .LVU50
+ 155 0026 00B9     		cbnz	r0, .L10
+ 156              	.L7:
+  67:user/uart.c   ****   {
+  68:user/uart.c   ****     Error_Handler();
+  69:user/uart.c   ****   }
+  70:user/uart.c   ****   /* USER CODE BEGIN USART1_Init 2 */
+  71:user/uart.c   **** 
+  72:user/uart.c   ****   /* USER CODE END USART1_Init 2 */
+  73:user/uart.c   **** 
+  74:user/uart.c   **** }
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s 			page 5
+
+
+ 157              		.loc 1 74 1 view .LVU51
+ 158 0028 08BD     		pop	{r3, pc}
+ 159              	.L10:
+  68:user/uart.c   ****   }
+ 160              		.loc 1 68 5 is_stmt 1 view .LVU52
+ 161 002a FFF7FEFF 		bl	Error_Handler
+ 162              	.LVL3:
+ 163              		.loc 1 74 1 is_stmt 0 view .LVU53
+ 164 002e FBE7     		b	.L7
+ 165              	.L12:
+ 166              		.align	2
+ 167              	.L11:
+ 168 0030 00000000 		.word	.LANCHOR1
+ 169 0034 00380140 		.word	1073821696
+ 170              		.cfi_endproc
+ 171              	.LFE136:
+ 173              		.section	.text.MX_USART3_UART_Init,"ax",%progbits
+ 174              		.align	1
+ 175              		.global	MX_USART3_UART_Init
+ 176              		.syntax unified
+ 177              		.thumb
+ 178              		.thumb_func
+ 179              		.fpu fpv4-sp-d16
+ 181              	MX_USART3_UART_Init:
+ 182              	.LFB137:
+  75:user/uart.c   **** 
+  76:user/uart.c   **** /**
+  77:user/uart.c   ****   * @brief USART3 Initialization Function
+  78:user/uart.c   ****   * @param None
+  79:user/uart.c   ****   * @retval None
+  80:user/uart.c   ****   */
+  81:user/uart.c   **** void MX_USART3_UART_Init(void)
+  82:user/uart.c   **** {
+ 183              		.loc 1 82 1 is_stmt 1 view -0
+ 184              		.cfi_startproc
+ 185              		@ args = 0, pretend = 0, frame = 0
+ 186              		@ frame_needed = 0, uses_anonymous_args = 0
+ 187 0000 08B5     		push	{r3, lr}
+ 188              	.LCFI2:
+ 189              		.cfi_def_cfa_offset 8
+ 190              		.cfi_offset 3, -8
+ 191              		.cfi_offset 14, -4
+  83:user/uart.c   **** 
+  84:user/uart.c   ****   /* USER CODE BEGIN USART3_Init 0 */
+  85:user/uart.c   ****     
+  86:user/uart.c   ****   /* USER CODE END USART3_Init 0 */
+  87:user/uart.c   **** 
+  88:user/uart.c   ****   /* USER CODE BEGIN USART3_Init 1 */
+  89:user/uart.c   **** 
+  90:user/uart.c   ****   /* USER CODE END USART3_Init 1 */
+  91:user/uart.c   ****   huart3.Instance = USART3;
+ 192              		.loc 1 91 3 view .LVU55
+ 193              		.loc 1 91 19 is_stmt 0 view .LVU56
+ 194 0002 0B48     		ldr	r0, .L17
+ 195 0004 0B4B     		ldr	r3, .L17+4
+ 196 0006 0360     		str	r3, [r0]
+  92:user/uart.c   ****   huart3.Init.BaudRate = 115200;
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s 			page 6
+
+
+ 197              		.loc 1 92 3 is_stmt 1 view .LVU57
+ 198              		.loc 1 92 24 is_stmt 0 view .LVU58
+ 199 0008 4FF4E133 		mov	r3, #115200
+ 200 000c 4360     		str	r3, [r0, #4]
+  93:user/uart.c   ****   huart3.Init.WordLength = UART_WORDLENGTH_8B;
+ 201              		.loc 1 93 3 is_stmt 1 view .LVU59
+ 202              		.loc 1 93 26 is_stmt 0 view .LVU60
+ 203 000e 0023     		movs	r3, #0
+ 204 0010 8360     		str	r3, [r0, #8]
+  94:user/uart.c   ****   huart3.Init.StopBits = UART_STOPBITS_1;
+ 205              		.loc 1 94 3 is_stmt 1 view .LVU61
+ 206              		.loc 1 94 24 is_stmt 0 view .LVU62
+ 207 0012 C360     		str	r3, [r0, #12]
+  95:user/uart.c   ****   huart3.Init.Parity = UART_PARITY_NONE;
+ 208              		.loc 1 95 3 is_stmt 1 view .LVU63
+ 209              		.loc 1 95 22 is_stmt 0 view .LVU64
+ 210 0014 0361     		str	r3, [r0, #16]
+  96:user/uart.c   ****   huart3.Init.Mode = UART_MODE_TX_RX;
+ 211              		.loc 1 96 3 is_stmt 1 view .LVU65
+ 212              		.loc 1 96 20 is_stmt 0 view .LVU66
+ 213 0016 0C22     		movs	r2, #12
+ 214 0018 4261     		str	r2, [r0, #20]
+  97:user/uart.c   ****   huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+ 215              		.loc 1 97 3 is_stmt 1 view .LVU67
+ 216              		.loc 1 97 25 is_stmt 0 view .LVU68
+ 217 001a 8361     		str	r3, [r0, #24]
+  98:user/uart.c   ****   huart3.Init.OverSampling = UART_OVERSAMPLING_16;
+ 218              		.loc 1 98 3 is_stmt 1 view .LVU69
+ 219              		.loc 1 98 28 is_stmt 0 view .LVU70
+ 220 001c C361     		str	r3, [r0, #28]
+  99:user/uart.c   ****   huart3.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+ 221              		.loc 1 99 3 is_stmt 1 view .LVU71
+ 222              		.loc 1 99 30 is_stmt 0 view .LVU72
+ 223 001e 0362     		str	r3, [r0, #32]
+ 100:user/uart.c   ****   huart3.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+ 224              		.loc 1 100 3 is_stmt 1 view .LVU73
+ 225              		.loc 1 100 38 is_stmt 0 view .LVU74
+ 226 0020 4362     		str	r3, [r0, #36]
+ 101:user/uart.c   ****   if (HAL_UART_Init(&huart3) != HAL_OK)
+ 227              		.loc 1 101 3 is_stmt 1 view .LVU75
+ 228              		.loc 1 101 7 is_stmt 0 view .LVU76
+ 229 0022 FFF7FEFF 		bl	HAL_UART_Init
+ 230              	.LVL4:
+ 231              		.loc 1 101 6 view .LVU77
+ 232 0026 00B9     		cbnz	r0, .L16
+ 233              	.L13:
+ 102:user/uart.c   ****   {
+ 103:user/uart.c   ****     Error_Handler();
+ 104:user/uart.c   ****   }
+ 105:user/uart.c   ****   /* USER CODE BEGIN USART3_Init 2 */
+ 106:user/uart.c   **** 
+ 107:user/uart.c   ****   /* USER CODE END USART3_Init 2 */
+ 108:user/uart.c   **** 
+ 109:user/uart.c   **** }
+ 234              		.loc 1 109 1 view .LVU78
+ 235 0028 08BD     		pop	{r3, pc}
+ 236              	.L16:
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s 			page 7
+
+
+ 103:user/uart.c   ****   }
+ 237              		.loc 1 103 5 is_stmt 1 view .LVU79
+ 238 002a FFF7FEFF 		bl	Error_Handler
+ 239              	.LVL5:
+ 240              		.loc 1 109 1 is_stmt 0 view .LVU80
+ 241 002e FBE7     		b	.L13
+ 242              	.L18:
+ 243              		.align	2
+ 244              	.L17:
+ 245 0030 00000000 		.word	.LANCHOR2
+ 246 0034 00480040 		.word	1073760256
+ 247              		.cfi_endproc
+ 248              	.LFE137:
+ 250              		.section	.text.cutString,"ax",%progbits
+ 251              		.align	1
+ 252              		.global	cutString
+ 253              		.syntax unified
+ 254              		.thumb
+ 255              		.thumb_func
+ 256              		.fpu fpv4-sp-d16
+ 258              	cutString:
+ 259              	.LVL6:
+ 260              	.LFB138:
+ 110:user/uart.c   **** 
+ 111:user/uart.c   **** 
+ 112:user/uart.c   **** 
+ 113:user/uart.c   **** 
+ 114:user/uart.c   **** /**
+ 115:user/uart.c   ****   * @brief trim string based on start and end string
+ 116:user/uart.c   ****   * @param data - data received after cutting
+ 117:user/uart.c   ****   * @param source - pass to the original string
+ 118:user/uart.c   ****   * @param startString - string starts to get data
+ 119:user/uart.c   ****   * @param finalString - terminating string receiving data
+ 120:user/uart.c   ****   * @retval None  
+ 121:user/uart.c   ****   */
+ 122:user/uart.c   **** void cutString( void *data, const char source[], const char startString[], const char finalString[]
+ 261              		.loc 1 122 101 is_stmt 1 view -0
+ 262              		.cfi_startproc
+ 263              		@ args = 0, pretend = 0, frame = 200
+ 264              		@ frame_needed = 0, uses_anonymous_args = 0
+ 265              		.loc 1 122 101 is_stmt 0 view .LVU82
+ 266 0000 70B5     		push	{r4, r5, r6, lr}
+ 267              	.LCFI3:
+ 268              		.cfi_def_cfa_offset 16
+ 269              		.cfi_offset 4, -16
+ 270              		.cfi_offset 5, -12
+ 271              		.cfi_offset 6, -8
+ 272              		.cfi_offset 14, -4
+ 273 0002 B2B0     		sub	sp, sp, #200
+ 274              	.LCFI4:
+ 275              		.cfi_def_cfa_offset 216
+ 276 0004 0546     		mov	r5, r0
+ 277 0006 0846     		mov	r0, r1
+ 278              	.LVL7:
+ 279              		.loc 1 122 101 view .LVU83
+ 280 0008 1C46     		mov	r4, r3
+ 123:user/uart.c   ****    char *pdata = (char *)data;
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s 			page 8
+
+
+ 281              		.loc 1 123 4 is_stmt 1 view .LVU84
+ 282              	.LVL8:
+ 124:user/uart.c   ****    int maxLength = 100;
+ 283              		.loc 1 124 4 view .LVU85
+ 125:user/uart.c   ****    char *subStart, *subFinal, getStart[maxLength], getFinal[maxLength];
+ 284              		.loc 1 125 4 view .LVU86
+ 126:user/uart.c   **** 
+ 127:user/uart.c   ****    subStart = strstr(source, startString);
+ 285              		.loc 1 127 4 view .LVU87
+ 286              		.loc 1 127 15 is_stmt 0 view .LVU88
+ 287 000a 1146     		mov	r1, r2
+ 288              	.LVL9:
+ 289              		.loc 1 127 15 view .LVU89
+ 290 000c FFF7FEFF 		bl	strstr
+ 291              	.LVL10:
+ 292              		.loc 1 127 15 view .LVU90
+ 293 0010 0146     		mov	r1, r0
+ 294              	.LVL11:
+ 128:user/uart.c   ****    memcpy(getStart, subStart ,maxLength);
+ 295              		.loc 1 128 4 is_stmt 1 view .LVU91
+ 296 0012 6426     		movs	r6, #100
+ 297 0014 3246     		mov	r2, r6
+ 298 0016 6846     		mov	r0, sp
+ 299              	.LVL12:
+ 300              		.loc 1 128 4 is_stmt 0 view .LVU92
+ 301 0018 FFF7FEFF 		bl	memcpy
+ 302              	.LVL13:
+ 129:user/uart.c   ****    subFinal = strstr(getStart, finalString);
+ 303              		.loc 1 129 4 is_stmt 1 view .LVU93
+ 304              		.loc 1 129 15 is_stmt 0 view .LVU94
+ 305 001c 2146     		mov	r1, r4
+ 306 001e 6846     		mov	r0, sp
+ 307 0020 FFF7FEFF 		bl	strstr
+ 308              	.LVL14:
+ 309 0024 0146     		mov	r1, r0
+ 310              	.LVL15:
+ 130:user/uart.c   ****    memcpy(getFinal, subFinal ,maxLength);
+ 311              		.loc 1 130 4 is_stmt 1 view .LVU95
+ 312 0026 3246     		mov	r2, r6
+ 313 0028 0DEB0600 		add	r0, sp, r6
+ 314              	.LVL16:
+ 315              		.loc 1 130 4 is_stmt 0 view .LVU96
+ 316 002c FFF7FEFF 		bl	memcpy
+ 317              	.LVL17:
+ 131:user/uart.c   **** 
+ 132:user/uart.c   ****    if(strlen(getStart)!=0 && strlen(getFinal) !=0){
+ 318              		.loc 1 132 4 is_stmt 1 view .LVU97
+ 319              		.loc 1 132 23 is_stmt 0 view .LVU98
+ 320 0030 9DF80030 		ldrb	r3, [sp]	@ zero_extendqisi2
+ 321              		.loc 1 132 6 view .LVU99
+ 322 0034 13B1     		cbz	r3, .L19
+ 323              		.loc 1 132 47 discriminator 1 view .LVU100
+ 324 0036 9DF86430 		ldrb	r3, [sp, #100]	@ zero_extendqisi2
+ 325              		.loc 1 132 27 discriminator 1 view .LVU101
+ 326 003a 03BB     		cbnz	r3, .L24
+ 327              	.LVL18:
+ 328              	.L19:
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s 			page 9
+
+
+ 133:user/uart.c   ****       for(int i=0; i< strlen(getStart); i++){
+ 134:user/uart.c   ****          if(strcmp(&getStart[i-2], &getFinal[0]) ==0 && strcmp(&getStart[i-1], &getFinal[1]) ==0 ){
+ 135:user/uart.c   ****             break;
+ 136:user/uart.c   ****          }
+ 137:user/uart.c   ****          else{
+ 138:user/uart.c   ****             pdata[strlen(pdata)] = getStart[i];
+ 139:user/uart.c   ****          }
+ 140:user/uart.c   ****       }
+ 141:user/uart.c   ****    }
+ 142:user/uart.c   **** }...
+ 329              		.loc 1 142 1 view .LVU102
+ 330 003c 32B0     		add	sp, sp, #200
+ 331              	.LCFI5:
+ 332              		.cfi_remember_state
+ 333              		.cfi_def_cfa_offset 16
+ 334              	.LVL19:
+ 335              		.loc 1 142 1 view .LVU103
+ 336              		@ sp needed
+ 337 003e 70BD     		pop	{r4, r5, r6, pc}
+ 338              	.LVL20:
+ 339              	.L22:
+ 340              	.LCFI6:
+ 341              		.cfi_restore_state
+ 342              	.LBB2:
+ 138:user/uart.c   ****             pdata[strlen(pdata)] = getStart[i];
+ 343              		.loc 1 138 13 is_stmt 1 view .LVU104
+ 138:user/uart.c   ****             pdata[strlen(pdata)] = getStart[i];
+ 344              		.loc 1 138 19 is_stmt 0 view .LVU105
+ 345 0040 2846     		mov	r0, r5
+ 346 0042 FFF7FEFF 		bl	strlen
+ 347              	.LVL21:
+ 138:user/uart.c   ****             pdata[strlen(pdata)] = getStart[i];
+ 348              		.loc 1 138 44 view .LVU106
+ 349 0046 04F1C803 		add	r3, r4, #200
+ 350 004a 6B44     		add	r3, sp, r3
+ 351 004c 13F8C83C 		ldrb	r3, [r3, #-200]	@ zero_extendqisi2
+ 138:user/uart.c   ****             pdata[strlen(pdata)] = getStart[i];
+ 352              		.loc 1 138 34 view .LVU107
+ 353 0050 2B54     		strb	r3, [r5, r0]
+ 133:user/uart.c   ****       for(int i=0; i< strlen(getStart); i++){
+ 354              		.loc 1 133 41 is_stmt 1 view .LVU108
+ 133:user/uart.c   ****       for(int i=0; i< strlen(getStart); i++){
+ 355              		.loc 1 133 42 is_stmt 0 view .LVU109
+ 356 0052 0134     		adds	r4, r4, #1
+ 357              	.LVL22:
+ 358              	.L21:
+ 133:user/uart.c   ****       for(int i=0; i< strlen(getStart); i++){
+ 359              		.loc 1 133 20 is_stmt 1 discriminator 1 view .LVU110
+ 133:user/uart.c   ****       for(int i=0; i< strlen(getStart); i++){
+ 360              		.loc 1 133 23 is_stmt 0 discriminator 1 view .LVU111
+ 361 0054 6846     		mov	r0, sp
+ 362 0056 FFF7FEFF 		bl	strlen
+ 363              	.LVL23:
+ 133:user/uart.c   ****       for(int i=0; i< strlen(getStart); i++){
+ 364              		.loc 1 133 7 discriminator 1 view .LVU112
+ 365 005a A042     		cmp	r0, r4
+ 366 005c EED9     		bls	.L19
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s 			page 10
+
+
+ 134:user/uart.c   ****          if(strcmp(&getStart[i-2], &getFinal[0]) ==0 && strcmp(&getStart[i-1], &getFinal[1]) ==0 ){
+ 367              		.loc 1 134 10 is_stmt 1 view .LVU113
+ 134:user/uart.c   ****          if(strcmp(&getStart[i-2], &getFinal[0]) ==0 && strcmp(&getStart[i-1], &getFinal[1]) ==0 ){
+ 368              		.loc 1 134 31 is_stmt 0 view .LVU114
+ 369 005e A01E     		subs	r0, r4, #2
+ 134:user/uart.c   ****          if(strcmp(&getStart[i-2], &getFinal[0]) ==0 && strcmp(&getStart[i-1], &getFinal[1]) ==0 ){
+ 370              		.loc 1 134 13 view .LVU115
+ 371 0060 19A9     		add	r1, sp, #100
+ 372              	.LVL24:
+ 134:user/uart.c   ****          if(strcmp(&getStart[i-2], &getFinal[0]) ==0 && strcmp(&getStart[i-1], &getFinal[1]) ==0 ){
+ 373              		.loc 1 134 13 view .LVU116
+ 374 0062 6844     		add	r0, r0, sp
+ 375 0064 FFF7FEFF 		bl	strcmp
+ 376              	.LVL25:
+ 134:user/uart.c   ****          if(strcmp(&getStart[i-2], &getFinal[0]) ==0 && strcmp(&getStart[i-1], &getFinal[1]) ==0 ){
+ 377              		.loc 1 134 12 view .LVU117
+ 378 0068 0028     		cmp	r0, #0
+ 379 006a E9D1     		bne	.L22
+ 134:user/uart.c   ****          if(strcmp(&getStart[i-2], &getFinal[0]) ==0 && strcmp(&getStart[i-1], &getFinal[1]) ==0 ){
+ 380              		.loc 1 134 75 discriminator 1 view .LVU118
+ 381 006c 601E     		subs	r0, r4, #1
+ 134:user/uart.c   ****          if(strcmp(&getStart[i-2], &getFinal[0]) ==0 && strcmp(&getStart[i-1], &getFinal[1]) ==0 ){
+ 382              		.loc 1 134 57 discriminator 1 view .LVU119
+ 383 006e 0DF16501 		add	r1, sp, #101
+ 384 0072 6844     		add	r0, r0, sp
+ 385 0074 FFF7FEFF 		bl	strcmp
+ 386              	.LVL26:
+ 134:user/uart.c   ****          if(strcmp(&getStart[i-2], &getFinal[0]) ==0 && strcmp(&getStart[i-1], &getFinal[1]) ==0 ){
+ 387              		.loc 1 134 54 discriminator 1 view .LVU120
+ 388 0078 0028     		cmp	r0, #0
+ 389 007a E1D1     		bne	.L22
+ 390 007c DEE7     		b	.L19
+ 391              	.LVL27:
+ 392              	.L24:
+ 133:user/uart.c   ****       for(int i=0; i< strlen(getStart); i++){
+ 393              		.loc 1 133 15 view .LVU121
+ 394 007e 0024     		movs	r4, #0
+ 395              	.LVL28:
+ 133:user/uart.c   ****       for(int i=0; i< strlen(getStart); i++){
+ 396              		.loc 1 133 15 view .LVU122
+ 397 0080 E8E7     		b	.L21
+ 398              	.LBE2:
+ 399              		.cfi_endproc
+ 400              	.LFE138:
+ 402              		.global	huart3
+ 403              		.global	huart1
+ 404              		.global	huart4
+ 405              		.section	.bss.huart1,"aw",%nobits
+ 406              		.align	2
+ 407              		.set	.LANCHOR1,. + 0
+ 410              	huart1:
+ 411 0000 00000000 		.space	132
+ 411      00000000 
+ 411      00000000 
+ 411      00000000 
+ 411      00000000 
+ 412              		.section	.bss.huart3,"aw",%nobits
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s 			page 11
+
+
+ 413              		.align	2
+ 414              		.set	.LANCHOR2,. + 0
+ 417              	huart3:
+ 418 0000 00000000 		.space	132
+ 418      00000000 
+ 418      00000000 
+ 418      00000000 
+ 418      00000000 
+ 419              		.section	.bss.huart4,"aw",%nobits
+ 420              		.align	2
+ 421              		.set	.LANCHOR0,. + 0
+ 424              	huart4:
+ 425 0000 00000000 		.space	132
+ 425      00000000 
+ 425      00000000 
+ 425      00000000 
+ 425      00000000 
+ 426              		.text
+ 427              	.Letext0:
+ 428              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2021.07\\arm-none-eabi\\include\\
+ 429              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2021.07\\arm-none-eabi\\include\\
+ 430              		.file 4 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l452xx.h"
+ 431              		.file 5 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_def.h"
+ 432              		.file 6 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_dma.h"
+ 433              		.file 7 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h"
+ 434              		.file 8 "user/uart.h"
+ 435              		.file 9 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2021.07\\arm-none-eabi\\include\\
+ 436              		.file 10 "Core/Inc/main.h"
+ 437              		.file 11 "<built-in>"
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s 			page 12
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 uart.c
+C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s:18     .text.MX_UART4_Init:00000000 $t
+C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s:26     .text.MX_UART4_Init:00000000 MX_UART4_Init
+C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s:91     .text.MX_UART4_Init:00000030 $d
+C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s:97     .text.MX_USART1_UART_Init:00000000 $t
+C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s:104    .text.MX_USART1_UART_Init:00000000 MX_USART1_UART_Init
+C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s:168    .text.MX_USART1_UART_Init:00000030 $d
+C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s:174    .text.MX_USART3_UART_Init:00000000 $t
+C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s:181    .text.MX_USART3_UART_Init:00000000 MX_USART3_UART_Init
+C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s:245    .text.MX_USART3_UART_Init:00000030 $d
+C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s:251    .text.cutString:00000000 $t
+C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s:258    .text.cutString:00000000 cutString
+C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s:417    .bss.huart3:00000000 huart3
+C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s:410    .bss.huart1:00000000 huart1
+C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s:424    .bss.huart4:00000000 huart4
+C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s:406    .bss.huart1:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s:413    .bss.huart3:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\ccM7Yvmq.s:420    .bss.huart4:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_UART_Init
+Error_Handler
+strstr
+memcpy
+strlen
+strcmp

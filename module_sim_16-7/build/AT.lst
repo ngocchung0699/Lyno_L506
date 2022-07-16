@@ -1,0 +1,416 @@
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\cchSDV4o.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"AT.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	AT_CheckList
+  18              		.section	.rodata.str1.4,"aMS",%progbits,1
+  19              		.align	2
+  20              	.LC0:
+  21 0000 41540D0A 		.ascii	"AT\015\012\000"
+  21      00
+  22 0005 000000   		.align	2
+  23              	.LC1:
+  24 0008 4F4B00   		.ascii	"OK\000"
+  25 000b 00       		.align	2
+  26              	.LC2:
+  27 000c 0D0A00   		.ascii	"\015\012\000"
+  28 000f 00       		.align	2
+  29              	.LC3:
+  30 0010 41542B43 		.ascii	"AT+CPIN?\015\012\000"
+  30      50494E3F 
+  30      0D0A00
+  31 001b 00       		.align	2
+  32              	.LC4:
+  33 001c 2B435049 		.ascii	"+CPIN\000"
+  33      4E00
+  34 0022 0000     		.align	2
+  35              	.LC5:
+  36 0024 41542B43 		.ascii	"AT+CSQ\015\012\000"
+  36      53510D0A 
+  36      00
+  37 002d 000000   		.align	2
+  38              	.LC6:
+  39 0030 2B435351 		.ascii	"+CSQ\000"
+  39      00
+  40 0035 000000   		.align	2
+  41              	.LC7:
+  42 0038 41542B43 		.ascii	"AT+CREG?\015\012\000"
+  42      5245473F 
+  42      0D0A00
+  43 0043 00       		.align	2
+  44              	.LC8:
+  45 0044 2B435245 		.ascii	"+CREG\000"
+  45      4700
+  46 004a 0000     		.align	2
+  47              	.LC9:
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\cchSDV4o.s 			page 2
+
+
+  48 004c 41542B43 		.ascii	"AT+CGATT?\015\012\000"
+  48      47415454 
+  48      3F0D0A00 
+  49              		.align	2
+  50              	.LC10:
+  51 0058 2B434741 		.ascii	"+CGATT\000"
+  51      545400
+  52 005f 00       		.align	2
+  53              	.LC11:
+  54 0060 41542B43 		.ascii	"AT+CIPTIMEOUT=30000,20000,40000,50000\015\012\000"
+  54      49505449 
+  54      4D454F55 
+  54      543D3330 
+  54      3030302C 
+  55              		.align	2
+  56              	.LC12:
+  57 0088 41542B43 		.ascii	"AT+CIPMODE=0\015\012\000"
+  57      49504D4F 
+  57      44453D30 
+  57      0D0A00
+  58 0097 00       		.align	2
+  59              	.LC13:
+  60 0098 41542B4E 		.ascii	"AT+NETOPEN\015\012\000"
+  60      45544F50 
+  60      454E0D0A 
+  60      00
+  61 00a5 000000   		.align	2
+  62              	.LC14:
+  63 00a8 2B4E4554 		.ascii	"+NETOPEN:SUCCESS\000"
+  63      4F50454E 
+  63      3A535543 
+  63      43455353 
+  63      00
+  64 00b9 000000   		.align	2
+  65              	.LC15:
+  66 00bc 41542B49 		.ascii	"AT+IPADDR\015\012\000"
+  66      50414444 
+  66      520D0A00 
+  67              		.align	2
+  68              	.LC16:
+  69 00c8 2B495041 		.ascii	"+IPADDR:SUCCESS\000"
+  69      4444523A 
+  69      53554343 
+  69      45535300 
+  70              		.align	2
+  71              	.LC17:
+  72 00d8 41542B43 		.ascii	"AT+CIPRXGET=0,1\015\012\000"
+  72      49505258 
+  72      4745543D 
+  72      302C310D 
+  72      0A00
+  73 00ea 0000     		.align	2
+  74              	.LC18:
+  75 00ec 41542B43 		.ascii	"AT+CIPOPEN=1,\"TCP\",\"117.6.163.177\",7577,0\015\012"
+  75      49504F50 
+  75      454E3D31 
+  75      2C225443 
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\cchSDV4o.s 			page 3
+
+
+  75      50222C22 
+  76 0117 00       		.ascii	"\000"
+  77              		.align	2
+  78              	.LC19:
+  79 0118 2B434950 		.ascii	"+CIPOPEN:SUCCESS\000"
+  79      4F50454E 
+  79      3A535543 
+  79      43455353 
+  79      00
+  80 0129 000000   		.align	2
+  81              	.LC20:
+  82 012c 41542B43 		.ascii	"AT+CIPOPQUERY?\015\012\000"
+  82      49504F50 
+  82      51554552 
+  82      593F0D0A 
+  82      00
+  83 013d 000000   		.align	2
+  84              	.LC21:
+  85 0140 2B434950 		.ascii	"+CIPOPQUERY\000"
+  85      4F505155 
+  85      45525900 
+  86              		.align	2
+  87              	.LC22:
+  88 014c 41542B43 		.ascii	"AT+CIPCLOSE=1\015\012\000"
+  88      4950434C 
+  88      4F53453D 
+  88      310D0A00 
+  89              		.align	2
+  90              	.LC23:
+  91 015c 2B434950 		.ascii	"+CIPCLOSE:SUCCESS\000"
+  91      434C4F53 
+  91      453A5355 
+  91      43434553 
+  91      5300
+  92 016e 0000     		.align	2
+  93              	.LC24:
+  94 0170 41542B4E 		.ascii	"AT+NETCLOSE\015\012\000"
+  94      4554434C 
+  94      4F53450D 
+  94      0A00
+  95 017e 0000     		.align	2
+  96              	.LC25:
+  97 0180 2B4E4554 		.ascii	"+NETCLOSE:SUCCESS\000"
+  97      434C4F53 
+  97      453A5355 
+  97      43434553 
+  97      5300
+  98 0192 0000     		.align	2
+  99              	.LC26:
+ 100 0194 41542B43 		.ascii	"AT+CIPSEND=1,,,,\015\012\000"
+ 100      49505345 
+ 100      4E443D31 
+ 100      2C2C2C2C 
+ 100      0D0A00
+ 101 01a7 00       		.align	2
+ 102              	.LC27:
+ 103 01a8 2B434950 		.ascii	"+CIPSEND:SUCCESS\000"
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\cchSDV4o.s 			page 4
+
+
+ 103      53454E44 
+ 103      3A535543 
+ 103      43455353 
+ 103      00
+ 104 01b9 000000   		.align	2
+ 105              	.LC28:
+ 106 01bc 41542B43 		.ascii	"AT+CCLK?\015\012\000"
+ 106      434C4B3F 
+ 106      0D0A00
+ 107 01c7 00       		.align	2
+ 108              	.LC29:
+ 109 01c8 2B43434C 		.ascii	"+CCLK\000"
+ 109      4B00
+ 110              		.section	.rodata.AT_CheckList,"a"
+ 111              		.align	2
+ 114              	AT_CheckList:
+ 115 0000 00       		.byte	0
+ 116 0001 000000   		.space	3
+ 117 0004 00000000 		.word	.LC0
+ 118 0008 0400     		.short	4
+ 119 000a 0000     		.space	2
+ 120 000c 08000000 		.word	.LC1
+ 121 0010 0200     		.short	2
+ 122 0012 0000     		.space	2
+ 123 0014 0C000000 		.word	.LC2
+ 124 0018 0200     		.short	2
+ 125 001a 0000     		.space	2
+ 126 001c 02000000 		.word	2
+ 127 0020 01       		.byte	1
+ 128 0021 000000   		.space	3
+ 129 0024 10000000 		.word	.LC3
+ 130 0028 0A00     		.short	10
+ 131 002a 0000     		.space	2
+ 132 002c 1C000000 		.word	.LC4
+ 133 0030 0500     		.short	5
+ 134 0032 0000     		.space	2
+ 135 0034 08000000 		.word	.LC1
+ 136 0038 0200     		.short	2
+ 137 003a 0000     		.space	2
+ 138 003c 04000000 		.word	4
+ 139 0040 02       		.byte	2
+ 140 0041 000000   		.space	3
+ 141 0044 24000000 		.word	.LC5
+ 142 0048 0800     		.short	8
+ 143 004a 0000     		.space	2
+ 144 004c 30000000 		.word	.LC6
+ 145 0050 0300     		.short	3
+ 146 0052 0000     		.space	2
+ 147 0054 08000000 		.word	.LC1
+ 148 0058 0200     		.short	2
+ 149 005a 0000     		.space	2
+ 150 005c 04000000 		.word	4
+ 151 0060 03       		.byte	3
+ 152 0061 000000   		.space	3
+ 153 0064 38000000 		.word	.LC7
+ 154 0068 0A00     		.short	10
+ 155 006a 0000     		.space	2
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\cchSDV4o.s 			page 5
+
+
+ 156 006c 44000000 		.word	.LC8
+ 157 0070 0500     		.short	5
+ 158 0072 0000     		.space	2
+ 159 0074 08000000 		.word	.LC1
+ 160 0078 0200     		.short	2
+ 161 007a 0000     		.space	2
+ 162 007c 04000000 		.word	4
+ 163 0080 04       		.byte	4
+ 164 0081 000000   		.space	3
+ 165 0084 4C000000 		.word	.LC9
+ 166 0088 0B00     		.short	11
+ 167 008a 0000     		.space	2
+ 168 008c 58000000 		.word	.LC10
+ 169 0090 0600     		.short	6
+ 170 0092 0000     		.space	2
+ 171 0094 08000000 		.word	.LC1
+ 172 0098 0200     		.short	2
+ 173 009a 0000     		.space	2
+ 174 009c 04000000 		.word	4
+ 175 00a0 05       		.byte	5
+ 176 00a1 000000   		.space	3
+ 177 00a4 60000000 		.word	.LC11
+ 178 00a8 2700     		.short	39
+ 179 00aa 0000     		.space	2
+ 180 00ac 08000000 		.word	.LC1
+ 181 00b0 0200     		.short	2
+ 182 00b2 0000     		.space	2
+ 183 00b4 0C000000 		.word	.LC2
+ 184 00b8 0200     		.short	2
+ 185 00ba 0000     		.space	2
+ 186 00bc 02000000 		.word	2
+ 187 00c0 06       		.byte	6
+ 188 00c1 000000   		.space	3
+ 189 00c4 88000000 		.word	.LC12
+ 190 00c8 0E00     		.short	14
+ 191 00ca 0000     		.space	2
+ 192 00cc 08000000 		.word	.LC1
+ 193 00d0 0200     		.short	2
+ 194 00d2 0000     		.space	2
+ 195 00d4 0C000000 		.word	.LC2
+ 196 00d8 0200     		.short	2
+ 197 00da 0000     		.space	2
+ 198 00dc 02000000 		.word	2
+ 199 00e0 07       		.byte	7
+ 200 00e1 000000   		.space	3
+ 201 00e4 98000000 		.word	.LC13
+ 202 00e8 0C00     		.short	12
+ 203 00ea 0000     		.space	2
+ 204 00ec A8000000 		.word	.LC14
+ 205 00f0 1000     		.short	16
+ 206 00f2 0000     		.space	2
+ 207 00f4 0C000000 		.word	.LC2
+ 208 00f8 0200     		.short	2
+ 209 00fa 0000     		.space	2
+ 210 00fc 04000000 		.word	4
+ 211 0100 08       		.byte	8
+ 212 0101 000000   		.space	3
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\cchSDV4o.s 			page 6
+
+
+ 213 0104 BC000000 		.word	.LC15
+ 214 0108 0B00     		.short	11
+ 215 010a 0000     		.space	2
+ 216 010c C8000000 		.word	.LC16
+ 217 0110 0F00     		.short	15
+ 218 0112 0000     		.space	2
+ 219 0114 08000000 		.word	.LC1
+ 220 0118 0200     		.short	2
+ 221 011a 0000     		.space	2
+ 222 011c 04000000 		.word	4
+ 223 0120 09       		.byte	9
+ 224 0121 000000   		.space	3
+ 225 0124 D8000000 		.word	.LC17
+ 226 0128 1100     		.short	17
+ 227 012a 0000     		.space	2
+ 228 012c 08000000 		.word	.LC1
+ 229 0130 0200     		.short	2
+ 230 0132 0000     		.space	2
+ 231 0134 0C000000 		.word	.LC2
+ 232 0138 0200     		.short	2
+ 233 013a 0000     		.space	2
+ 234 013c 02000000 		.word	2
+ 235 0140 0A       		.byte	10
+ 236 0141 000000   		.space	3
+ 237 0144 EC000000 		.word	.LC18
+ 238 0148 2B00     		.short	43
+ 239 014a 0000     		.space	2
+ 240 014c 18010000 		.word	.LC19
+ 241 0150 1000     		.short	16
+ 242 0152 0000     		.space	2
+ 243 0154 08000000 		.word	.LC1
+ 244 0158 0200     		.short	2
+ 245 015a 0000     		.space	2
+ 246 015c 04000000 		.word	4
+ 247 0160 0B       		.byte	11
+ 248 0161 000000   		.space	3
+ 249 0164 2C010000 		.word	.LC20
+ 250 0168 1000     		.short	16
+ 251 016a 0000     		.space	2
+ 252 016c 40010000 		.word	.LC21
+ 253 0170 0B00     		.short	11
+ 254 0172 0000     		.space	2
+ 255 0174 08000000 		.word	.LC1
+ 256 0178 0200     		.short	2
+ 257 017a 0000     		.space	2
+ 258 017c 04000000 		.word	4
+ 259 0180 0C       		.byte	12
+ 260 0181 000000   		.space	3
+ 261 0184 4C010000 		.word	.LC22
+ 262 0188 0F00     		.short	15
+ 263 018a 0000     		.space	2
+ 264 018c 5C010000 		.word	.LC23
+ 265 0190 1100     		.short	17
+ 266 0192 0000     		.space	2
+ 267 0194 0C000000 		.word	.LC2
+ 268 0198 0200     		.short	2
+ 269 019a 0000     		.space	2
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\cchSDV4o.s 			page 7
+
+
+ 270 019c 04000000 		.word	4
+ 271 01a0 0D       		.byte	13
+ 272 01a1 000000   		.space	3
+ 273 01a4 70010000 		.word	.LC24
+ 274 01a8 0D00     		.short	13
+ 275 01aa 0000     		.space	2
+ 276 01ac 80010000 		.word	.LC25
+ 277 01b0 1100     		.short	17
+ 278 01b2 0000     		.space	2
+ 279 01b4 0C000000 		.word	.LC2
+ 280 01b8 0200     		.short	2
+ 281 01ba 0000     		.space	2
+ 282 01bc 04000000 		.word	4
+ 283 01c0 0E       		.byte	14
+ 284 01c1 000000   		.space	3
+ 285 01c4 94010000 		.word	.LC26
+ 286 01c8 1200     		.short	18
+ 287 01ca 0000     		.space	2
+ 288 01cc A8010000 		.word	.LC27
+ 289 01d0 1000     		.short	16
+ 290 01d2 0000     		.space	2
+ 291 01d4 0C000000 		.word	.LC2
+ 292 01d8 0200     		.short	2
+ 293 01da 0000     		.space	2
+ 294 01dc 04000000 		.word	4
+ 295 01e0 0F       		.byte	15
+ 296 01e1 000000   		.space	3
+ 297 01e4 BC010000 		.word	.LC28
+ 298 01e8 0A00     		.short	10
+ 299 01ea 0000     		.space	2
+ 300 01ec C8010000 		.word	.LC29
+ 301 01f0 0500     		.short	5
+ 302 01f2 0000     		.space	2
+ 303 01f4 08000000 		.word	.LC1
+ 304 01f8 0200     		.short	2
+ 305 01fa 0000     		.space	2
+ 306 01fc 04000000 		.word	4
+ 307              		.text
+ 308              	.Letext0:
+ 309              		.file 1 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2021.07\\arm-none-eabi\\include\\
+ 310              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2021.07\\arm-none-eabi\\include\\
+ 311              		.file 3 "user/AT.h"
+ 312              		.file 4 "user/AT.c"
+ARM GAS  C:\Users\ngocc\AppData\Local\Temp\cchSDV4o.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 AT.c
+C:\Users\ngocc\AppData\Local\Temp\cchSDV4o.s:114    .rodata.AT_CheckList:00000000 AT_CheckList
+C:\Users\ngocc\AppData\Local\Temp\cchSDV4o.s:19     .rodata.str1.4:00000000 $d
+C:\Users\ngocc\AppData\Local\Temp\cchSDV4o.s:111    .rodata.AT_CheckList:00000000 $d
+
+NO UNDEFINED SYMBOLS
