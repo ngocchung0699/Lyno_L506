@@ -1,2 +1,0 @@
-RTC use LSE - NVIC 15
-TIM2 - NVIC 1
