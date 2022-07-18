@@ -9,30 +9,29 @@
 #include "system.h"
 #include "gpio.h"
 
-
+AT_CommandTypeDef AT_CheckList1;
 AT_TimeTypeDef AT_Time;
 
-int handleCheckModule(uint8_t send[], int length_send, uint8_t compare[], int length_compare, uint8_t final[], int length_final, int timeout);
+int handleCheckModule(char send[], int length_send, char compare[], int length_compare, char final[], int length_final, int timeout);
 void setupModule(char keyCheck[]);
 
 void getTime();
 void sendTimeToServer(int number_second);
 
-int FIFTEEN_SECOND =10;
+const int FIFTEEN_SECOND = 15;
 uint8_t UART1_Rx;
 char UART1_RxData[100];
 char UART1_RxDatabuffer[100];
 
 uint8_t UART3_Rx;
 char UART3_RxData[100];
-int couterCheck=0;
-const int listConfigModuleSim =12;
+int couterCheck = 0;
+const int LIST_CONFIG = 12;
 
-char sendBuffer[100], compareBuffer[100], finalBuffer[100], UART3_DataReceived[100];
+char UART3_DataReceived[100];
 
-int run=0;
-int check_ok=0;
-const int GET_TIME_ON = 1, GET_TIME_OFF=0 ;
+int check_ok = 0;
+const int GET_TIME_ON = 1, GET_TIME_OFF = 0 ;
 int SECOND = 1;
 
 int main(void)
@@ -59,26 +58,40 @@ int main(void)
 uint16_t couterMessage = 0;
 char messageTime[100];
 char couterChar[10];
-uint32_t oldGetTick=0;
+uint32_t oldGetTick = 0;
 
 void sendTimeToServer(int number_second)
 {
   getTime(check_ok);
-  if(HAL_GetTick() - oldGetTick >= number_second*1000 && check_ok == GET_TIME_ON){
-    couterMessage++;
-    uint8_t donvi = couterMessage%10 + 48;
-    uint8_t chuc = couterMessage%100/10 + 48; 
-    uint8_t tram = couterMessage/100 + 48; 
+  if(HAL_GetTick() - oldGetTick >= number_second * 1000 && check_ok == GET_TIME_ON){
+    couterMessage ++;
+    uint8_t donvi = couterMessage % 10 + 48;
+    uint8_t chuc = couterMessage % 100 / 10 + 48; 
+    uint8_t tram = couterMessage / 100 + 48; 
 
-    if(couterMessage < 10){chuc = 0x00; couterChar[0]= donvi;}
-    if(couterMessage >= 10 && couterMessage < 100){tram = 0x00; couterChar[1]= donvi; couterChar[0]= chuc;}
-    if(couterMessage >= 100){couterChar[2]= donvi; couterChar[1]= chuc; couterChar[0]= tram;}
+    if(couterMessage < 10)
+    {
+      chuc = 0x00; 
+      couterChar[0] = donvi;
+    }
+    if(couterMessage >= 10 && couterMessage < 100)
+    {
+      tram = 0x00; 
+      couterChar[1] = donvi; 
+      couterChar[0] = chuc;
+    }
+    if(couterMessage >= 100)
+    {
+      couterChar[2] = donvi; 
+      couterChar[1] = chuc; 
+      couterChar[0] = tram;
+    }
 
-    memset(messageTime,0x00,100);
-    char message[]= "Message";
-    char dash[] =" - ";
+    memset(messageTime, 0x00, 100);
+    char message[] = "Message";
+    char dash[] = " - ";
     char punctuation[] = ":";
-    char final_char[] ="\r\n";
+    char final_char[] = "\r\n";
     memcpy(messageTime + strlen(messageTime), AT_CheckList[AT_SendData].send.data, AT_CheckList[AT_SendData].send.length_Data);
     memcpy(messageTime + strlen(messageTime), message, strlen(message));
     memcpy(messageTime + strlen(messageTime), punctuation, strlen(punctuation));
@@ -116,25 +129,23 @@ void getTime(int getAllow)
 
 void setupModule(char keyCheck[]){
   
-  if(strcmp(keyCheck, "KT\r\n") ==0){
+  if(strcmp(keyCheck, "KT\r\n") == 0){
     check_ok = GET_TIME_OFF;
     memset(UART1_RxData, 0x00, 100);
-    for(int i=0; i < listConfigModuleSim; i++){
+    for(int i= 0; i < LIST_CONFIG; i++){
       if(handleCheckModule(
         AT_CheckList[i].send.data,    AT_CheckList[i].send.length_Data,
         AT_CheckList[i].compare.data, AT_CheckList[i].compare.length_Data,
         AT_CheckList[i].final.data,   AT_CheckList[i].final.length_Data, 
         AT_CheckList[i].timeout) != 1)
       {
-        i=i-2;
+        i = i-2;
       }
-      run = i;
     }
     HAL_UART_Transmit(&huart1, (uint8_t *) "Da kiem tra xong \r\n", 19, 200);
     check_ok = GET_TIME_ON;
   }
 }
-
 
 /**
   * @brief check the received string is true or false
@@ -145,30 +156,24 @@ void setupModule(char keyCheck[]){
   * @retval True or false
   * @retval UART3_DataReceived - data received after cutting
   */
-int handleCheckModule(uint8_t send[], int length_send, uint8_t compare[], int length_compare, uint8_t final[], int length_final, int timeout)
+int handleCheckModule(char send[], int length_send, char compare[], int length_compare, char final[], int length_final, int timeout)
 {
-  int ret=0;
-  memset(sendBuffer,0x00,100);
-  memset(compareBuffer,0x00,100);
-  memset(finalBuffer,0x00,100);
-
-  memcpy(sendBuffer, send, length_send);
-  memcpy(compareBuffer, compare, length_compare);
-  memcpy(finalBuffer, final, length_final);
+  int ret = 0;
 
   memset(UART3_RxData, 0x00, 100);
-  HAL_UART_Transmit(&huart3, (uint8_t *) &sendBuffer, strlen(sendBuffer), 200);
+  HAL_UART_Transmit(&huart3, (uint8_t *)send, strlen(send), 200);
+
   HAL_Delay(timeout);
 
-  if(strlen(strstr(UART3_RxData, compareBuffer))!=0 && strlen(strstr(strstr(UART3_RxData, compareBuffer), finalBuffer))!=0)
+  if(strlen(strstr(UART3_RxData, compare)) != 0 && strlen(strstr(strstr(UART3_RxData, compare), final)) != 0)
   {
-    memset(UART3_DataReceived, 0x00,100);
-    getStringToString(UART3_DataReceived, UART3_RxData, compareBuffer, finalBuffer);
+    memset(UART3_DataReceived, 0x00, 100);
+    getStringToString(UART3_DataReceived, UART3_RxData, compare, final);
     HAL_UART_Transmit(&huart1, (uint8_t *) &UART3_DataReceived, strlen(UART3_DataReceived), 200);
     HAL_UART_Transmit(&huart1, (uint8_t *) "\r\n", 2, 200);
-    ret=1;
+    ret = 1;
   }
-  else{ret =0;}
+  else{ret = 0;}
   return ret;
 }
 
@@ -183,7 +188,7 @@ int UART1_CouterDataInterruption=0;
   */
 void UART1_GetData(char UART1_Rx[], int Number_Allow){
   if(Number_Allow != 0){
-    if(UART1_Rx[strlen(UART1_Rx)-2]==13 && UART1_Rx[strlen(UART1_Rx)-1]==10){
+    if(UART1_Rx[strlen(UART1_Rx) - 2] == 0x0D && UART1_Rx[strlen(UART1_Rx) - 1] == 0x0A){
 		  ++UART1_CouterDataInterruption;
       if(UART1_CouterDataInterruption >= Number_Allow){
         memset(UART1_RxData, 0x00,100);
