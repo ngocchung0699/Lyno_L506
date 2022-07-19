@@ -8,7 +8,7 @@ make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --quest
 # This program built for i386-pc-mingw32
  
 
-# Make data base, printed on Tue Jul 19 08:37:59 2022
+# Make data base, printed on Tue Jul 19 17:42:17 2022
 
 # Variables
 
@@ -56,8 +56,7 @@ VSCODE_CWD = G:\Lyno_L506
 # environment
 NO_PROXY = 127.0.0.1
 # environment
-COMM 
-ONPROGRAMW6432 = C:\Program Files\Common Files
+COMMONPROGRAMW6432 = C:\Program Files\Common Files
 # environment
 PROCESSOR_ARCHITECTURE = x86
 # environment
@@ -73,11 +72,10 @@ ELECTRON_RUN_AS_NODE = 1
 # automatic
 %F = $(notdir $%)
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_19320_DDRJQZJPCQDJWCWG
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_11740_ESNYFBGVUOYYVUAM
 # environment
 COMPUTERNAME = DESKTOP-1VN06SH
-# environme 
-nt
+# environment
 PROGRAMFILES = C:\Program Files (x86)
 # environment
 DRIVERDATA = C:\Windows\System32\Drivers\DriverData
@@ -90,11 +88,11 @@ PUBLIC = C:\Users\Public
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
-VSCODE_CODE_CACHE_PATH = C:\Users\ngocc\AppData\Roaming\Code\CachedData\b06ae3b2d2dbfe28bca3134cc6be65935cdfea6a
+VSCODE_CODE_CACHE_PATH = C:\Users\ngocc\AppData\Roaming\Code\CachedData\3b889b090b5ad5793f524b5d1d39fda662b96a2a
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
-# environme 
-nt
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# enviro 
+nment
 COMMONPROGRAMFILES = C:\Program Files (x86)\Common Files
 # environment
 LOGONSERVER = \\DESKTOP-1VN06SH
@@ -119,8 +117,8 @@ MAKE_VERSION := 3.81
 # environment
 PROGRAMFILES(X86) = C:\Program Files (x86)
 # automatic
-%D = $(patsubst 
- %/,%,$(dir $%))
+%D = $(patsu 
+bst %/,%,$(dir $%))
 # environment
 LOCALAPPDATA = C:\Users\ngocc\AppData\Local
 # environment
@@ -135,11 +133,11 @@ PROCESSOR_ARCHITEW6432 = AMD64
 *F = $(notdir $*)
 # environment
 PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 158 Stepping 10, GenuineIntel
+# environmen 
+t
+OS = Windows_NT
 # environment
-O 
-S = Windows_NT
-# environment
-VSCODE_IPC_HOOK = \\.\pipe\baaf5406af3a1b79823b6bf3fd23459e-1.69.1-main-sock
+VSCODE_IPC_HOOK = \\.\pipe\baaf5406af3a1b79823b6bf3fd23459e-1.69.2-main-sock
 # environment
 HOMEPATH = \Users\ngocc
 # environment
@@ -159,8 +157,8 @@ SYSTEMROOT = C:\WINDOWS
 # environment
 APPDATA = C:\Users\ngocc\AppData\Roaming
 # environment
-TEMP = C:\ 
-Users\ngocc\AppData\Local\Temp
+TEMP =  
+C:\Users\ngocc\AppData\Local\Temp
 # environment
 COMSPEC = C:\WINDOWS\system32\cmd.exe
 # default
@@ -188,10 +186,10 @@ LANG = C
 # environment
 PROCESSOR_LEVEL = 6
 # environment
-VSCODE_PID = 19320
+VSCODE_PID = 11740
 # environment
-USERDOMAIN_ROAMI 
-NGPROFILE = DESKTOP-1VN06SH
+USERDOMAIN_RO 
+AMINGPROFILE = DESKTOP-1VN06SH
 # variable set hash-table stats:
 # Load=86/1024=8%, Rehash=0, Collisions=11/102=11%
 
@@ -203,33 +201,33 @@ NGPROFILE = DESKTOP-1VN06SH
 
 # C:\WINDOWS\System32\WindowsPowerShell\v1.0\ (key C:/WINDOWS/System32/WindowsPowerShell/v1.0/, mtime 1655311159): 30 files, no impossibilities.
 # C:\WINDOWS\System32\Wbem (key C:/WINDOWS/System32/Wbem, mtime 1656467509): 153 files, no impossibilities.
-# . (key g:/Lyno_L506, mtime 1658194621): 7 files, no i 
-mpossibilities.
+# . (key g:/Lyno_L506, mtime 1658209108): 7 files, n 
+o impossibilities.
 # C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\ (key C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/, mtime 1655919951): 73 files, no impossibilities.
 # C:\Program Files (x86)\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility (key C:/Program Files (x86)/STMicroelectronics/STM32 ST-LINK Utility/ST-LINK Utility, mtime 1656476046): 12 files, no impossibilities.
-# C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ (key C:/Program Files  
-(x86)/Microsoft SQL Server/120/Tools/Binn/, mtime 1655919876): 12 files, no impossibilities.
+# C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ (key C:/Program Fil 
+es (x86)/Microsoft SQL Server/120/Tools/Binn/, mtime 1655919876): 12 files, no impossibilities.
 # C:\Program Files\Microsoft SQL Server\120\DTS\Binn\ (key C:/Program Files/Microsoft SQL Server/120/DTS/Binn/, mtime 1655919892): 38 files, no impossibilities.
 # C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\ (key C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/110/Tools/Binn/, mtime 1655919892): 6 files, no impossibilities.
 # C:\WINDOWS\System32\OpenSSH\: could not be stat'd.
-# C:\Prog 
-ram Files (x86)\Common Files\Oracle\Java\javapath (key C:/Program Files (x86)/Common Files/Oracle/Java/javapath, mtime 1656665791): 5 files, no impossibilities.
-# C:\WINDOWS (key C:/WINDOWS, mtime 1657900721): 112 files, no impossibilities.
+# C:\P 
+rogram Files (x86)\Common Files\Oracle\Java\javapath (key C:/Program Files (x86)/Common Files/Oracle/Java/javapath, mtime 1656665791): 5 files, no impossibilities.
+# C:\WINDOWS (key C:/WINDOWS, mtime 1658197398): 113 files, no impossibilities.
 # C:\Program Files\Git\bin (key C:/Program Files/Git/bin, mtime 1656926695): 5 files, no impossibilities so far.
-# C:\Program Files\Microsoft SQL Server\120\Tools\Binn\ (key C:/Program Files/Microsoft SQL Server/120/Tools/Binn/, mtime 1655919876): 14 files, no impossibil 
-ities.
+# C:\Program Files\Microsoft SQL Server\120\Tools\Binn\ (key C:/Program Files/Microsoft SQL Server/120/Tools/Binn/, mtime 1655919876): 14 files, no impossi 
+bilities.
 # C:\msys64\mingw64\bin (key C:/msys64/mingw64/bin, mtime 1655263463): 210 files, no impossibilities.
 # C:\Program Files\Git\cmd (key C:/Program Files/Git/cmd, mtime 1656926708): 8 files, no impossibilities.
-# C:\WINDOWS\system32 (key C:/WINDOWS/system32, mtime 1658116504): 2910 files, no impossibilities.
+# C:\WINDOWS\system32 (key C:/WINDOWS/system32, mtime 1658226885): 2910 files, no impossibilities.
 # C:\Program Files\Python39\ (key C:/Program Files/Python39/, mtime 1656233747): 18 files, no impossibilities.
-# C:\Program Files (x86)\GNU Arm Embedded Toolchain\10 2021.07\bin (key C:/Program File 
-s (x86)/GNU Arm Embedded Toolchain/10 2021.07/bin, mtime 1655262696): 35 files, no impossibilities.
+# C:\Program Files (x86)\GNU Arm Embedded Toolchain\10 2021.07\bin (key C:/Program F 
+iles (x86)/GNU Arm Embedded Toolchain/10 2021.07/bin, mtime 1655262696): 35 files, no impossibilities.
 # C:\Program Files\Python39\Scripts\ (key C:/Program Files/Python39/Scripts/, mtime 1656233747): 5 files, no impossibilities.
 # C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR (key C:/Program Files/NVIDIA Corporation/NVIDIA NvDLISR, mtime 1655260800): 5 files, no impossibilities.
-# C:\Program Files (x86)\GnuWin32\bin (key C:/Program Files (x86)/GnuWin32/bin, mtime 1656948605): 103 files, no impossibilities 
-.
+# C:\Program Files (x86)\GnuWin32\bin (key C:/Program Files (x86)/GnuWin32/bin, mtime 1656948605): 103 files, no impossibilit 
+ies.
 
-# 3761 files, no impossibilities in 21 directories.
+# 3762 files, no impossibilities in 21 directories.
 
 # Implicit Rules
 
@@ -254,8 +252,8 @@ all:
 
 # Not a target:
 makefile:
-#  A default, MAKEFILES, or - 
-include/sinclude makefile.
+#  A default, MAKEFILES, o 
+r -include/sinclude makefile.
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
@@ -274,8 +272,8 @@ GNUmakefile:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
 #  File does not exist.
-#  File  
-has been updated.
+#  Fi 
+le has been updated.
 #  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
@@ -293,9 +291,9 @@ has been updated.
 # strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
 # strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
-# Finished Make data base on Tue Jul 19 08:3 
+# Finished Make data base on Tue Jul 19 1 
 make.exe: *** No rule to make target `all'.  Stop.
 
-8:00 2022
+7:42:17 2022
 
  
