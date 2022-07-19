@@ -168,12 +168,7 @@
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>AT_CheckList</ItemText>
-        </Ww>
-        <Ww>
-          <count>4</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>sendBuffer</ItemText>
+          <ItemText>UART3_DataReceived</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

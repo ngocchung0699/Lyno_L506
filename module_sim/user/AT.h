@@ -30,10 +30,11 @@ typedef struct{
 typedef struct __AT_CommandTypeDef
 {              
     AT_ListTypeCommand idName;
-    structString send;
-    structString compare;
-    structString final;
+    char *send;
+    char *compare;
+    char *final;
     int timeout;
+    char current_data[100];
 }AT_CommandTypeDef;
 
 typedef struct __AT_TimeTypeDef
@@ -44,9 +45,8 @@ typedef struct __AT_TimeTypeDef
 }AT_TimeTypeDef;
 
 extern AT_TimeTypeDef AT_Time;
-extern const AT_CommandTypeDef AT_CheckList[];
+extern AT_CommandTypeDef AT_CheckList[];
 
 void checkConnectTCP(void);
-
 
 #endif

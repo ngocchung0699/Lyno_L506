@@ -85,6 +85,9 @@ void Error_Handler(void);
 #define Jack_PW_Pin GPIO_PIN_9
 #define Jack_PW_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
+#define size_Data 100
+#define Line_Feed 0x0A
+#define Carriage_Return 0x0D
 
 /* USER CODE END Private defines */
 
