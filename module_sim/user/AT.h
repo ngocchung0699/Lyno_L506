@@ -23,8 +23,8 @@ typedef enum {
 }AT_ListTypeCommand;
 
 typedef struct{
-    uint8_t *data;
-    uint16_t length_Data;
+    char *data;
+    int length_Data;
 }structString;
 
 typedef struct __AT_CommandTypeDef
