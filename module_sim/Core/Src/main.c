@@ -23,7 +23,6 @@ int compare_Data(char source[], char compare[], char final[]);
 
 void waitTimeout(int milisecond);
 
-const int WAIT_ON_MODULE = 15;
 uint8_t UART1_Rx;
 char UART1_RxData[SIZE_DATA];
 char UART1_RxDatabuffer[SIZE_DATA];
@@ -46,7 +45,6 @@ uint32_t oldGetTickSendTimeToServer = 0, oldGetTickTimeout = 0;
 int UART1_CouterDataInterruption = 0;
 
 
-
 int main(void)
 {
 	HAL_Init();
@@ -59,7 +57,7 @@ int main(void)
   HAL_UART_Receive_IT(&huart1, &UART1_Rx, 1);
   HAL_UART_Receive_IT(&huart3, &UART3_Rx, 1);
 
-  wait_Enable_Sim(WAIT_ON_MODULE);
+  setStatusModuleSim(TURN_ON, WAIT_ON_MODULE);
   HAL_Delay(5000);
 	while (1)	
 	{
