@@ -11,29 +11,28 @@
 
 AT_TimeTypeDef AT_Time;
 
-int handleCheckModule(int value);
+bool handleCheckModule(int value);
 void setupModule(char keyCheck[]);
-
 void getTime();
 void sendTimeToServer(int number_second);
-
 void UART1_Transmit(char data[]);
 void UART3_Transmit(char *data);
-int compare_Data(char source[], char compare[], char final[]);
-
+bool compare_Data(char source[], char compare[], char final[]);
 void waitTimeout(int milisecond);
+void SIM_Reset(void);
+void checkFeatureModule(int num_ID);
 
 uint8_t UART1_Rx;
 char UART1_RxData[SIZE_DATA];
 char UART1_RxDatabuffer[SIZE_DATA];
 
 uint8_t UART3_Rx;
-char UART3_RxData[SIZE_DATA];
+char UART3_RxData[200];
 const int LIST_CONFIG = 12;
 
 char UART3_DataReceived[SIZE_DATA];
 
-int completeTest = 0;
+bool completeTest = 0;
 const int GET_TIME_ON = 1, GET_TIME_OFF = 0 ;
 int ONE_SECOND = 1;
 
@@ -43,7 +42,7 @@ char couterChar[SIZE_DATA];
 uint32_t oldGetTickSendTimeToServer = 0, oldGetTickTimeout = 0;
 
 int UART1_CouterDataInterruption = 0;
-
+int flagReset = 0;
 
 int main(void)
 {
@@ -56,21 +55,61 @@ int main(void)
 
   HAL_UART_Receive_IT(&huart1, &UART1_Rx, 1);
   HAL_UART_Receive_IT(&huart3, &UART3_Rx, 1);
-
   setStatusModuleSim(TURN_ON, WAIT_ON_MODULE);
-  HAL_Delay(5000);
 	while (1)	
 	{
     setupModule(UART1_RxData);
     sendTimeToServer(60 * ONE_SECOND);
+    
+  }
+}
+
+
+void checkFeatureModule(int num_ID)
+{
+
+}
+
+
+bool waitMiliSecond(int milisecond)
+{
+  if(HAL_GetTick() - oldGetTickTimeout >= milisecond)
+  {
+    oldGetTickTimeout = HAL_GetTick();
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+void checkSim()
+{
+  if(handleCheckModule( AT_CheckSim ) != 1)
+  {
+    SIM_Reset();
+  }
+}
+
+void SIM_Reset()
+{
+  flagReset = 0;
+  while(flagReset == 0)
+  {
+    if(handleCheckModule( AT_Reset ) == 1)
+    {
+      flagReset = 1;
+    }
   }
 }
 
 void sendTimeToServer(int number_Second)
 {
-  getTime(completeTest);
-  if( ( HAL_GetTick() - oldGetTickSendTimeToServer >= number_Second * 1000 ) && ( completeTest == GET_TIME_ON ) )
+  
+  if( ( HAL_GetTick() - oldGetTickSendTimeToServer >= number_Second * MILISECOND_TO_SECOND ) && ( completeTest == GET_TIME_ON ) )
   {
+    getTime(completeTest);
     couterMessage ++;
     uint8_t donvi = couterMessage % 10 + 48;
     uint8_t chuc = couterMessage % 100 / 10 + 48; 
@@ -148,19 +187,31 @@ void waitTimeout(int milisecond)
   HAL_Delay(milisecond);
 }
 
-int compare_Data(char source[], char compare[], char final[]){
-  int ret = 0;
-  if(strlen(strstr(source, compare)) != 0 && strlen(strstr(strstr(source, compare), final)) != 0)
+bool compare_Data(char source[], char compare[], char final[]){
+  char compareBuffer[100];
+  char finalBuffer[100];
+  char *com, *fi;
+  com = strstr(source, compare);
+  fi = strstr(source, final);
+  if(com != NULL && fi != NULL)
   {
-    memset(UART3_DataReceived, NULL_CHARACTER, SIZE_DATA);
-    getStringToString(UART3_DataReceived, source, compare, final);
-    ret = 1;
+    cutString(compareBuffer, strstr(source, compare), 0, strlen(compare));
+    cutString(finalBuffer, strstr(source, final), 0, strlen(final));  
+    if(strcmp(compareBuffer, compare) == 0)
+    {
+      memset(UART3_DataReceived, 0x00, 100);
+      getStringToString(UART3_DataReceived, source, compare, final);
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
   else
   {
-    ret = 0;
+    return false;
   }
-  return ret;
 }
 
 /**
@@ -172,27 +223,25 @@ int compare_Data(char source[], char compare[], char final[]){
   * @retval True or false
   * @retval UART3_DataReceived - data received after cutting
   */
-int handleCheckModule(int value)
+bool handleCheckModule(int value)
 {
   
-  int ret = 0;
   UART3_Transmit(AT_CheckList[value].send);
 
   waitTimeout(AT_CheckList[value].timeout);
-
+  
   if(compare_Data(UART3_RxData, AT_CheckList[value].compare, AT_CheckList[value].final) == 1)
   {
-    ret = 1;
+    return true;
   }
   else{
-    ret = 0;
+    return false;
   }
-  return ret;
 }
 
 void UART3_Transmit(char *data)
 {
-  memset(UART3_RxData, NULL_CHARACTER, SIZE_DATA);
+  memset(UART3_RxData, NULL_CHARACTER, 200);
   HAL_UART_Transmit(&huart3, (uint8_t *) data, strlen(data), UART_TIMEOUT);
 }
 
