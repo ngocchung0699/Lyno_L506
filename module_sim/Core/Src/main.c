@@ -11,7 +11,7 @@
 
 AT_TimeTypeDef AT_Time;
 
-bool handleCheckModule(int value);
+bool handleCheckModule(int num_ID);
 void setupModule(char keyCheck[]);
 void getTime();
 void sendTimeToServer(int number_second);
@@ -21,6 +21,7 @@ bool compare_Data(char source[], char compare[], char final[]);
 void waitTimeout(int milisecond);
 void SIM_Reset(void);
 void checkFeatureModule(int num_ID);
+void saveReturnFromModuleSim(int num_ID, char data[]);
 
 uint8_t UART1_Rx;
 char UART1_RxData[SIZE_DATA];
@@ -214,6 +215,12 @@ bool compare_Data(char source[], char compare[], char final[]){
   }
 }
 
+void saveReturnFromModuleSim(int num_ID, char data[])
+{
+  memset(AT_CheckList[num_ID].current_data, NULL_CHARACTER, 200);
+  memcpy(AT_CheckList[num_ID].current_data, data, strlen(data));
+}
+
 /**
   * @brief check the received string is true or false
   * @param  Argument 1,2 : data send, length of data send
@@ -223,14 +230,16 @@ bool compare_Data(char source[], char compare[], char final[]){
   * @retval True or false
   * @retval UART3_DataReceived - data received after cutting
   */
-bool handleCheckModule(int value)
+bool handleCheckModule(int num_ID)
 {
   
-  UART3_Transmit(AT_CheckList[value].send);
+  UART3_Transmit(AT_CheckList[num_ID].send);
 
-  waitTimeout(AT_CheckList[value].timeout);
-  
-  if(compare_Data(UART3_RxData, AT_CheckList[value].compare, AT_CheckList[value].final) == 1)
+  waitTimeout(AT_CheckList[num_ID].timeout);
+
+  saveReturnFromModuleSim(num_ID, UART3_RxData);
+
+  if(compare_Data(UART3_RxData, AT_CheckList[num_ID].compare, AT_CheckList[num_ID].final) == 1)
   {
     return true;
   }
